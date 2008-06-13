@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 44;
+	objectVersion = 42;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -151,6 +151,7 @@
 				HEADER_SEARCH_PATHS = $SRCROOT/source;
 				INSTALL_PATH = /usr/local/bin;
 				PRODUCT_NAME = oxtorne;
+				SDKROOT = "";
 				ZERO_LINK = YES;
 			};
 			name = Debug;
@@ -163,6 +164,7 @@
 				HEADER_SEARCH_PATHS = $SRCROOT/source;
 				INSTALL_PATH = /usr/local/bin;
 				PRODUCT_NAME = oxtorne;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
