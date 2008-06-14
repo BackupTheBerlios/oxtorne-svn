@@ -84,12 +84,38 @@ vector3d OX_rp3d_intersection_point (const ray3d* _ray, const plane3d* _plane) {
 }
 
 vector3d OX_closest_point_on_ray_from_point (const ray3d* _ray, const vector3d* _vector) {
-    vector3d _a        = OX_v3d_minus(_vector, &_ray->origin);
-    T _projection = OX_v3d_dot(&_a,       &_ray->direction);
-    if (_projection < 0)
-        return _ray->origin;
-    _a =  OX_v3d_times(&_ray->direction, _projection);
-    return OX_v3d_plus(&_ray->origin, &_a);
+    T _x = _vector->x - _ray->origin.x;
+	T _y = _vector->y - _ray->origin.y;
+	T _z = _vector->z - _ray->origin.z;
+
+    T _projection =
+		_x * _ray->direction.x + 
+		_y * _ray->direction.y + 
+		_z * _ray->direction.z;
+
+    if (_projection < 0) return _ray->origin;
+
+	_x = _ray->direction.x * _projection;
+	_y = _ray->direction.y * _projection;
+	_z = _ray->direction.z * _projection;
+	
+    return OX_make_vector3d(
+		_ray->origin.x + _x,
+		_ray->origin.y + _y,
+		_ray->origin.z + _z);
+}
+
+vector3d OX_closest_point_on_plane_from_point (const plane3d* _plane, const vector3d* _vector) {
+	T _projection =
+		_plane->normal.x * _vector->x +
+		_plane->normal.y * _vector->y +
+		_plane->normal.z * _vector->z;
+
+	T _x = _vector->x - ((_plane->scalar - _projection) * _plane->normal.x);
+	T _y = _vector->y - ((_plane->scalar - _projection) * _plane->normal.y); 
+	T _z = _vector->z - ((_plane->scalar - _projection) * _plane->normal.z);
+
+	return OX_make_vector3d(_x, _y, _z);
 }
 
 vector3d OX_make_vector3d (const T _x, const T _y, const T _z) {

@@ -34,7 +34,8 @@ int
 
 vector3d
     OX_rp3d_intersection_point  (const ray3d*, const plane3d*),
-    OX_closest_point_on_ray_from_point (const ray3d*, const vector3d*);
+    OX_closest_point_on_ray_from_point (const ray3d*, const vector3d*),
+	OX_closest_point_on_plane_from_point (const plane3d*, const vector3d*);
 
 vector3d
     OX_make_vector3d            (const T, const T, const T);

@@ -56,22 +56,20 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 235085622;
-			PBXWorkspaceStateSaveDate = 235085622;
+			PBXPerProjectTemplateStateSaveDate = 235148154;
+			PBXWorkspaceStateSaveDate = 235148154;
 		};
 		perUserProjectItems = {
 			893640B00E03247D00189DC8 /* PBXTextBookmark */ = 893640B00E03247D00189DC8 /* PBXTextBookmark */;
 			893640B10E03247D00189DC8 /* PBXTextBookmark */ = 893640B10E03247D00189DC8 /* PBXTextBookmark */;
-			893640B20E03247D00189DC8 /* PBXTextBookmark */ = 893640B20E03247D00189DC8 /* PBXTextBookmark */;
-			893640B30E03247D00189DC8 /* PBXTextBookmark */ = 893640B30E03247D00189DC8 /* PBXTextBookmark */;
 			893640B40E03247D00189DC8 /* PBXTextBookmark */ = 893640B40E03247D00189DC8 /* PBXTextBookmark */;
 			893640B50E03247D00189DC8 /* PBXTextBookmark */ = 893640B50E03247D00189DC8 /* PBXTextBookmark */;
-			893640B60E03247D00189DC8 /* PBXTextBookmark */ = 893640B60E03247D00189DC8 /* PBXTextBookmark */;
 			893640B70E03247D00189DC8 /* PBXTextBookmark */ = 893640B70E03247D00189DC8 /* PBXTextBookmark */;
 			893640B80E03247D00189DC8 /* PBXTextBookmark */ = 893640B80E03247D00189DC8 /* PBXTextBookmark */;
-			893640B90E03247D00189DC8 /* PBXTextBookmark */ = 893640B90E03247D00189DC8 /* PBXTextBookmark */;
-			893640BA0E03247D00189DC8 /* PBXTextBookmark */ = 893640BA0E03247D00189DC8 /* PBXTextBookmark */;
-			893640BB0E03247D00189DC8 /* PBXTextBookmark */ = 893640BB0E03247D00189DC8 /* PBXTextBookmark */;
+			899D04D50E041C07000A96EF /* PBXTextBookmark */ = 899D04D50E041C07000A96EF /* PBXTextBookmark */;
+			899D04D60E041C07000A96EF /* PBXTextBookmark */ = 899D04D60E041C07000A96EF /* PBXTextBookmark */;
+			899D04D70E041C07000A96EF /* PBXTextBookmark */ = 899D04D70E041C07000A96EF /* PBXTextBookmark */;
+			899D04D80E041C07000A96EF /* PBXTextBookmark */ = 899D04D80E041C07000A96EF /* PBXTextBookmark */;
 		};
 		sourceControlManager = 891B5F000DCD0BBC00B44E22 /* Source Control */;
 		userBuildSettings = {
@@ -123,19 +121,19 @@
 	};
 	891B5F130DCD18B800B44E22 /* geometry.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {631, 810}}";
-			sepNavSelRange = "{1256, 0}";
+			sepNavIntBoundsRect = "{{0, 0}, {631, 825}}";
+			sepNavSelRange = "{1258, 71}";
 			sepNavVisRange = "{94, 244}";
-			sepNavVisRect = "{{0, 0}, {631, 502}}";
+			sepNavVisRect = "{{0, 306}, {631, 502}}";
 			sepNavWindowFrame = "{{15, 4}, {767, 774}}";
 		};
 	};
 	891B5F140DCD18B800B44E22 /* geometry.c */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {692, 2055}}";
-			sepNavSelRange = "{2740, 0}";
+			sepNavIntBoundsRect = "{{0, 0}, {692, 2445}}";
+			sepNavSelRange = "{3353, 0}";
 			sepNavVisRange = "{0, 926}";
-			sepNavVisRect = "{{0, 1032}, {631, 502}}";
+			sepNavVisRect = "{{0, 1348}, {631, 502}}";
 			sepNavWindowFrame = "{{15, 108}, {767, 889}}";
 		};
 	};
@@ -175,26 +173,6 @@
 		vrLen = 611;
 		vrLoc = 0;
 	};
-	893640B20E03247D00189DC8 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 891B5F140DCD18B800B44E22 /* geometry.c */;
-		name = "geometry.c: OX_closest_point_on_ray_from_point";
-		rLen = 0;
-		rLoc = 2740;
-		rType = 0;
-		vrLen = 1263;
-		vrLoc = 1712;
-	};
-	893640B30E03247D00189DC8 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 891B5F130DCD18B800B44E22 /* geometry.h */;
-		name = "OX_closest_point_on_plane_from_point (const plane3d*, const vector3d*);";
-		rLen = 0;
-		rLoc = 1256;
-		rType = 0;
-		vrLen = 1202;
-		vrLoc = 542;
-	};
 	893640B40E03247D00189DC8 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 891B5F130DCD18B800B44E22 /* geometry.h */;
@@ -202,7 +180,7 @@
 		rLen = 0;
 		rLoc = 791;
 		rType = 0;
-		vrLen = 1129;
+		vrLen = 1109;
 		vrLoc = 562;
 	};
 	893640B50E03247D00189DC8 /* PBXTextBookmark */ = {
@@ -214,16 +192,6 @@
 		rType = 0;
 		vrLen = 676;
 		vrLoc = 2975;
-	};
-	893640B60E03247D00189DC8 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 891B5F130DCD18B800B44E22 /* geometry.h */;
-		name = "geometry.h: 44";
-		rLen = 0;
-		rLoc = 791;
-		rType = 0;
-		vrLen = 1197;
-		vrLoc = 494;
 	};
 	893640B70E03247D00189DC8 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -245,35 +213,45 @@
 		vrLen = 611;
 		vrLoc = 0;
 	};
-	893640B90E03247D00189DC8 /* PBXTextBookmark */ = {
+	899D04D50E041C07000A96EF /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 891B5F130DCD18B800B44E22 /* geometry.h */;
 		name = "OX_closest_point_on_plane_from_point (const plane3d*, const vector3d*);";
-		rLen = 0;
-		rLoc = 1256;
+		rLen = 71;
+		rLoc = 1258;
 		rType = 0;
 		vrLen = 1202;
 		vrLoc = 542;
 	};
-	893640BA0E03247D00189DC8 /* PBXTextBookmark */ = {
+	899D04D60E041C07000A96EF /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 891B5F140DCD18B800B44E22 /* geometry.c */;
 		name = "geometry.c: OX_closest_point_on_ray_from_point";
 		rLen = 0;
-		rLoc = 2740;
+		rLoc = 2946;
 		rType = 0;
-		vrLen = 1263;
-		vrLoc = 1712;
+		vrLen = 1245;
+		vrLoc = 1730;
 	};
-	893640BB0E03247D00189DC8 /* PBXTextBookmark */ = {
+	899D04D70E041C07000A96EF /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 891B5F130DCD18B800B44E22 /* geometry.h */;
-		name = "geometry.h: OX_closest_point_on_ray_from_point";
-		rLen = 0;
-		rLoc = 1256;
+		name = "OX_closest_point_on_plane_from_point (const plane3d*, const vector3d*);";
+		rLen = 71;
+		rLoc = 1258;
 		rType = 0;
-		vrLen = 1112;
-		vrLoc = 0;
+		vrLen = 1202;
+		vrLoc = 542;
+	};
+	899D04D80E041C07000A96EF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 891B5F140DCD18B800B44E22 /* geometry.c */;
+		name = "geometry.c: 116";
+		rLen = 0;
+		rLoc = 3353;
+		rType = 0;
+		vrLen = 971;
+		vrLoc = 2576;
 	};
 	8DD76F620486A84900D96B5E /* oxtorne */ = {
 		activeExec = 0;
