@@ -60,7 +60,7 @@ T OX_v3d_distance (const vector3d* _p1, const vector3d* _p2) {
 }
 
 T OX_l3d_length (const line3d* _line) {
-	return OX_v3d_distance(&_line->p, &_line->p);
+	return OX_v3d_distance(&_line->p, &_line->q);
 }
 
 int OX_lp3d_intersect (const line3d* _line, const plane3d* _plane) {
