@@ -10,10 +10,9 @@
 #include "geometry.h"
 
 int 
-    OX_v3d_print(const vector3d*);
+    OX3d_print (const vector3d*);
 
 void
-    OX_v3d_draw(const vector3d*),
-    OX_r3d_draw(const ray3d*);
+    OX3d_draw_vector (const vector3d*);
 
 #endif

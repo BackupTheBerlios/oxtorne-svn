@@ -93,22 +93,6 @@ int main (int argc, char** argv) {
     glutAddMenuEntry("Quit", 'q');
     glutAttachMenu(GLUT_RIGHT_BUTTON);
     
-    vector3d _point1;
-    _point1.x = 42.0;
-    _point1.y = 64.0;
-    _point1.z = 128.0;
-    
-    vector3d _point2;
-    _point2.x = 3.0;
-    _point2.y = 5.0;
-    _point2.z = 7.0;
-    
-    vector3d _point;
-    
-    _point = OX_v3d_cross(&_point1, &_point2);
-    _point = OX_v3d_normalize(&_point);
-    OX_v3d_print(&_point);
-
     glutMainLoop();
     return 0;
 }
