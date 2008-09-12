@@ -7,35 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		891B5F150DCD18B800B44E22 /* geometry.c in Sources */ = {isa = PBXBuildFile; fileRef = 891B5F140DCD18B800B44E22 /* geometry.c */; };
-		891B5F530DCD1E3200B44E22 /* tools.c in Sources */ = {isa = PBXBuildFile; fileRef = 891B5F520DCD1E3200B44E22 /* tools.c */; };
-		89E2698D0DD4EC5800FB5641 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E2698B0DD4EC5800FB5641 /* GLUT.framework */; };
-		89E2698E0DD4EC5800FB5641 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E2698C0DD4EC5800FB5641 /* OpenGL.framework */; };
-		8DD76F650486A84900D96B5E /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.c */; settings = {ATTRIBUTES = (); }; };
+		891765440E7B03D8003E4E05 /* TreeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 891765430E7B03D8003E4E05 /* TreeTest.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		08FB7796FE84155DC02AAC07 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		891B5F130DCD18B800B44E22 /* geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = geometry.h; path = source/geometry.h; sourceTree = "<group>"; };
-		891B5F140DCD18B800B44E22 /* geometry.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = geometry.c; path = source/geometry.c; sourceTree = "<group>"; };
-		891B5F510DCD1E3200B44E22 /* tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tools.h; path = source/tools.h; sourceTree = "<group>"; };
-		891B5F520DCD1E3200B44E22 /* tools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tools.c; path = source/tools.c; sourceTree = "<group>"; };
+		891765390E7B0103003E4E05 /* OxGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxGeometry.h; path = source/OxGeometry.h; sourceTree = "<group>"; };
+		8917653A0E7B0103003E4E05 /* OxMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxMath.h; path = source/OxMath.h; sourceTree = "<group>"; };
+		8917653B0E7B0103003E4E05 /* OxTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxTree.h; path = source/OxTree.h; sourceTree = "<group>"; };
+		8917653C0E7B010D003E4E05 /* OxTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxTree.cpp; path = source/OxTree.cpp; sourceTree = "<group>"; };
+		8917653D0E7B010D003E4E05 /* OxMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxMath.cpp; path = source/OxMath.cpp; sourceTree = "<group>"; };
+		8917653E0E7B010D003E4E05 /* OxGeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxGeometry.cpp; path = source/OxGeometry.cpp; sourceTree = "<group>"; };
+		891765430E7B03D8003E4E05 /* TreeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TreeTest.cpp; path = source/TreeTest.cpp; sourceTree = "<group>"; };
 		89E2698B0DD4EC5800FB5641 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/GLUT.framework; sourceTree = DEVELOPER_DIR; };
 		89E2698C0DD4EC5800FB5641 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/OpenGL.framework; sourceTree = DEVELOPER_DIR; };
 		8DD76F6C0486A84900D96B5E /* oxtorne */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = oxtorne; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		8DD76F660486A84900D96B5E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				89E2698D0DD4EC5800FB5641 /* GLUT.framework in Frameworks */,
-				89E2698E0DD4EC5800FB5641 /* OpenGL.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		08FB7794FE84155DC02AAC07 /* oxtorne */ = {
@@ -52,9 +38,10 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				08FB7796FE84155DC02AAC07 /* main.c */,
-				891B5F520DCD1E3200B44E22 /* tools.c */,
-				891B5F140DCD18B800B44E22 /* geometry.c */,
+				8917653E0E7B010D003E4E05 /* OxGeometry.cpp */,
+				8917653D0E7B010D003E4E05 /* OxMath.cpp */,
+				8917653C0E7B010D003E4E05 /* OxTree.cpp */,
+				891765430E7B03D8003E4E05 /* TreeTest.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -70,8 +57,9 @@
 		891B5F160DCD18C400B44E22 /* Header */ = {
 			isa = PBXGroup;
 			children = (
-				891B5F510DCD1E3200B44E22 /* tools.h */,
-				891B5F130DCD18B800B44E22 /* geometry.h */,
+				891765390E7B0103003E4E05 /* OxGeometry.h */,
+				8917653A0E7B0103003E4E05 /* OxMath.h */,
+				8917653B0E7B0103003E4E05 /* OxTree.h */,
 			);
 			name = Header;
 			sourceTree = "<group>";
@@ -93,7 +81,6 @@
 			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "oxtorne" */;
 			buildPhases = (
 				8DD76F640486A84900D96B5E /* Sources */,
-				8DD76F660486A84900D96B5E /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -127,9 +114,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DD76F650486A84900D96B5E /* main.c in Sources */,
-				891B5F150DCD18B800B44E22 /* geometry.c in Sources */,
-				891B5F530DCD1E3200B44E22 /* tools.c in Sources */,
+				891765440E7B03D8003E4E05 /* TreeTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
