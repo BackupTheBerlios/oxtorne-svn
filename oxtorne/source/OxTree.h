@@ -56,7 +56,6 @@ public:
     T* value;
 
 private:
-    
     node<T,D>* nodes[D];
 
 public:

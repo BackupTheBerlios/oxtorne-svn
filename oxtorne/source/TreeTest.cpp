@@ -15,6 +15,10 @@ int main(int argc, char* argv) {
     node<int,3>::iterator n_end  = _node.end();
 
     for (; n_iter != n_end; n_iter++) {
+        n_iter = new node<int,3>();
+    }
+
+    for (; n_iter != n_end; n_iter++) {
         std::cout << &*n_iter << std::endl;
     }
 
