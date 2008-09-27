@@ -3,66 +3,56 @@
 
 /* Node Type ******************************************************************/
 template<typename T, std::size_t D>
-class node {
+class node_ {
 
 public:
-    typedef       T& reference;
-    typedef const T& const_reference;
+    
+    node_() { for (int i = 0; i < D; ++i )     nodes[i] = NULL;           }
+   ~node_() { for (int i = 0; i < D; ++i ) if (nodes[i]) delete nodes[i]; }
 
-    class iterator : public std::iterator< std::bidirectional_iterator_tag, node<T,D> > {
-    public:
-        iterator() {}
-       ~iterator() {}
+    inline node_<T,D>*       front     ()                               { return nodes[0];     }
+    inline const node_<T,D>* front     ()                         const { return nodes[0];     }
+    inline node_<T,D>*       back      ()                               { return nodes[D - 1]; }
+    inline const node_<T,D>* back      ()                         const { return nodes[D - 1]; }
+    inline node_<T,D>*       operator[](const std::size_t& index)       { return nodes[index]; }
+    inline const node_<T,D>* operator[](const std::size_t& index) const { return nodes[index]; }
+    inline std::size_t       size      ()                               { return D;            }
 
-        inline iterator&  operator++()                      { ++node; return *this;      }
-        inline iterator   operator++(int)                   { iterator last = *this; ++*this; return last; }
-        inline iterator&  operator--()                      { --node; return *this;      }
-        inline iterator   operator--(int)                   { iterator last = *this; --*this; return last; }
-        inline bool       operator==(const iterator& other) { return node == other.node; }
-        inline bool       operator!=(const iterator& other) { return node != other.node; }
-        inline node<T,D>& operator* ()                      { return **node;             }
-        inline node<T,D>* operator->()                      { return  *node;             }
-
-        node<T,D>** node;
-    };
-
-    class const_iterator : public std::iterator< std::bidirectional_iterator_tag, node<T,D> > {
-    public:
-        const_iterator() {}
-       ~const_iterator() {}
-
-        inline bool       operator==(const_iterator& other) { return node == other.node; }
-        inline bool       operator!=(const_iterator& other) { return node != other.node; }
-        inline node<T,D>& operator* ()                      { return **node;             }
-        inline node<T,D>* operator->()                      { return  *node;             }
-
-        node<T,D>** node;
-    };
-
-    node() { for (int i = 0; i < D; ++i ) nodes[i] = NULL; }
-   ~node() { for (int i = 0; i < D; ++i ) if (nodes[i]) delete nodes[i]; }
-
-    inline node<T,D>*       front     ()                               { return nodes[0];      }
-    inline const node<T,D>* front     ()                         const { return nodes[0];      }
-    inline node<T,D>*       back      ()                               { return nodes[D - 1];  }
-    inline const node<T,D>* back      ()                         const { return nodes[D - 1];  }
-    inline node<T,D>*       operator[](const std::size_t& index)       { return nodes[index];  }
-    inline const node<T,D>* operator[](const std::size_t& index) const { return nodes[index];  }
-    inline std::size_t      size      ()                               { return D;             }
-
-    inline iterator         begin     ()                               { iterator iter; iter.node = nodes;     return iter; }
-    inline iterator         end       ()                               { iterator iter; iter.node = nodes + D; return iter; }
-
-    T* value;
+    T value;
 
 private:
-    node<T,D>* nodes[D];
+    node_<T,D>* nodes[D];
 
+};
+
+/* Tree Type ******************************************************************/
+template<typename T, std::size_t D>
+class tree {
+    
 public:
-    inline bool leaf() {
-        for (int i = 0; i < D; ++i)
-            if (nodes[i]) return false;
-        return true;
-    }
 
+    typedef       node_<T,D> node;
+    typedef const node_<T,D> const_node;
+
+    tree() {}
+   ~tree() {}
+
+    inline node&       root ();
+    inline const_node& root () const;
+    inline node&       child(const node&, const std::size_t&);
+    inline const_node& child(const node&, const std::size_t&) const;
+    
+    inline node&       next_sibling(const node&);
+    inline const_node& next_sibling(const node&) const;
+    inline node&       prev_sibling(const node&);
+    inline const_node& prev_sibling(const node&) const;
+    
+    inline bool        has_next_sibling(const node&);
+    inline bool        has_prev_sibling(const node&);
+    
+    inline bool        leaf (const node&);
+
+private:
+    node* origin;
+    
 };

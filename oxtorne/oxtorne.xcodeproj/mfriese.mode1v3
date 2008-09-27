@@ -231,8 +231,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -314,6 +312,8 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -331,14 +331,15 @@
 										<key>_historyCapacity</key>
 										<integer>20</integer>
 										<key>bookmark</key>
-										<string>899358350E7BFAED00350A63</string>
+										<string>89B4D1CD0E8E68EE005AE95D</string>
 										<key>history</key>
 										<array>
 											<string>8917656D0E7B175D003E4E05</string>
 											<string>8917656F0E7B175D003E4E05</string>
 											<string>891765700E7B175D003E4E05</string>
 											<string>899358320E7BFAED00350A63</string>
-											<string>899358330E7BFAED00350A63</string>
+											<string>89B4D1C80E8E68EE005AE95D</string>
+											<string>89B4D1C90E8E68EE005AE95D</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -347,7 +348,8 @@
 											<string>891765740E7B175D003E4E05</string>
 											<string>891765750E7B175D003E4E05</string>
 											<string>891765770E7B175D003E4E05</string>
-											<string>899358340E7BFAED00350A63</string>
+											<string>89B4D1CA0E8E68EE005AE95D</string>
+											<string>89B4D1CB0E8E68EE005AE95D</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -405,9 +407,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>899358360E7BFAED00350A63</string>
+				<string>89B4D19D0E8E6263005AE95D</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>899358370E7BFAED00350A63</string>
+				<string>89B4D19E0E8E6263005AE95D</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -541,9 +543,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>891B5F1E0DCD18D600B44E22</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/mfriese/Documents/Repositories/oxtorne/oxtorne.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -570,7 +570,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>TreeTest.cpp</string>
+								<string>OxTree.h</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -626,7 +626,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>891B5F1E0DCD18D600B44E22</string>
-				<string>899358300E7BF8D800350A63</string>
+				<string>89B4D1AF0E8E6455005AE95D</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
