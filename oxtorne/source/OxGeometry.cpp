@@ -79,7 +79,7 @@ template<typename T>
 plane<T,3> make_plane(const point<T,3>& _point, const vector<T,3>& _vector) {
     vector<T,3> _normalized = normalize(_vector);
     T _constant = dot_product(_vector, _point);
-    plane _plane;
+    plane<T,3> _plane;
 
     _plane.normal = _normalized;
     _plane.constant = _constant;
@@ -171,7 +171,7 @@ vector<T,D> operator*(const vector<T,D>& _vector, const T& _scalar) {
     vector<T,D> _result;
     // compiler loop unroll desired here
     for (int i = 0; i < D; ++i)
-        _result[i] = _point[i] * _scalar;
+        _result[i] = _vector[i] * _scalar;
     return _result;
 }
 
@@ -217,7 +217,7 @@ bool point_in_box(const box<T,D>& _box, const point<T,D>& _point) {
     bool _point_in_box = true;
     // compiler loop unroll desired here
     for (int i = 0; i < D; ++i)
-        _point_in_box &&= (_box.min[i] <= _point[i]) && (_box.max[i] >= _point[i]);
+        _point_in_box = _point_in_box && (_box.min[i] <= _point[i]) && (_box.max[i] >= _point[i]);
     return _point_in_box;
 }
 

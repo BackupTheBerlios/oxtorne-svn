@@ -1,10 +1,10 @@
 
-#include "OxTree.h"
+#include "OxMesh.h"
 
 #include <iostream>
 
 int main(int argc, char* argv) {
-    node_<int, 3> _node;
+
 
     /*for (int i = 0; i < 3; ++i)
         std::cout << _node[i] << std::endl;*/

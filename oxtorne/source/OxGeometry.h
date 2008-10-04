@@ -1,6 +1,8 @@
 
-// #include <algorithm>
-#include <limits>
+#ifndef OXGEOMETRY_H
+#define OXGEOMETRY_H
+
+#include <cstddef>
 
 #include "OxMath.h"
 
@@ -9,7 +11,7 @@ namespace oxtorne {
 /* Geometric Basetype *********************************************************/
 class geometric_basetype{};
 
-/* Point Basetype *************************************************************/
+/* Point Basetype (n dimensional) *********************************************/
 template<typename T, std::size_t D>
 class point : public geometric_basetype {
 
@@ -22,8 +24,6 @@ public:
 
     inline reference       operator[](const std::size_t& index)       { return value[index]; }
     inline const_reference operator[](const std::size_t& index) const { return value[index]; }
-    inline reference       operator()(const std::size_t& index)       { return value[index]; }
-    inline const_reference operator()(const std::size_t& index) const { return value[index]; }
 
 private:
     T value[D];
@@ -130,4 +130,6 @@ template<typename T> point<T,3>       closest_point_on_plane_from_point(const pl
 
 #if !defined(OXGEOMETRY_CPP)
 #include "OxGeometry.cpp"
+#endif
+
 #endif
