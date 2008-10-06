@@ -57,6 +57,9 @@ public:
         T& operator* () const;
         T* operator->() const;
     
+        bool operator==(const iterator_base&) const;
+        bool operator!=(const iterator_base&) const;
+
     protected:
         node* value;
         
@@ -67,32 +70,28 @@ public:
         sibling_iterator(const_node*);
         sibling_iterator(const iterator_base&);
         
-        bool              operator==(const sibling_iterator&) const;
-        bool              operator!=(const sibling_iterator&) const;
         sibling_iterator& operator++();
         sibling_iterator& operator--();
-        sibling_iterator  operator++(const int&);
-        sibling_iterator  operator--(const int&);
+        sibling_iterator  operator++(const int);
+        sibling_iterator  operator--(const int);
         sibling_iterator& operator+=(const std::size_t&);
         sibling_iterator& operator-=(const std::size_t&);
     };
     
-    /*class breadth_first_iterator : public iterator_base {
+    class breadth_first_iterator : public iterator_base {
         breadth_first_iterator();
-        breadth_first_iterator(const_node&);
+        breadth_first_iterator(const_node*);
         breadth_first_iterator(const iterator_base&);
-        
-        bool                    operator==(const breadth_first_iterator&) const;
-        bool                    operator!=(const breadth_first_iterator&) const;
+
         breadth_first_iterator& operator++();
         breadth_first_iterator& operator--();
-        breadth_first_iterator  operator++(int);
-        breadth_first_iterator  operator--(int);
-        breadth_first_iterator& operator+=(unsigned int);
-        breadth_first_iterator& operator-=(unsigned int);
-    };*/
+        breadth_first_iterator  operator++(const int);
+        breadth_first_iterator  operator--(const int);
+        breadth_first_iterator& operator+=(const std::size_t&);
+        breadth_first_iterator& operator-=(const std::size_t&);
+    };
 
-    inline node&       root ();
+    /*inline node&       root ();
     inline const_node& root () const;
     inline node&       child(const node&, const std::size_t&);
     inline const_node& child(const node&, const std::size_t&) const;
@@ -105,7 +104,7 @@ public:
     inline bool        has_next_sibling(const node&);
     inline bool        has_prev_sibling(const node&);
     
-    inline bool        leaf (const node&);
+    inline bool        leaf (const node&);*/
 
 private:
     node* origin;
