@@ -19,8 +19,15 @@ public:
     typedef       T& reference;
     typedef const T& const_reference;
 
-    point() {}
+    point() { for (std::size_t i = 0; i < D; ++i) value[i] = T(0.0); }
    ~point() {}
+
+    inline point<T,D>& operator=(const point<T,D>& _other) {
+        if (this == &_other)
+            return *this;
+        for(std::size_t i = 0; i < D; i++) { value[i] = _other.value[i]; }
+        return *this;
+    }
 
     inline reference       operator[](const std::size_t& index)       { return value[index]; }
     inline const_reference operator[](const std::size_t& index) const { return value[index]; }

@@ -62,9 +62,9 @@ public:
 
     protected:
         node* value;
-        
+
     };
-    
+
     class sibling_iterator : public iterator_base {
         sibling_iterator();
         sibling_iterator(const_node*);
@@ -77,7 +77,7 @@ public:
         sibling_iterator& operator+=(const std::size_t&);
         sibling_iterator& operator-=(const std::size_t&);
     };
-    
+
     class breadth_first_iterator : public iterator_base {
         breadth_first_iterator();
         breadth_first_iterator(const_node*);

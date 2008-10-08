@@ -183,6 +183,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\source\OxMesh.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\OxTree.cpp"
 				>
 			</File>
@@ -198,6 +202,10 @@
 			</File>
 			<File
 				RelativePath=".\source\OxMath.h"
+				>
+			</File>
+			<File
+				RelativePath=".\source\OxMesh.h"
 				>
 			</File>
 			<File

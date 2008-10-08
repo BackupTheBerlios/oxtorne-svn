@@ -110,8 +110,8 @@ tree<T,D>::breadth_first_iterator::breadth_first_iterator(const iterator_base& _
     this->value = _iter->value;
 }
 
-/*template<typename T, std::size_t D>
-tree<T,D>::breadth_first_iterator&
+template<typename T, std::size_t D>
+typename tree<T,D>::breadth_first_iterator&
 tree<T,D>::breadth_first_iterator::operator++() {
     // TODO: write code here - tomorrow!!
-}*/
+}
