@@ -104,11 +104,11 @@ template<typename T> line<T,3>        make_line(const point<T,3>&, const point<T
 template<typename T> line<T,3>        make_line(const T&, const T&, const T&, const T&, const T&, const T&);
 
 
-template<typename T> point<T,3>       operator+(const point<T,3>&, const point<T,3>&);
-template<typename T> vector<T,3>      operator+(const vector<T,3>&, const vector<T,3>&);
-template<typename T> vector<T,3>      operator-(const point<T,3>&, const point<T,3>&);
-template<typename T> point<T,3>       operator*(const point<T,3>&, const T&);
-template<typename T> vector<T,3>      operator*(const vector<T,3>&, const T&);
+template<typename T, std::size_t D> point<T,D>  operator+(const point<T,D>&, const point<T,D>&);
+template<typename T, std::size_t D> vector<T,D> operator+(const vector<T,D>&, const vector<T,D>&);
+template<typename T, std::size_t D> vector<T,D> operator-(const point<T,D>&, const point<T,D>&);
+template<typename T, std::size_t D> point<T,D>  operator*(const point<T,D>&, const T&);
+template<typename T, std::size_t D> vector<T,D> operator*(const vector<T,D>&, const T&);
 
 
 template<typename T> T                length(const vector<T,3>&);
