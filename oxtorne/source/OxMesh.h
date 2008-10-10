@@ -5,6 +5,7 @@
 #include "OxGeometry.h"
 
 #include <set>
+#include <vector>
 
 namespace oxtorne {
 
@@ -131,9 +132,10 @@ namespace oxtorne {
     };
 
     /* Functionals ******************************************************/
-    template<typename T, std::size_t D> int read_binary_stl(mesh<T,D>&, const std::string&);
-    template<typename T, std::size_t D> int read_ascii_stl(mesh<T,D>&, const std::string&);
-    template<typename T, std::size_t D> int read_stl(mesh<T,D>&, const std::string&);
+    template<typename T> int create_mesh_from_points(mesh<T,3>&, std::vector<point<T,3> >&);
+    template<typename T> int read_binary_stl(mesh<T,3>&, const std::string&);
+    template<typename T> int read_ascii_stl(mesh<T,3>&, const std::string&);
+    template<typename T> int read_stl(mesh<T,3>&, const std::string&);
 
 }; // namespace oxtorne
 

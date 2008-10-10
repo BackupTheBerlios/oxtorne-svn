@@ -213,20 +213,10 @@
 				>
 			</File>
 		</Filter>
-		<Filter
-			Name="Ressourcendateien"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+		<File
+			RelativePath=".\source\MeshTest.cpp"
 			>
-		</Filter>
-		<Filter
-			Name="Debug"
-			>
-			<File
-				RelativePath=".\source\TreeTest.cpp"
-				>
-			</File>
-		</Filter>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

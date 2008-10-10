@@ -203,11 +203,11 @@ vector<T,3> cross_product(const vector<T,3>& _a, const vector<T,3>& _b) {
     return _result;
 }
 
-template<typename T, std::size_t D>
-T dot_product(const point<T,D>& _a, const point<T,D>& _b) {
+template<typename T>
+T dot_product(const point<T,3>& _a, const point<T,3>& _b) {
     T _dot_product = T(0.0);
     // compiler loop unroll desired here
-    for (int i = 0; i < D; ++i)
+    for (int i = 0; i < 3; ++i)
         _dot_product += _a[i] * _b[i];
     return _dot_product;
 }

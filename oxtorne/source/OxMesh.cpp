@@ -3,8 +3,9 @@
 
 #include "OxMesh.h"
 
-#include <cstdlib>
+#include <fstream>
 #include <cassert>
+#include <map>
 
 namespace oxtorne {
 
@@ -321,53 +322,142 @@ namespace oxtorne {
         return fv_iter(_fh->edge);
     }
 
-    template<typename T, std::size_t D>
+    template<typename T>
     int
-    read_binary_stl(mesh<T,D>& _mesh, const std::string& _filename) {
+    create_mesh_from_points(mesh<T,3>& _mesh, std::vector<point<T,3> >& _points) {
 
+        // do the normal vector check
+        bool _incorrect_normals = false;
+
+        // create something to associate points with pointers
+        struct comparator {
+            const bool operator()(const point<T,3>& _p, const point<T,3>& _q) const {
+                for (int i = 0; i < 3; ++i)
+                    if (_p[i] != _q[i]) return _p[i] < _q[i];
+                return false;
+            }
+        };
+        
+        // the map to map points to pointers
+        std::map<point<T,3>, mesh<T,3>::v_handle, comparator> _map;
+
+        // and finally map the points to the pointers
+        for (std::size_t i = 0; i < _points.size(); ++i) {
+            if (i % 4 == 0) continue; // skip normal vectors
+            if (_map.find(_points[i]) == _map.end())
+                _map.insert(std::make_pair(_points[i], _mesh.add_vertex(_points[i])));
+        }
+
+        // add all points to the mesh
+        while (!_points.empty()) {
+
+            mesh<T,3>::v_handle _vh0 = _map[_points.back()]; _points.pop_back();
+            mesh<T,3>::v_handle _vh1 = _map[_points.back()]; _points.pop_back();
+            mesh<T,3>::v_handle _vh2 = _map[_points.back()]; _points.pop_back();
+
+            // add the face
+            mesh<T,3>::f_handle _f0  = _mesh.add_face(_vh2, _vh1, _vh0);
+
+#ifndef NDEBUG
+            // test correctness of the normals
+            point<T,3>  _p           = _points.back();
+            vector<T,3> _normal      = _mesh.face_normal(_f0);
+            vector<T,3> _prenorm     = make_vector(_p[0], _p[1], _p[2]);
+
+            // test with the dot product
+            if (dot_product(_normal, _prenorm) < T(0.0))
+                _incorrect_normals   = true;
+#endif
+
+            // pop out the normal
+            _points.pop_back();
+        }
+
+#ifndef NDEBUG
+        if (_incorrect_normals)
+            std::cout << "DEBUG: normal vectors don't match orientation" << std::endl;
+#endif
+
+        return (_incorrect_normals ? 1 : 0);
     }
 
-    template<typename T, std::size_t D>
+    template<typename T>
     int
-    read_ascii_stl(mesh<T,D>& _mesh, const std::string& _filename) {
-
-    }
-
-    template<typename T, std::size_t D>
-    int
-    read_stl(mesh<T,D>& _mesh, const std::string& _filename) {
+    read_binary_stl(mesh<T,3>& _mesh, const std::string& _filename) {
         
         // open the file
-        FILE* in = fopen(_filename.c_str(), "rb");
-        if (!in) return 1;
+        std::ifstream _input(_filename.c_str(), std::ios::binary | std::ios::in);
 
-        // do the endian test
-        union { unsigned int x; unsigned char y[4]; } endian_test;
-        union {          int x, unsigned char y[4]; } number;
-        endian_test.x = 1;
-        bool swap = (endian_test.y[3] == 1);
+        // number of triangles
+        int triangles = 0;
 
         // read the header
-        char buffer[128];
-        fread(buffer, 1, 80, in);
-        fread(number.y, 1, 4, in);
+        _input.seekg(80);
+        _input.read((char*)&triangles, 4);
         
-        // we might have to swap
-        if (swap) std::swap(number.y[0], number.y[3]);
-        if (swap) std::swap(number.y[1], number.y[2]);
-        
-        // resulting triangle count is n
-        unsigned int n = number.x;
-        unsigned int file_size = 84 + n * 50;
+        //prepare some vectors
+        std::vector<point<T,3> > _points;
 
+        // read the file
+        while(_input.peek() != EOF) {
+            for (int i = 0; i < 4; ++i) {
+                float _numbers[3];
+                point<T,3> _point;
+                _input.read((char*)_numbers, 12);
+                
+                for (int j = 0; j < 3; ++j)
+                    _point[j] = T(_numbers[j]);
+                _points.push_back(_point);
+            }
+
+            char _trash[2];
+            _input.read(_trash, 2);
+        }
+
+        // done
+        _input.close();
+
+        // done. construct the mesh from that
+        return create_mesh_from_points(_mesh, _points);
+    }
+
+    template<typename T>
+    int
+    read_ascii_stl(mesh<T,3>& _mesh, const std::string& _filename) {
+        return 1;
+    }
+
+    template<typename T>
+    int
+    read_stl(mesh<T,3>& _mesh, const std::string& _filename) {
+
+        // open the file
+        std::ifstream _input(_filename.c_str(), std::ios::binary | std::ios::in);
+
+        // number of triangles
+        int triangles = 0;
+
+        // read the header
+        _input.seekg(80);
+        _input.read((char*)&triangles, 4);
+        
         // check if the file size matches (so it is binary)
-        rewind(in);
-        while (!feof(in))
-            file_size -= fread(buffer, 1, 128, in);
-        fclose(in);
+        char buffer[50];
+
+        // read the file
+        while(_input.peek() != EOF) {
+            _input.read(buffer, 50);
+            triangles = triangles - 1;
+        }
+
+        // done
+        _input.close();
 
         // if the filesize matches we know its binary
-        bool binary = (file_size == 0);
+        if (!triangles)
+            return read_binary_stl(_mesh, _filename);
+        else
+            return read_ascii_stl(_mesh, _filename);
     }
 
 
