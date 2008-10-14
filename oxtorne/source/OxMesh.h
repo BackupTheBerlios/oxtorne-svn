@@ -2,10 +2,10 @@
 #ifndef OXMESH_H
 #define OXMESH_H
 
-#include "OxGeometry.h"
-
-#include <set>
 #include <vector>
+#include <set>
+
+#include "OxGeometry.h"
 
 namespace oxtorne {
 

@@ -101,12 +101,12 @@ box<T,3> make_box(const point<T,3>& _a, const point<T,3>& _b) {
 template<typename T>
 box<T,3> make_box(const T& _ax, const T& _ay, const T& _az, const T& _bx, const T& _by, const T& _bz) {
     box<T,3> _box;
-    _box.min.x = std::min(_ax, _bx);
-    _box.min.y = std::min(_ay, _by);
-    _box.min.z = std::min(_az, _bz);
-    _box.max.x = std::min(_ax, _bx);
-    _box.max.y = std::min(_ay, _by);
-    _box.max.z = std::min(_az, _bz);
+    _box.min[0] = std::min(_ax, _bx);
+    _box.min[1] = std::min(_ay, _by);
+    _box.min[2] = std::min(_az, _bz);
+    _box.max[0] = std::min(_ax, _bx);
+    _box.max[1] = std::min(_ay, _by);
+    _box.max[2] = std::min(_az, _bz);
     return _box;
 }
 
@@ -128,6 +128,23 @@ line<T,3> make_line(const T& _ax, const T& _ay, const T& _az, const T& _bx, cons
     _line.b.y = _by;
     _line.b.z = _bz;
     return _line;
+}
+
+template<typename T>
+triangle<T,3> make_triangle(const point<T,3>& _p0, const point<T,3>& _p1, const point<T,3>& _p2) {
+    triangle<T,3> _triangle;
+    _triangle[0] = _p0;
+    _triangle[1] = _p1;
+    _triangle[2] = _p2;
+    return _triangle;
+}
+
+template<typename T> triangle<T,3> make_triangle(const T& _x, const T& _y, const T& _z, const T& _u, const T& _v, const T& _w, const T& _a, const T& _b, const T& _c) {
+    triangle<T,D> _triangle;
+    _triangle[0] = make_point(_x, _y, _z);
+    _triangle[1] = make_point(_u, _v, _w);
+    _triangle[2] = make_point(_a, _b, _c);
+    return triangle;
 }
 
 template<typename T, std::size_t D>
@@ -175,22 +192,24 @@ vector<T,D> operator*(const vector<T,D>& _vector, const T& _scalar) {
     return _result;
 }
 
-template<typename T, std::size_t D>
-T length(const vector<T,D>& _vector) {
-    T _length = T(0.0);
-    // compiler loop unroll desired here
-    for (int i = 0; i < D; ++i)
-        _length += _vector[i] * _vector[i];
-    return sqrt(_length);
+template<typename T>
+T length(const vector<T,3>& _v) {
+    return sqrt(_v[0] * _v[0] + _v[1] * _v[1] + _v[2] * _v[2]);
 }
 
-template<typename T, std::size_t D>
-vector<T,D> normalize(const vector<T,D>& _vector) {
+template<typename T>
+T distance(const point<T,3>& _p0, const point<T,3>& _p1) {
+    return sqrt(_p0[0] * _p1[0] + _p0[1] * _p1[1] + _p0[2] * _p1[2]);
+}
+
+template<typename T>
+vector<T,3> normalize(const vector<T,3>& _v) {
+    T _length = sqrt(_v[0] * _v[0] + _v[1] * _v[1] + _v[2] * _v[2]);
+    
     vector<T,D> _normalized;
-    T _length = length(_vector);
-    // compiler loop unroll desired here
-    for (int i = 0; i < D; ++i)
-        _normalized[i] = _vector[i] / _length;
+    _normalized[0] = _v[0] / _length;
+    _normalized[1] = _v[1] / _length;
+    _normalized[2] = _v[2] / _length;
     return _normalized;
 }
 
@@ -205,31 +224,21 @@ vector<T,3> cross_product(const vector<T,3>& _a, const vector<T,3>& _b) {
 
 template<typename T>
 T dot_product(const point<T,3>& _a, const point<T,3>& _b) {
-    T _dot_product = T(0.0);
-    // compiler loop unroll desired here
-    for (int i = 0; i < 3; ++i)
-        _dot_product += _a[i] * _b[i];
-    return _dot_product;
+    return _a[0] * _b[0] + _a[1] * _b[1] + _a[2] * _b[2];
 }
    
-template<typename T, std::size_t D>
-bool point_in_box(const box<T,D>& _box, const point<T,D>& _point) {
-    bool _point_in_box = true;
-    // compiler loop unroll desired here
-    for (int i = 0; i < D; ++i)
-        _point_in_box = _point_in_box && (_box.min[i] <= _point[i]) && (_box.max[i] >= _point[i]);
-    return _point_in_box;
+template<typename T>
+bool point_in_box(const box<T,3>& _box, const point<T,3>& _point) {
+    return (_box.min[0] <= _point[0]) && (_box.max[0] >= _point[0]) &&
+           (_box.min[1] <= _point[1]) && (_box.max[1] >= _point[1]) &&
+           (_box.min[2] <= _point[2]) && (_box.max[2] >= _point[2]);
 }
 
 template<typename T>
 bool point_in_box(const box<T,3>& _box, const T& _x, const T& _y, const T& _z) {
-    return 
-        _box.min[0] <= _x &&
-        _box.min[1] <= _y &&
-        _box.min[2] <= _z &&
-        _box.max[0] >= _x &&
-        _box.max[1] >= _y &&
-        _box.max[2] >= _z;
+    return _box.min[0] <= _x && _box.min[1] <= _y &&
+           _box.min[2] <= _z && _box.max[0] >= _x &&
+           _box.max[1] >= _y && _box.max[2] >= _z;
 }
 
 template<typename T, std::size_t D>
@@ -272,6 +281,64 @@ point<T,3> closest_point_on_line_from_point(const line<T,3>& _line, const point<
 template<typename T>
 point<T,3> closest_point_on_plane_from_point(const plane<T,3>& _plane, const point<T,3>& _point) {
     return _plane.normal * (_plane.constant - dot_product(_plane.normal, _point));
+}
+
+template<typename T> sphere<T,3> minimum_bounding_sphere(const triangle<T,3>& _triangle) {
+
+    point<T,3> A = _triangle[0];
+	point<T,3> B = _triangle[1];
+	point<T,3> C = _triangle[2];
+
+    T dotABAB = dot_product(B - A, B - A);
+    T dotABAC = dot_product(B - A, C - A);
+    T dotACAC = dot_product(C - A, C - A);
+
+    T d = T(2.0) * (dotABAB * dotACAC - dotABAC * dotABAC);
+	T s = (dotABAB * dotACAC - dotACAC * dotABAC) / d;
+    T t = (dotACAC * dotABAB - dotABAB * dotABAC) / d;
+
+    point<T,3> tp = A;
+	sphere<T,3> _sphere;
+	point<T,3> _center;
+
+    if (s <= T(0.0)) {
+		point<T,3> G = A + C;
+        _sphere.center[0] = T(0.5) * G[0];
+		_sphere.center[1] = T(0.5) * G[1];
+		_sphere.center[2] = T(0.5) * G[2];
+    } else if (t <= T(0.0)) {
+        point<T,3> G = A + B;
+		_sphere.center[0] = T(0.5) * G[0];
+		_sphere.center[1] = T(0.5) * G[1];
+		_sphere.center[2] = T(0.5) * G[2];
+    } else if (s + t >= T(1.0)) {
+        point<T,3> G = C + B;
+		_sphere.center[0] = T(0.5) * G[0];
+		_sphere.center[1] = T(0.5) * G[1];
+		_sphere.center[2] = T(0.5) * G[2];
+        tp = B;
+    } else {
+		point<T,3> G = B - A;
+		point<T,3> H = C - A;
+		_sphere.center[0] = A[0] + s * G[0] + t * H[0];
+		_sphere.center[1] = A[1] + s * G[1] + t * H[1];
+		_sphere.center[2] = A[2] + s * G[2] + t * H[2];
+	}
+
+	_center.x = _sphere.x;
+	_center.y = _sphere.y;
+	_center.z = _sphere.z;
+
+	_sphere.radius = sqrt(dot_product(_center - tp, _center - tp));
+
+	return _sphere;
+}
+
+template<typename T> sphere<T,3> minimum_bounding_sphere(const box<T,3>&) {
+    sphere<T,3> _sphere;
+    _sphere.center = (_box.min + _box.max) * T(0.5);
+    _sphere.radius = distance(_sphere.center, _box.max);
+    return _sphere;
 }
 
 }
