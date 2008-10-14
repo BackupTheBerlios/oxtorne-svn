@@ -175,6 +175,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\source\OxAlgorithm.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\source\OxGeometry.cpp"
 				>
 			</File>
@@ -190,12 +194,20 @@
 				RelativePath=".\source\OxTree.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\source\OxVisualize.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Headerdateien"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\source\OxAlgorithm.h"
+				>
+			</File>
 			<File
 				RelativePath=".\source\OxGeometry.h"
 				>
@@ -210,6 +222,10 @@
 			</File>
 			<File
 				RelativePath=".\source\OxTree.h"
+				>
+			</File>
+			<File
+				RelativePath=".\source\OxVisualize.h"
 				>
 			</File>
 		</Filter>

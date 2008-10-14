@@ -89,12 +89,12 @@ plane<T,3> make_plane(const point<T,3>& _point, const vector<T,3>& _vector) {
 template<typename T>
 box<T,3> make_box(const point<T,3>& _a, const point<T,3>& _b) {
     box<T,3> _box;
-    _box.min.x = std::min(_a.x, _b.x);
-    _box.min.y = std::min(_a.y, _b.y);
-    _box.min.z = std::min(_a.z, _b.z);
-    _box.max.x = std::max(_a.x, _b.x);
-    _box.max.y = std::max(_a.y, _b.y);
-    _box.max.z = std::max(_a.z, _b.z);
+    _box.min[0] = std::min(_a[0], _b[0]);
+    _box.min[1] = std::min(_a[1], _b[1]);
+    _box.min[2] = std::min(_a[2], _b[2]);
+    _box.max[0] = std::max(_a[0], _b[0]);
+    _box.max[1] = std::max(_a[1], _b[1]);
+    _box.max[2] = std::max(_a[2], _b[2]);
     return _box;
 }
 
@@ -239,6 +239,20 @@ bool point_in_box(const box<T,3>& _box, const T& _x, const T& _y, const T& _z) {
     return _box.min[0] <= _x && _box.min[1] <= _y &&
            _box.min[2] <= _z && _box.max[0] >= _x &&
            _box.max[1] >= _y && _box.max[2] >= _z;
+}
+
+template<typename T>
+bool intersect(const box<T,3>& _box, const triangle<T,3>& _triangle) {
+    point<T,3> _p0 = _triangle[0];
+    point<T,3> _p1 = _triangle[1];
+    point<T,3> _p2 = _triangle[2];
+
+    if (point_in_box(_box, _p0)) return true;
+    if (point_in_box(_box, _p1)) return true;
+    if (point_in_box(_box, _p2)) return true;
+    
+    // TODO eine etwas umfangreiche ueberprüfung!
+    return false;
 }
 
 template<typename T, std::size_t D>

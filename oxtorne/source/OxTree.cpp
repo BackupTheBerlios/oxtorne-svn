@@ -3,121 +3,31 @@
 
 #include "OxTree.h"
 
+#include <queue>
+
 namespace oxtorne {
 
-/* Function Implementations for iterator_base *********************************/
-template<typename T, std::size_t D>
-tree<T,D>::iterator_base::iterator_base() : node(0) {
-}
+/* Implementations for the leaf *******************************************/
 
-template<typename T, std::size_t D>
-tree<T,D>::iterator_base::iterator_base(const_node* _node) {
-    value = _node;
-}
-
-template<typename T, std::size_t D>
-T&
-tree<T,D>::iterator_base::operator* () const {
-    return value->value;
-}
-
-template<typename T, std::size_t D>
-T*
-tree<T,D>::iterator_base::operator-> () const {
-    return &value->value;
-}
-
-template<typename T, std::size_t D>
+template<typename C, std::size_t D>
 bool
-tree<T,D>::iterator_base::operator==(const iterator_base& _iter) const {
-    return this->value == _iter->value;
+node_<C,D>::leaf() {
+    for (int i = 0; i < D; ++i)
+        if (nodes[i] != 0)
+            return false;
+    return true;
 }
 
-template<typename T, std::size_t D>
-bool
-tree<T,D>::iterator_base::operator!=(const iterator_base& _iter) const {
-    return this->value != _iter->value;
+template<typename C, std::size_t D>
+std::size_t
+node_<C,D>::depth () {
+    if (this->parent != 0)
+        return this->parent->depth() + 1;
+    else
+        return 0;
 }
 
-/* Function Implementation for sibling_iterator *******************************/
-template<typename T, std::size_t D>
-tree<T,D>::sibling_iterator::sibling_iterator() : node(0) {
-}
-
-template<typename T, std::size_t D>
-tree<T,D>::sibling_iterator::sibling_iterator(const_node* _node) {
-    this->value = _node;
-}
-
-template<typename T, std::size_t D>
-tree<T,D>::sibling_iterator::sibling_iterator(const iterator_base& _iter) : iterator_base(_iter) {
-    this->value = _iter->value;
-}
-
-template<typename T, std::size_t D>
-typename tree<T,D>::sibling_iterator&
-tree<T,D>::sibling_iterator::operator++() {
-    this->value++;
-    return *this;
-}
-
-template<typename T, std::size_t D>
-typename tree<T,D>::sibling_iterator&
-tree<T,D>::sibling_iterator::operator--() {
-    this->value--;
-    return *this;
-}
-
-template<typename T, std::size_t D>
-typename tree<T,D>::sibling_iterator
-tree<T,D>::sibling_iterator::operator++(const int) {
-    sibling_iterator _iter = *this;
-    ++(*this);
-    return _iter;
-}
-
-template<typename T, std::size_t D>
-typename tree<T,D>::sibling_iterator
-tree<T,D>::sibling_iterator::operator--(const int) {
-    this->value--;
-    return *this;
-}
-
-template<typename T, std::size_t D>
-typename tree<T,D>::sibling_iterator&
-tree<T,D>::sibling_iterator::operator+=(const std::size_t& _increment) {
-    this->value += _increment;
-    return (*this);
-}
-
-template<typename T, std::size_t D>
-typename tree<T,D>::sibling_iterator&
-tree<T,D>::sibling_iterator::operator-=(const std::size_t& _decrement) {
-    this->value -= _decrement;
-    return (*this);
-}
-
-/* Function Implementation for breadth_first_iterator *********************/
-/*template<typename T, std::size_t D>
-tree<T,D>::breadth_first_iterator::breadth_first_iterator() : node(0) {
-}
-
-template<typename T, std::size_t D>
-tree<T,D>::breadth_first_iterator::breadth_first_iterator(const_node* _node) {
-    this->value = _node;
-}
-
-template<typename T, std::size_t D>
-tree<T,D>::breadth_first_iterator::breadth_first_iterator(const iterator_base& _iter) : iterator_base(_iter) {
-    this->value = _iter->value;
-}
-
-template<typename T, std::size_t D>
-typename tree<T,D>::breadth_first_iterator&
-tree<T,D>::breadth_first_iterator::operator++() {
-    // TODO: write code here - tomorrow!!
-}*/
-
+/* Implementations for the octree *****************************************/
 template<typename T, std::size_t D>
 octree<T,D>::octree(const box<T,D>& _box) {
     origin = new node();
@@ -129,40 +39,111 @@ octree<T,D>::~octree() {
 
 }
 
-//        void subdivide_node(const iterator_base&);
-//        void merge_node    (const iterator_base&);
+template<typename T, std::size_t D>
+void
+octree<T,D>::subdivide_node (node* _node) {
+    
+    std::vector<box<T,3> > _boxes = subdivide_box(_node->value.first);
+    
+    for (int i = 0; i < 8; ++i) {
+        _node->at(i) = new node();
+        _node->at(i)->parent = _node;
+        _node->at(i)->value.first = _boxes[i];
+    }
+}
 
-template<typename T> octree<T,3> make_octree(const mesh<T,3>& _mesh) {
-    mesh<T,3>::v_iter _viter = _mesh.vertices_begin();
-    mesh<T,3>::v_iter _vend  = _mesh.vertices_end();
+template<typename T, std::size_t D>
+void
+octree<T,D>::add_face (mesh<T,3>& _mesh, const typename mesh<T,3>::f_handle& _face) {
+    triangle<T,3> _triangle;
+
+    mesh<T,3>::fviter fv_iter = _mesh.face_vertex_begin(_face);
+    _triangle[0] = (*fv_iter); fv_iter++;
+    _triangle[1] = (*fv_iter); fv_iter++;
+    _triangle[2] = (*fv_iter);
+
+    // build a queue to remember nodes
+    typedef octree<T,3>::node node;
+    std::queue<node*> _nodes;
+
+    // start iterating
+    _nodes.push(root());
+
+    while(!_nodes.empty()) {
+        // prepare next node
+        node* _next = _nodes.front();
+        _nodes.pop();
+
+        // triangle does not intersect the box
+        if (!intersect(_next->value.first, _triangle))
+            continue;
+        
+        _next->value.second.push_back(_face);
+
+        // node is a leaf
+        if (_next->leaf()) {
+            _next->value.second.push_back(_face);
+            continue;
+        }
+
+        // node is an inner node
+        for (std::size_t i = 0; i < _next->size(); ++i)
+            _nodes.push(_next->at(i));
+    }
+}
+
+template<typename T> octree<T,3> make_octree(mesh<T,3>& _mesh, const std::size_t& _depth) {
+    mesh<T,3>::viter _viter = _mesh.vertices_begin();
+    mesh<T,3>::viter _vend  = _mesh.vertices_end();
 
     point<T,3> _min = make_point(T(INT_MAX), T(INT_MAX), T(INT_MAX));
     point<T,3> _max = make_point(T(INT_MIN), T(INT_MIN), T(INT_MIN));
 
     for(; _viter != _vend; ++_viter) {
-        if ((*_viter)[0] < _min[0]) _min[0] = (*_viter)[0];
-        if ((*_viter)[1] < _min[1]) _min[1] = (*_viter)[1];
-        if ((*_viter)[2] < _min[2]) _min[2] = (*_viter)[2];
-        if ((*_viter)[0] > _max[0]) _max[0] = (*_viter)[0];
-        if ((*_viter)[1] > _max[1]) _max[1] = (*_viter)[1];
-        if ((*_viter)[2] > _max[2]) _max[2] = (*_viter)[2];
+        if ((**_viter)[0] < _min[0]) _min[0] = (**_viter)[0];
+        if ((**_viter)[1] < _min[1]) _min[1] = (**_viter)[1];
+        if ((**_viter)[2] < _min[2]) _min[2] = (**_viter)[2];
+        if ((**_viter)[0] > _max[0]) _max[0] = (**_viter)[0];
+        if ((**_viter)[1] > _max[1]) _max[1] = (**_viter)[1];
+        if ((**_viter)[2] > _max[2]) _max[2] = (**_viter)[2];
     }
+
+    // build octree
+    octree<T,3> _tree(make_box(_min, _max));
     
-    std::cout << _min[0] << " " << _min[1] << " " << _min[2] << std::endl;
-    std::cout << _max[0] << " " << _max[1] << " " << _max[2] << std::endl;
+    // build a queue to remember nodes
+    typedef octree<T,3>::node node;
+    std::queue<node*> _nodes;
 
-    octree<T,3> _tree(make_box(T(0.0), T(0.0), T(0.0), T(0.0), T(0.0), T(0.0)));
+    // start iterating
+    _nodes.push(_tree.root());
+
+    while(!_nodes.empty()) {
+        // prepare next node
+        node* _next = _nodes.front();
+        _nodes.pop();
+
+        // check depth limit
+        // std::cout << _next->depth() << std::endl;
+        if (_next->depth() >= _depth)
+            continue;
+
+        // subdivide the node
+        _tree.subdivide_node(_next);
+        
+        // remember children
+        for (std::size_t i = 0; i < 8; ++i)
+            _nodes.push(_next->at(i));
+    }
+
+    // the tree has been created - now insert all faces
+    mesh<T,3>::fiter f_iter = _mesh.faces_begin();
     
+    // iterator over the faces
+    for (; f_iter != _mesh.faces_end(); ++f_iter)
+        _tree.add_face(_mesh, *f_iter);
 
-
-
-    std::cout << "Creating Octree" << std::endl;
-    
-    return _tree;
-}
-
-template<typename T> octree<T,3> make_octree(const std::vector<triangle<T,3> >& _triangle) {
-    octree<T,3> _tree;
+    // return base class
     return _tree;
 }
 

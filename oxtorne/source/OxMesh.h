@@ -5,7 +5,7 @@
 #include <vector>
 #include <set>
 
-#include "OxGeometry.h"
+#include "OxAlgorithm.h"
 
 namespace oxtorne {
 
@@ -62,23 +62,23 @@ namespace oxtorne {
         typedef typename vertex* v_handle;
         typedef typename halfedge* he_handle;
 
-        typedef typename std::set<f_handle>::iterator f_iter;
-        typedef typename std::set<v_handle>::iterator v_iter;
-        typedef typename std::set<he_handle>::iterator he_iter;
+        typedef typename std::set<f_handle>::iterator fiter;
+        typedef typename std::set<v_handle>::iterator viter;
+        typedef typename std::set<he_handle>::iterator heiter;
 
 
-        class vv_iter {
+        class vviter {
         public:
-            vv_iter(const vertex*);
-            vv_iter(const vv_iter&);
+            vviter(const vertex*);
+            vviter(const vviter&);
 
             vertex& operator* () const;
             vertex* operator->() const;
 
-            bool operator==(const vv_iter&) const;
-            bool operator!=(const vv_iter&) const;
-            vv_iter& operator++();
-            vv_iter  operator++(const int);
+            bool operator==(const vviter&) const;
+            bool operator!=(const vviter&) const;
+            vviter& operator++();
+            vviter  operator++(const int);
 
         protected:
             vertex* current;
@@ -86,18 +86,18 @@ namespace oxtorne {
         };
 
 
-        class fv_iter {
+        class fviter {
         public:
-            fv_iter(halfedge*);
-            fv_iter(fv_iter&);
+            fviter(halfedge*);
+            fviter(fviter&);
 
             vertex& operator* () const;
             vertex* operator->() const;
 
-            bool operator==(const fv_iter&) const;
-            bool operator!=(const fv_iter&) const;
-            fv_iter& operator++();
-            fv_iter  operator++(const int);
+            bool operator==(const fviter&) const;
+            bool operator!=(const fviter&) const;
+            fviter& operator++();
+            fviter  operator++(const int);
 
         protected:
             halfedge* current;
@@ -112,16 +112,17 @@ namespace oxtorne {
         vector<T,3>     face_normal       (const f_handle&);
 
 
-        f_iter    faces_begin();
-        f_iter    faces_end();
-        v_iter    vertices_begin();
-        v_iter    vertices_end();
-        he_iter   edges_begin();
-        he_iter   edges_end();
-        vv_iter   vertex_vertex_begin(const v_handle&);
-        vv_iter   vertex_vertex_end(const v_handle&);
-        fv_iter   face_vertex_begin(const f_handle&);
-        fv_iter   face_vertex_end(const f_handle&);
+        fiter           faces_begin()     { return faces.begin();    }
+        fiter           faces_end()       { return faces.end();      }
+        viter           vertices_begin()  { return vertices.begin(); }
+        viter           vertices_end()    { return vertices.end();   }
+        heiter          edges_begin()     { return edges.begin();    } 
+        heiter          edges_end()       { return edges.end();      }
+
+        vviter          vertex_vertex_begin(const v_handle&);
+        vviter          vertex_vertex_end(const v_handle&);
+        fviter          face_vertex_begin(const f_handle&);
+        fviter          face_vertex_end(const f_handle&);
 
     protected:
 
@@ -136,6 +137,8 @@ namespace oxtorne {
     template<typename T> int read_binary_stl(mesh<T,3>&, const std::string&);
     template<typename T> int read_ascii_stl(mesh<T,3>&, const std::string&);
     template<typename T> int read_stl(mesh<T,3>&, const std::string&);
+
+    template<typename T> box<T,3> bounding_box(mesh<T,3>&);
 
 }; // namespace oxtorne
 

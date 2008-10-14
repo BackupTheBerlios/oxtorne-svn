@@ -8,6 +8,9 @@
 
 namespace oxtorne {
 
+/* Simple enum type ***********************************************************/
+enum axis { x, y, z };
+
 /* Geometric Basetype *********************************************************/
 class geometric_basetype{};
 
@@ -141,6 +144,7 @@ template<typename T> bool             point_in_box(const box<T,3>&, const point<
 template<typename T> bool             point_in_box(const box<T,3>&, const T&, const T&, const T&);
 
 
+template<typename T> bool             intersect(const box<T,3>&, const triangle<T,3>&);
 template<typename T> bool             intersect(const line<T,3>&, const plane<T,3>&);
 template<typename T> bool             intersect(const ray<T,3>&, const plane<T,3>&);
 

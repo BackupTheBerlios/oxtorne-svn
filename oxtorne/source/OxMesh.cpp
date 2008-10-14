@@ -4,6 +4,7 @@
 #include "OxMesh.h"
 
 #include <fstream>
+#include <iostream>
 #include <cassert>
 #include <map>
 
@@ -11,13 +12,13 @@ namespace oxtorne {
 
     // vv_iter constructor
     template<typename T, std::size_t D>
-    mesh<T,D>::vv_iter::vv_iter(const vertex* _v) {
+    mesh<T,D>::vviter::vviter(const vertex* _v) {
         current = base = _v;
     }
 
     // vv_iter copy-constructor
     template<typename T, std::size_t D>
-    mesh<T,D>::vv_iter::vv_iter(const vv_iter& _other) {
+    mesh<T,D>::vviter::vviter(const vviter& _other) {
         current = _other.current;
         base    = _other.base;
     }
@@ -25,56 +26,56 @@ namespace oxtorne {
     // vv_iter * operator
     template<typename T, std::size_t D>
     typename mesh<T,D>::vertex&
-    mesh<T,D>::vv_iter::operator* () const {
+    mesh<T,D>::vviter::operator* () const {
         return *_current;
     }
 
     // vv_iter -> operator
     template<typename T, std::size_t D>
     typename mesh<T,D>::vertex*
-    mesh<T,D>::vv_iter::operator->() const {
+    mesh<T,D>::vviter::operator->() const {
         return &*_current;
     }
     
     // vv_iter == operator
     template<typename T, std::size_t D>
     bool
-    mesh<T,D>::vv_iter::operator==(const vv_iter& _other) const {
+    mesh<T,D>::vviter::operator==(const vviter& _other) const {
         return _current == _other._current;
     }
 
     // vv_iter != operator
     template<typename T, std::size_t D>
     bool
-    mesh<T,D>::vv_iter::operator!=(const vv_iter& _other) const {
+    mesh<T,D>::vviter::operator!=(const vviter& _other) const {
         return _current != _other.current;
     }
 
     // vv_iter ++ operator (post)
     template<typename T, std::size_t D>
-    typename mesh<T,D>::vv_iter&
-    mesh<T,D>::vv_iter::operator++() {
+    typename mesh<T,D>::vviter&
+    mesh<T,D>::vviter::operator++() {
         ++_current;
         return *this;
     }
 
     // vv_iter ++ operator (pre)
     template<typename T, std::size_t D>
-    typename mesh<T,D>::vv_iter
-    mesh<T,D>::vv_iter::operator++(const int) {
+    typename mesh<T,D>::vviter
+    mesh<T,D>::vviter::operator++(const int) {
         vvhandle _previous = *this;
         (*this)++;
         return _previous;
     }
 
     template<typename T, std::size_t D>
-    mesh<T,D>::fv_iter::fv_iter(halfedge* _he) {
+    mesh<T,D>::fviter::fviter(halfedge* _he) {
         current = _he;
         base = _he;
     }
 
     template<typename T, std::size_t D>
-    mesh<T,D>::fv_iter::fv_iter(fv_iter& _iter) {
+    mesh<T,D>::fviter::fviter(fviter& _iter) {
         current = _iter.current;
         base = _iter.base;
     }
@@ -82,44 +83,44 @@ namespace oxtorne {
     // fv_iter * operator
     template<typename T, std::size_t D>
     typename mesh<T,D>::vertex&
-    mesh<T,D>::fv_iter::operator* () const {
+    mesh<T,D>::fviter::operator* () const {
         return *current->vertex;
     }
     
     // fv_iter -> operator
     template<typename T, std::size_t D>
     typename mesh<T,D>::vertex*
-    mesh<T,D>::fv_iter::operator-> () const {
+    mesh<T,D>::fviter::operator-> () const {
         return &current->vector;
     }
 
     // fv_iter == operator
     template<typename T, std::size_t D>
     bool
-    mesh<T,D>::fv_iter::operator==(const fv_iter& _fviter) const {
+    mesh<T,D>::fviter::operator==(const fviter& _fviter) const {
         current == _fviter->current;
     }
     
     // fv_iter != operator
     template<typename T, std::size_t D>
     bool
-    mesh<T,D>::fv_iter::operator!=(const fv_iter&) const {
+    mesh<T,D>::fviter::operator!=(const fviter&) const {
         current != _fvite->current;
     }
 
     // fv_iter ++ operator (post)
     template<typename T, std::size_t D>
-    typename mesh<T,D>::fv_iter& 
-    mesh<T,D>::fv_iter::operator++() {
+    typename mesh<T,D>::fviter& 
+    mesh<T,D>::fviter::operator++() {
         current = current->next;
         return *this;
     }
 
     // fv_iter ++ operator (pre)
     template<typename T, std::size_t D>
-    typename mesh<T,D>::fv_iter
-    mesh<T,D>::fv_iter::operator++(const int) {
-        fv_iter copy = *this;
+    typename mesh<T,D>::fviter
+    mesh<T,D>::fviter::operator++(const int) {
+        fviter copy = *this;
         ++(*this);
         return copy;
     }
@@ -257,69 +258,27 @@ namespace oxtorne {
     }
 
     template<typename T, std::size_t D>
-    typename mesh<T,D>::f_iter
-    mesh<T,D>::faces_begin() {
-        // start iterator for faces
-        return faces.begin();
-    }
-
-    template<typename T, std::size_t D>
-    typename mesh<T,D>::f_iter
-    mesh<T,D>::faces_end() {
-        // end iterator for faces
-        return faces.end();
-    }
-    
-    template<typename T, std::size_t D>
-    typename mesh<T,D>::v_iter
-    mesh<T,D>::vertices_begin() {
-        // start iterator for vertices
-        return vertices.begin();
-    }
-
-    template<typename T, std::size_t D>
-    typename mesh<T,D>::v_iter
-    mesh<T,D>::vertices_end() {
-        // end iterator for vertices
-        return vertices.end();
-    }
-
-    template<typename T, std::size_t D>
-    typename mesh<T,D>::he_iter
-    mesh<T,D>::edges_begin() {
-        // start iterator for edges
-        return halfedges.begin();
-    }
-
-    template<typename T, std::size_t D>
-    typename mesh<T,D>::he_iter
-    mesh<T,D>::edges_end() {
-        // end iterator for edges
-        return halfedges.end();
-    }
-
-    template<typename T, std::size_t D>
-    typename mesh<T,D>::vv_iter
+    typename mesh<T,D>::vviter
     mesh<T,D>::vertex_vertex_begin(const v_handle& _vh) {
-        return vv_iter(_vh);
+        return vviter(_vh);
     }
 
     template<typename T, std::size_t D>
-    typename mesh<T,D>::vv_iter
+    typename mesh<T,D>::vviter
     mesh<T,D>::vertex_vertex_end(const v_handle& _vh) {
-        return vv_iter(_vh);
+        return vviter(_vh);
     }
 
     template<typename T, std::size_t D>
-    typename mesh<T,D>::fv_iter
+    typename mesh<T,D>::fviter
     mesh<T,D>::face_vertex_begin(const f_handle& _fh) {
-        return fv_iter(_fh->edge);
+        return fviter(_fh->edge);
     }
 
     template<typename T, std::size_t D>
-    typename mesh<T,D>::fv_iter
+    typename mesh<T,D>::fviter
     mesh<T,D>::face_vertex_end(const f_handle& _fh) {
-        return fv_iter(_fh->edge);
+        return fviter(_fh->edge);
     }
 
     template<typename T>
@@ -459,6 +418,28 @@ namespace oxtorne {
         else
             return read_ascii_stl(_mesh, _filename);
     }
+
+    template<typename T>
+    box<T,3>
+    bounding_box(mesh<T,3>& _mesh) {
+        mesh<T,3>::viter _viter = _mesh.vertices_begin();
+        mesh<T,3>::viter _vend  = _mesh.vertices_end();
+
+        point<T,3> _min = make_point(T(INT_MAX), T(INT_MAX), T(INT_MAX));
+        point<T,3> _max = make_point(T(INT_MIN), T(INT_MIN), T(INT_MIN));
+
+        for(; _viter != _vend; ++_viter) {
+            if ((**_viter)[0] < _min[0]) _min[0] = (**_viter)[0];
+            if ((**_viter)[1] < _min[1]) _min[1] = (**_viter)[1];
+            if ((**_viter)[2] < _min[2]) _min[2] = (**_viter)[2];
+            if ((**_viter)[0] > _max[0]) _max[0] = (**_viter)[0];
+            if ((**_viter)[1] > _max[1]) _max[1] = (**_viter)[1];
+            if ((**_viter)[2] > _max[2]) _max[2] = (**_viter)[2];
+        }
+
+        return make_box(_min, _max);
+    }
+
 
 
 };
