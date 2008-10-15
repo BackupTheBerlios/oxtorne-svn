@@ -15,7 +15,7 @@ namespace oxtorne {
     
     template<typename T> GLuint solid (mesh<T,3>&);
     template<typename T> GLuint solid (const point<T,3>&);
-    template<typename T> GLuint solid (const sphere<T>&);
+    template<typename T> GLuint solid (const sphere<T,3>&);
     
     template<typename T> void coordinate_system (const T&);
 

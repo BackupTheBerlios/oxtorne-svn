@@ -136,7 +136,7 @@ solid(const sphere<T,3>& _sphere) {
 	glColor3f(1.0, 1.0, 1.0);
 	glEnable(GL_LIGHTING);
     glPushMatrix();
-	glTranslatef(_sphere.x, _sphere.y, _sphere.z);
+	glTranslatef(_sphere.center[0], _sphere.center[1], _sphere.center[2]);
 	glutSolidSphere(_sphere.radius, 8, 8);
     glPopMatrix();
 	
