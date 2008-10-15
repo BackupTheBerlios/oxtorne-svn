@@ -5,7 +5,7 @@
 #include <vector>
 #include <set>
 
-#include "OxAlgorithm.h"
+#include "OxGeometry.h"
 
 namespace oxtorne {
 
@@ -124,6 +124,10 @@ namespace oxtorne {
         fviter          face_vertex_begin(const f_handle&);
         fviter          face_vertex_end(const f_handle&);
 
+        std::size_t     n_faces()         { return faces.size();     }
+        std::size_t     n_vertices()      { return vertices.size();  }
+        std::size_t     n_halfedges()     { return halfedges.size(); }
+
     protected:
 
         std::set<face*> faces;
@@ -139,6 +143,7 @@ namespace oxtorne {
     template<typename T> int read_stl(mesh<T,3>&, const std::string&);
 
     template<typename T> box<T,3> bounding_box(mesh<T,3>&);
+    template<typename T> triangle<T,3> make_triangle(mesh<T,3>&, const typename  mesh<T,3>::f_handle&);
 
 }; // namespace oxtorne
 

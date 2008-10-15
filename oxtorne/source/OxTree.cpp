@@ -2,6 +2,7 @@
 #define OXTREE_CPP
 
 #include "OxTree.h"
+#include "OxAlgorithm.h"
 
 #include <queue>
 

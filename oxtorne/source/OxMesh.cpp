@@ -440,6 +440,17 @@ namespace oxtorne {
         return make_box(_min, _max);
     }
 
+    template<typename T>
+    triangle<T,3>
+    make_triangle(mesh<T,3>& _mesh, const typename mesh<T,3>::f_handle& _face) {
+        
+        // get the handles
+        typename mesh<T,3>::he_handle _he0 = _face->edge;
+        typename mesh<T,3>::he_handle _he1 = _he0->next;
+        typename mesh<T,3>::he_handle _he2 = _he1->next;
 
+        // return that as a triangle
+        return make_triangle(*_he0->vertex, *_he1->vertex, *_he2->vertex);
+    }
 
 };

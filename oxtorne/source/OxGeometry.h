@@ -133,6 +133,7 @@ template<typename T, std::size_t D> point<T,D>  operator*(const point<T,D>&, con
 template<typename T, std::size_t D> vector<T,D> operator*(const vector<T,D>&, const T&);
 
 
+template<typename T> bool             is_equal(const T&, const T&);
 template<typename T> T                length(const vector<T,3>&);
 template<typename T> T                distance(const point<T,3>&, const point<T,3>&);
 template<typename T> vector<T,3>      normalize(const vector<T,3>&);
@@ -147,15 +148,17 @@ template<typename T> bool             point_in_box(const box<T,3>&, const T&, co
 template<typename T> bool             intersect(const box<T,3>&, const triangle<T,3>&);
 template<typename T> bool             intersect(const line<T,3>&, const plane<T,3>&);
 template<typename T> bool             intersect(const ray<T,3>&, const plane<T,3>&);
+template<typename T> bool             intersect(const triangle<T,3>&, const line<T,3>&);
 
 
 template<typename T> point<T,3>       intersection_point(const line<T,3>&, const plane<T,3>&);
 template<typename T> point<T,3>       intersection_point(const ray<T,3>&, const plane<T,3>&);
-
+template<typename T> point<T,3>       intersection_point(const line<T,3>&, const triangle<T,3>&);
 
 template<typename T> point<T,3>       closest_point_on_ray_from_point(const ray<T,3>&, const point<T,3>&);
 template<typename T> point<T,3>       closest_point_on_line_from_point(const line<T,3>&, const point<T,3>&);
 template<typename T> point<T,3>       closest_point_on_plane_from_point(const plane<T,3>&, const point<T,3>&);
+
 
 template<typename T> sphere<T,3>      minimum_bounding_sphere(const triangle<T,3>&);
 template<typename T> sphere<T,3>      minimum_bounding_sphere(const box<T,3>&);

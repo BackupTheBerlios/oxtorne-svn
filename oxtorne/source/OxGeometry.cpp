@@ -193,20 +193,30 @@ vector<T,D> operator*(const vector<T,D>& _vector, const T& _scalar) {
 }
 
 template<typename T>
+bool
+is_equal(const T& _a, const T& _b) {
+    T _d = _a - _b;
+    return -T(1E-5) <= _d && _d <= T(1E-5);
+}
+
+template<typename T>
 T length(const vector<T,3>& _v) {
     return sqrt(_v[0] * _v[0] + _v[1] * _v[1] + _v[2] * _v[2]);
 }
 
 template<typename T>
 T distance(const point<T,3>& _p0, const point<T,3>& _p1) {
-    return sqrt(_p0[0] * _p1[0] + _p0[1] * _p1[1] + _p0[2] * _p1[2]);
+    return sqrt(
+        (_p0[0] - _p1[0]) * (_p0[0] - _p1[0]) +
+        (_p0[1] - _p1[1]) * (_p0[1] - _p1[1]) +
+        (_p0[2] - _p1[2]) * (_p0[2] - _p1[2]));
 }
 
 template<typename T>
 vector<T,3> normalize(const vector<T,3>& _v) {
     T _length = sqrt(_v[0] * _v[0] + _v[1] * _v[1] + _v[2] * _v[2]);
     
-    vector<T,D> _normalized;
+    vector<T,3> _normalized;
     _normalized[0] = _v[0] / _length;
     _normalized[1] = _v[1] / _length;
     _normalized[2] = _v[2] / _length;
@@ -260,9 +270,49 @@ bool intersect(const line<T,D>& _line, const plane<T,D>& _plane) {
     return dot_product(_line.a - _line.b, _plane.normal) != T(0.0);
 }
 
-template<typename T, std::size_t D>
-bool intersect(const ray<T,D>& _ray, const plane<T,D>& _plane) {
+template<typename T>
+bool intersect(const ray<T,3>& _ray, const plane<T,3>& _plane) {
     return dot_product(_ray.direction, _plane.normal) != T(0.0);
+}
+
+template<typename T>
+bool intersect(const triangle<T,3>& _triangle, const line<T,3>& _line) {
+	T edge1_x = _triangle[1][0] - _triangle[0][0];
+	T edge1_y = _triangle[1][1] - _triangle[0][1];
+	T edge1_z = _triangle[1][2] - _triangle[0][2];
+	T edge2_x = _triangle[2][0] - _triangle[0][0];
+	T edge2_y = _triangle[2][1] - _triangle[0][1];
+	T edge2_z = _triangle[2][2] - _triangle[0][2];
+
+	T pvec_x = (_line.b[1] - _line.a[1]) * edge2_z - (_line.b[2] - _line.a[2]) * edge2_y;
+	T pvec_y = (_line.b[2] - _line.a[2]) * edge2_x - (_line.b[0] - _line.a[0]) * edge2_z;
+	T pvec_z = (_line.b[0] - _line.a[0]) * edge2_y - (_line.b[1] - _line.a[1]) * edge2_x;
+
+	T det = edge1_x * pvec_x + edge1_y * pvec_y + edge1_z * pvec_z;
+
+	if (is_equal(det,T(0.0))) return false;
+
+	T inv_det = T(1.0) / det;
+
+	T tvec_x = _line.a[0] - _triangle[0][0];
+	T tvec_y = _line.a[1] - _triangle[0][1];
+	T tvec_z = _line.a[2] - _triangle[0][2];
+
+	T u = (tvec_x * pvec_x + tvec_y * pvec_y + tvec_z * pvec_z) * inv_det;
+
+	if (u < 0.0 || u > 1.0) return false;
+
+	T qvec_x = tvec_y * edge1_z - tvec_z * edge1_y;
+	T qvec_y = tvec_z * edge1_x - tvec_x * edge1_z;
+	T qvec_z = tvec_x * edge1_y - tvec_y * edge1_x;
+
+	T v = ((_line.b[0] - _line.a[0]) * qvec_x +
+	       (_line.b[1] - _line.a[1]) * qvec_y +
+		   (_line.b[2] - _line.a[2]) * qvec_z) * inv_det;
+
+	if ((v < 0.0) || ((u + v) > 1.0)) return false;
+
+	return true;
 }
 
 template<typename T>
@@ -277,6 +327,38 @@ point<T,3> intersection_point(const ray<T,3>& _ray, const plane<T,3>& _plane) {
     T _unit  = dot_product(_ray.direction, _plane.normal);
     return _ray.direction * ((_dot - _plane.constant) / _unit);
 }
+
+template<typename T>
+point<T,3> intersection_point(const line<T,3>& _line, const triangle<T,3>& _triangle) {
+      T _ux = _triangle[1][0] - _triangle[0][0];
+      T _uy = _triangle[1][1] - _triangle[0][1];
+      T _uz = _triangle[1][2] - _triangle[0][2];
+
+      T _vx = _triangle[2][0] - _triangle[0][0];
+      T _vy = _triangle[2][1] - _triangle[0][1];
+      T _vz = _triangle[2][2] - _triangle[0][2];
+
+      T _nx = _uy * _vz - _uz * _vy;
+      T _ny = _uz * _vx - _ux * _vz;
+      T _nz = _ux * _vy - _uy * _vx;
+
+      T _dirx = _line.b[0] - _line.a[0];
+      T _diry = _line.b[1] - _line.a[1];
+      T _dirz = _line.b[2] - _line.a[2];
+
+      T _w0x  = _line.a[0] - _triangle[0][0];
+      T _w0y  = _line.a[1] - _triangle[0][1];
+      T _w0z  = _line.a[2] - _triangle[0][2];
+
+      T _a = (_nx * _w0x  + _ny * _w0y  + _nz * _w0z) * T(-1.0);
+      T _b =  _nx * _dirx + _ny * _diry + _nz * _dirz;
+      T _r =   _a / _b;
+
+      return make_point(_line.a[0] + (_r * _dirx),
+                        _line.a[1] + (_r * _diry),
+                        _line.a[2] + (_r * _dirz));
+}
+
 
 template<typename T>
 point<T,3> closest_point_on_ray_from_point(const ray<T,3>& _ray, const point<T,3>& _point) {
@@ -348,7 +430,7 @@ template<typename T> sphere<T,3> minimum_bounding_sphere(const triangle<T,3>& _t
 	return _sphere;
 }
 
-template<typename T> sphere<T,3> minimum_bounding_sphere(const box<T,3>&) {
+template<typename T> sphere<T,3> minimum_bounding_sphere(const box<T,3>& _box) {
     sphere<T,3> _sphere;
     _sphere.center = (_box.min + _box.max) * T(0.5);
     _sphere.radius = distance(_sphere.center, _box.max);
