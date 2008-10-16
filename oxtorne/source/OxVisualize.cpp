@@ -115,7 +115,7 @@ solid (const point<T,3>& _point) {
 	GLuint _reference = glGenLists(1);
 	glNewList(_reference, GL_COMPILE);
 	
-	glPointSize(5.0);
+	glPointSize(50.0);
 	glColor3f(0.0, 0.0, 1.0);
 	glDisable(GL_LIGHTING);
 	

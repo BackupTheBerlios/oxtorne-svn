@@ -3,6 +3,7 @@
 #define OXGEOMETRY_H
 
 #include <cstddef>
+#include <vector>
 
 #include "OxMath.h"
 
@@ -131,9 +132,16 @@ template<typename T, std::size_t D> vector<T,D> operator+(const vector<T,D>&, co
 template<typename T, std::size_t D> vector<T,D> operator-(const point<T,D>&, const point<T,D>&);
 template<typename T, std::size_t D> point<T,D>  operator*(const point<T,D>&, const T&);
 template<typename T, std::size_t D> vector<T,D> operator*(const vector<T,D>&, const T&);
+template<typename T, std::size_t D> point<T,D>  operator*(const T&, const point<T,D>&);
+template<typename T, std::size_t D> vector<T,D> operator*(const T&, const vector<T,D>&);
 
 
 template<typename T> bool             is_equal(const T&, const T&);
+
+
+template<typename T> bool             is_beyond(const triangle<T,3>&, const ray<T,3>&, const T&);
+
+
 template<typename T> T                length(const vector<T,3>&);
 template<typename T> T                distance(const point<T,3>&, const point<T,3>&);
 template<typename T> vector<T,3>      normalize(const vector<T,3>&);
@@ -151,13 +159,16 @@ template<typename T> bool             intersect(const ray<T,3>&, const plane<T,3
 template<typename T> bool             intersect(const triangle<T,3>&, const line<T,3>&);
 
 
-template<typename T> point<T,3>       intersection_point(const line<T,3>&, const plane<T,3>&);
-template<typename T> point<T,3>       intersection_point(const ray<T,3>&, const plane<T,3>&);
-template<typename T> point<T,3>       intersection_point(const line<T,3>&, const triangle<T,3>&);
+template<typename T> point<T,3>               intersection_point(const line<T,3>&, const plane<T,3>&);
+template<typename T> point<T,3>               intersection_point(const ray<T,3>&, const plane<T,3>&);
+template<typename T> point<T,3>               intersection_point(const line<T,3>&, const triangle<T,3>&);
+template<typename T> std::vector<point<T,3> > intersection_point(const sphere<T,3>&, const ray<T,3>&);
+
 
 template<typename T> point<T,3>       closest_point_on_ray_from_point(const ray<T,3>&, const point<T,3>&);
 template<typename T> point<T,3>       closest_point_on_line_from_point(const line<T,3>&, const point<T,3>&);
 template<typename T> point<T,3>       closest_point_on_plane_from_point(const plane<T,3>&, const point<T,3>&);
+template<typename T> point<T,3>       closest_point_on_triangle_from_point(const triangle<T,3>&, const point<T,3>&);
 
 
 template<typename T> sphere<T,3>      minimum_bounding_sphere(const triangle<T,3>&);

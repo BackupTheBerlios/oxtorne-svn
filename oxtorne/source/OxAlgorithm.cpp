@@ -5,7 +5,9 @@
 
 namespace oxtorne {
 
-    template<typename T> std::vector<box<T, 3> > subdivide_box(const box<T, 3>& _box, const int& _dim) {
+    template<typename T>
+    std::vector<box<T, 3> >
+    subdivide_box(const box<T, 3>& _box, const int& _dim) {
 
 	// a vector we put the result into
         std::vector<box<T, 3> > results;
@@ -42,7 +44,9 @@ namespace oxtorne {
 	    }
     }
 
-    template<typename T> std::set<typename mesh<T,3>::f_handle> intersecting_triangles (mesh<T,3>& _mesh, octree<T,3>& _tree, const line<T,3>& _line, const T& _radius) {
+    template<typename T>
+    std::set<typename mesh<T,3>::f_handle>
+    intersecting_triangles (mesh<T,3>& _mesh, octree<T,3>& _tree, const line<T,3>& _line, const T& _radius) {
         // build a queue to remember nodes
         typedef octree<T,3>::node node;
         std::queue<node*> _nodes;
@@ -61,6 +65,47 @@ namespace oxtorne {
             // approximation by using more simple types
             sphere<T,3> _sphere = minimum_bounding_sphere(_next->value.first);
             point<T,3> _point_on_line = closest_point_on_line_from_point(_line, _sphere.center);
+
+            // irrevelant faces
+            if (distance(_point_on_line, _sphere.center) > _sphere.radius + _radius)
+                continue;
+        
+            // relevant faces
+            if (_next->leaf()) {
+                _faces.insert(_next->value.second.begin(), _next->value.second.end());
+                continue;
+            }
+
+            // leaf not reached yet
+            for (std::size_t i = 0; i < _next->size(); ++i)
+                _nodes.push(_next->at(i));
+        }
+
+        // done
+        return _faces;
+    }
+
+    template<typename T>
+    std::set<typename mesh<T,3>::f_handle>
+    intersecting_triangles (mesh<T,3>& _mesh, octree<T,3>& _tree, const ray<T,3>& _ray, const T& _radius) {
+        // build a queue to remember nodes
+        typedef octree<T,3>::node node;
+        std::queue<node*> _nodes;
+
+        // start iterating
+        _nodes.push(_tree.root());
+
+        // collect the faces here
+        std::set<mesh<T,3>::f_handle> _faces;
+
+        while(!_nodes.empty()) {
+            // prepare next node
+            node* _next = _nodes.front();
+            _nodes.pop();
+
+            // approximation by using more simple types
+            sphere<T,3> _sphere = minimum_bounding_sphere(_next->value.first);
+            point<T,3> _point_on_line = closest_point_on_ray_from_point(_ray, _sphere.center);
 
             // irrevelant faces
             if (distance(_point_on_line, _sphere.center) > _sphere.radius + _radius)

@@ -192,11 +192,37 @@ vector<T,D> operator*(const vector<T,D>& _vector, const T& _scalar) {
     return _result;
 }
 
+template<typename T, std::size_t D>
+point<T,D>  operator*(const T& _scalar, const point<T,D>& _point) {
+    point<T,D> _result;
+    // compiler loop unroll desired here
+    for (int i = 0; i < D; ++i)
+        _result[i] = _point[i] * _scalar;
+    return _result;
+}
+
+template<typename T, std::size_t D>
+vector<T,D> operator*(const T& _scalar, const vector<T,D>& _vector) {
+    vector<T,D> _result;
+    // compiler loop unroll desired here
+    for (int i = 0; i < D; ++i)
+        _result[i] = _vector[i] * _scalar;
+    return _result;
+}
+
 template<typename T>
 bool
 is_equal(const T& _a, const T& _b) {
     T _d = _a - _b;
     return -T(1E-5) <= _d && _d <= T(1E-5);
+}
+
+template<typename T>
+bool is_beyond(const triangle<T,3>& _triangle, const ray<T,3>& _ray, const T& _radius) {
+    point<T,3> _point = closest_point_on_triangle_from_point(_triangle, _ray.origin);
+    if (distance(_point, _ray.origin) > _radius)
+        return true;
+    return false;
 }
 
 template<typename T>
@@ -359,6 +385,35 @@ point<T,3> intersection_point(const line<T,3>& _line, const triangle<T,3>& _tria
                         _line.a[2] + (_r * _dirz));
 }
 
+template<typename T>
+std::vector<point<T,3> > intersection_point(const sphere<T,3>& _sphere, const ray<T,3>& _ray) {
+    
+    std::vector<point<T,3> > _results;
+
+    vector<T,3> _v = _ray.origin - _sphere.center;
+    T _a = dot_product(_v, _v) - (_sphere.radius * _sphere.radius);
+    T _b = dot_product(_ray.direction, _v) * T(2.0);
+    T _c = dot_product(_ray.direction, _ray.direction);
+
+    T _b2 = _b * _b;
+    T _d = _b2 - (T(4.0) * _a * _c);
+
+    if (_d < T(0.0))
+        return _results;
+
+    if (is_equal(_d, T(0.0))) {
+        _results.push_back(_ray.origin + _ray.direction * (-_b / (T(2.0) * _a)));
+        return _results;
+    }
+
+    T _disc = _b2 - (T(4.0) * _a * _c);
+    T _deno = T(2.0) * _a;
+
+    _results.push_back(_ray.origin + _ray.direction * ((-_b + _disc) / _deno));
+    _results.push_back(_ray.origin + _ray.direction * ((-_b - _disc) / _deno));
+
+    return _results;
+}
 
 template<typename T>
 point<T,3> closest_point_on_ray_from_point(const ray<T,3>& _ray, const point<T,3>& _point) {
@@ -379,7 +434,55 @@ point<T,3> closest_point_on_plane_from_point(const plane<T,3>& _plane, const poi
     return _plane.normal * (_plane.constant - dot_product(_plane.normal, _point));
 }
 
-template<typename T> sphere<T,3> minimum_bounding_sphere(const triangle<T,3>& _triangle) {
+template<typename T>
+point<T,3> closest_point_on_triangle_from_point(const triangle<T,3>& _triangle, const point<T,3>& _point) {
+    vector<T,3> ab = _triangle[1] - _triangle[0];
+    vector<T,3> ac = _triangle[2] - _triangle[0];
+    vector<T,3> bc = _triangle[2] - _triangle[1];
+
+    T snominator   = dot_product(_point - _triangle[0], ab);
+    T sdenominator = dot_product(_point - _triangle[1], _triangle[0] - _triangle[1]);
+
+    T tnominator   = dot_product(_point - _triangle[0], ac);
+    T tdenominator = dot_product(_point - _triangle[2], _triangle[0] - _triangle[2]);
+
+    if (snominator <= T(0.0) && tnominator <= T(0.0))
+       return _triangle[0];
+
+    T unominator   = dot_product(_point - _triangle[1], bc);
+    T udenominator = dot_product(_point - _triangle[2], _triangle[1] - _triangle[2]);
+
+    if ((sdenominator <= T(0.0)) && (unominator <= T(0.0)))
+       return _triangle[1];
+
+    if ((tdenominator <= T(0.0)) && (udenominator <= T(0.0)))
+       return _triangle[2];
+
+    vector<T,3> n = cross_product((_triangle[1] - _triangle[0]), (_triangle[2] - _triangle[0]));
+    
+    T dot_a = dot_product(n, cross_product((_triangle[0] - _point), (_triangle[1] - _point)));
+
+    if ((dot_a <= T(0.0)) && (snominator >= T(0.0)) && (sdenominator >= T(0.0)))
+       return _triangle[0] + ab * (snominator / (snominator + sdenominator));
+
+    T dot_b = dot_product(n,cross_product((_triangle[1] - _point), (_triangle[2] - _point)));
+
+    if (dot_b <= T(0.0) && unominator >= T(0.0) && udenominator >= T(0.0))
+       return _triangle[1] + (bc * (unominator / (unominator + udenominator)));
+
+    T dot_c = dot_product(n, cross_product((_triangle[2] - _point), (_triangle[0] - _point)));
+
+    if ((dot_c <= T(0.0)) && (tnominator >= T(0.0)) && (tdenominator >= T(0.0)))
+        return _triangle[0] + ac * (tnominator / (tnominator + tdenominator));
+
+    T u = dot_b / (dot_b + dot_c + dot_a);
+    T v = dot_c / (dot_b + dot_c + dot_a);
+    T w = T(1.0) - u - v;
+    return (_triangle[0] * u) + (_triangle[1] * v) + (_triangle[2] * w);
+}
+
+template<typename T>
+sphere<T,3> minimum_bounding_sphere(const triangle<T,3>& _triangle) {
 
     point<T,3> A = _triangle[0];
 	point<T,3> B = _triangle[1];
@@ -430,7 +533,8 @@ template<typename T> sphere<T,3> minimum_bounding_sphere(const triangle<T,3>& _t
 	return _sphere;
 }
 
-template<typename T> sphere<T,3> minimum_bounding_sphere(const box<T,3>& _box) {
+template<typename T>
+sphere<T,3> minimum_bounding_sphere(const box<T,3>& _box) {
     sphere<T,3> _sphere;
     _sphere.center = (_box.min + _box.max) * T(0.5);
     _sphere.radius = distance(_sphere.center, _box.max);
