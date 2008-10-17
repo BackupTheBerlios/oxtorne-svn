@@ -88,6 +88,23 @@ wire(const ray<T, 3>& _ray) {
 
 template<typename T>
 GLuint
+wire(const sphere<T,3>& _sphere) {
+	GLuint _reference = glGenLists(1);
+	glNewList(_reference, GL_COMPILE);
+	
+	glColor3f(1.0, 1.0, 1.0);
+	glEnable(GL_LIGHTING);
+    glPushMatrix();
+	glTranslatef(_sphere.center[0], _sphere.center[1], _sphere.center[2]);
+    glutWireSphere(_sphere.radius, 8, 8);
+    glPopMatrix();
+	
+	glEndList();
+	return _reference;
+}
+
+template<typename T>
+GLuint
 solid (mesh<T,3>& _mesh) {
     GLuint _reference = glGenLists(1);
 	glNewList(_reference, GL_COMPILE);
@@ -115,7 +132,7 @@ solid (const point<T,3>& _point) {
 	GLuint _reference = glGenLists(1);
 	glNewList(_reference, GL_COMPILE);
 	
-	glPointSize(50.0);
+	glPointSize(3.0);
 	glColor3f(0.0, 0.0, 1.0);
 	glDisable(GL_LIGHTING);
 	
@@ -140,6 +157,26 @@ solid(const sphere<T,3>& _sphere) {
 	glutSolidSphere(_sphere.radius, 8, 8);
     glPopMatrix();
 	
+	glEndList();
+	return _reference;
+}
+
+template<typename T>
+GLuint
+solid(const triangle<T, 3>& _triangle) {
+    GLuint _reference = glGenLists(1);
+	glNewList(_reference, GL_COMPILE);
+	
+	glLineWidth(1.0);
+	glColor3f(1.0, 0.0, 0.0);
+	glDisable(GL_LIGHTING);
+
+    glBegin(GL_TRIANGLES);
+        glVertex3f(_triangle[0][0], _triangle[0][1], _triangle[0][2]);
+        glVertex3f(_triangle[1][0], _triangle[1][1], _triangle[1][2]);
+        glVertex3f(_triangle[2][0], _triangle[2][1], _triangle[2][2]);
+	glEnd();
+    
 	glEndList();
 	return _reference;
 }

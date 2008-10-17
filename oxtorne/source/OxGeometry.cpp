@@ -220,7 +220,9 @@ is_equal(const T& _a, const T& _b) {
 template<typename T>
 bool is_beyond(const triangle<T,3>& _triangle, const ray<T,3>& _ray, const T& _radius) {
     point<T,3> _point = closest_point_on_triangle_from_point(_triangle, _ray.origin);
-    if (distance(_point, _ray.origin) > _radius)
+    vector<T,3> _d = _point - _ray.origin;
+    T _dot = dot_product(_d, _ray.direction);
+    if (_dot < T(0.0) && distance(_point, _ray.origin) > _radius)
         return true;
     return false;
 }
@@ -390,27 +392,57 @@ std::vector<point<T,3> > intersection_point(const sphere<T,3>& _sphere, const ra
     
     std::vector<point<T,3> > _results;
 
+    /*T _r = _sphere.radius;
     vector<T,3> _v = _ray.origin - _sphere.center;
-    T _a = dot_product(_v, _v) - (_sphere.radius * _sphere.radius);
-    T _b = dot_product(_ray.direction, _v) * T(2.0);
+    T _a = dot_product(_v, _v) - (_r * _r);
+    T _b = dot_product(_v, _ray.direction) * T(2.0);
     T _c = dot_product(_ray.direction, _ray.direction);
 
-    T _b2 = _b * _b;
-    T _d = _b2 - (T(4.0) * _a * _c);
+    T _d = (_b * _b) - (T(4.0) * _a * _c);
 
     if (_d < T(0.0))
         return _results;
 
     if (is_equal(_d, T(0.0))) {
-        _results.push_back(_ray.origin + _ray.direction * (-_b / (T(2.0) * _a)));
+        T _t = -_b / (T(2.0) * _a);
+        _results.push_back(_ray.origin + (_ray.direction * _t));
         return _results;
     }
 
-    T _disc = _b2 - (T(4.0) * _a * _c);
-    T _deno = T(2.0) * _a;
+    T _sqrt = sqrt(_d);
 
-    _results.push_back(_ray.origin + _ray.direction * ((-_b + _disc) / _deno));
-    _results.push_back(_ray.origin + _ray.direction * ((-_b - _disc) / _deno));
+    _results.push_back(_ray.origin + (_ray.direction * ((-_b + _sqrt) / (T(2.0) * _a))));
+    _results.push_back(_ray.origin + (_ray.direction * ((-_b - _sqrt) / (T(2.0) * _a))));
+
+    return _results;*/
+
+    vector<T,3> _v = _ray.origin - _sphere.center;
+    T _d = dot_product(_v, _v) - (_sphere.radius * _sphere.radius);
+
+    if (_d <= T(0.0)) {
+        T _a = dot_product(_ray.direction, _v);
+        T _t = -_a + sqrt((_a * _a) - _d);
+        _results.push_back(_ray.origin + _t * _ray.direction);
+        return _results;
+    }
+
+    T _a = dot_product(_ray.direction, _v);
+    if (_a >= T(0.0)) {
+        return _results;
+    }
+
+    T _det = (_a * _a) - _d;
+    if (_det < T(0.0)) {
+          return _results;
+    } else if (_det >= T(0.0)) {
+        T _root = sqrt(_det);
+        T _t1 = -_a - _root;
+        T _t2 = -_a + _root;
+        _results.push_back(_ray.origin + _t1 * _ray.direction);
+        _results.push_back(_ray.origin + _t2 * _ray.direction);
+    } else {
+        _results.push_back(_ray.origin - _a * _ray.direction);
+    }
 
     return _results;
 }
