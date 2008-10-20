@@ -108,7 +108,9 @@ GLuint
 solid (mesh<T,3>& _mesh) {
     GLuint _reference = glGenLists(1);
 	glNewList(_reference, GL_COMPILE);
-	
+    glEnable(GL_LIGHTING);
+	glColor3f(1.0f, 1.0f, 1.0f);
+
     glBegin(GL_TRIANGLES);
 	for (mesh<T,3>::fiter f_iter = _mesh.faces_begin(); f_iter != _mesh.faces_end(); ++f_iter) {
         mesh<T,3>::f_handle _fhandle = *f_iter;
@@ -122,6 +124,7 @@ solid (mesh<T,3>& _mesh) {
     }
     glEnd();
 	
+    glDisable(GL_LIGHTING);
 	glEndList();
 	return _reference;
 }
@@ -196,6 +199,31 @@ coordinate_system (const T& _size) {
 		glVertex3f(        T(0.0),         T(0.0),         T(0.0));
 		glVertex3f(        T(0.0),         T(0.0), _size * T(1.0));
 	glEnd();
+}
+
+template<typename T>
+GLuint
+mesh_white(mesh<T,3>& _mesh) {
+
+    GLuint _reference = glGenLists(1);
+	glNewList(_reference, GL_COMPILE);
+    glDisable(GL_LIGHTING);
+	// glColor3f(1.0f, 1.0f, 1.0f);
+
+    glBegin(GL_TRIANGLES);
+
+    for (mesh<T,3>::fiter f_iter = _mesh.faces_begin(); f_iter != _mesh.faces_end(); ++f_iter) {
+        mesh<T,3>::f_handle _fhandle = *f_iter;
+        mesh<T,3>::he_handle _he0 = _fhandle->edge;
+        glVertex3f((*_he0->vertex)[0], (*_he0->vertex)[1], (*_he0->vertex)[2]); _he0 = _he0->next;
+        glVertex3f((*_he0->vertex)[0], (*_he0->vertex)[1], (*_he0->vertex)[2]); _he0 = _he0->next;
+        glVertex3f((*_he0->vertex)[0], (*_he0->vertex)[1], (*_he0->vertex)[2]);
+    }
+
+    glEnd();
+	
+	glEndList();
+	return _reference;
 }
 
 };
