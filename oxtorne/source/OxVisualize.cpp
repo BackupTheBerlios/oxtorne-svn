@@ -131,12 +131,13 @@ solid (mesh<T,3>& _mesh) {
 
 template<typename T>
 GLuint
-solid (const point<T,3>& _point) {
+solid (const point<T,3>& _point, const std::size_t& _color) {
 	GLuint _reference = glGenLists(1);
 	glNewList(_reference, GL_COMPILE);
 	
 	glPointSize(3.0);
-	glColor3f(0.0, 0.0, 1.0);
+	glColor3f(color_table[_color][0], color_table[_color][1], color_table[_color][2]);
+
 	glDisable(GL_LIGHTING);
 	
 	glBegin(GL_POINTS);

@@ -148,6 +148,15 @@ template<typename T> triangle<T,3> make_triangle(const T& _x, const T& _y, const
 }
 
 template<typename T, std::size_t D>
+bool operator==(const point<T,D>& _a, const point<T,D>& _b) {
+    // compiler loop unroll desired here
+    for (int i = 0; i < D; ++i)
+        if (_a[i] != _b[i])
+            return false;
+    return true;
+}
+
+template<typename T, std::size_t D>
 point<T,D> operator+(const point<T,D>& _a, const point<T,D>& _b) {
     point<T,D> _point;
     // compiler loop unroll desired here

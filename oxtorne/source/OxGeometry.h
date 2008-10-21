@@ -127,6 +127,7 @@ template<typename T> triangle<T,3>    make_triangle(const point<T,3>&, const poi
 template<typename T> triangle<T,3>    make_triangle(const T&, const T&, const T&, const T&, const T&, const T&, const T&, const T&, const T&);
 
 
+template<typename T, std::size_t D> bool        operator==(const point<T,D>&, const point<T,D>&);
 template<typename T, std::size_t D> point<T,D>  operator+(const point<T,D>&, const point<T,D>&);
 template<typename T, std::size_t D> vector<T,D> operator+(const vector<T,D>&, const vector<T,D>&);
 template<typename T, std::size_t D> vector<T,D> operator-(const point<T,D>&, const point<T,D>&);
