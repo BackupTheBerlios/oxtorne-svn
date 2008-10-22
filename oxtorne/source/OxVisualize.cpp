@@ -50,12 +50,12 @@ wire(const box<T, 3>& _box) {
 
 template<typename T>
 GLuint
-wire(const line<T, 3>& _line) {
+wire(const line<T, 3>& _line, const std::size_t& _color) {
 	GLuint _reference = glGenLists(1);
 	glNewList(_reference, GL_COMPILE);
 	
 	glLineWidth(1.0);
-	glColor3f(1.0, 0.0, 0.0);
+	glColor3f(color_table[_color][0], color_table[_color][1], color_table[_color][2]);
 	glDisable(GL_LIGHTING);
 	
 	glBegin(GL_LINES);
@@ -209,7 +209,7 @@ mesh_white(mesh<T,3>& _mesh) {
     GLuint _reference = glGenLists(1);
 	glNewList(_reference, GL_COMPILE);
     glDisable(GL_LIGHTING);
-	// glColor3f(1.0f, 1.0f, 1.0f);
+	glColor3f(1.0f, 1.0f, 1.0f);
 
     glBegin(GL_TRIANGLES);
 

@@ -26,10 +26,15 @@ public:
     point() { for (std::size_t i = 0; i < D; ++i) value[i] = T(0.0); }
    ~point() {}
 
+    point(const point<T,D>& _other) {
+        for(std::size_t i = 0; i < D; ++i)
+            value[i] = _other.value[i];
+    }
+   
     inline point<T,D>& operator=(const point<T,D>& _other) {
         if (this == &_other)
             return *this;
-        for(std::size_t i = 0; i < D; i++) { value[i] = _other.value[i]; }
+        for(std::size_t i = 0; i < D; ++i) { value[i] = _other.value[i]; }
         return *this;
     }
 
@@ -43,7 +48,13 @@ private:
 
 /* Vector Basetype ************************************************************/
 template<typename T, std::size_t D>
-class vector : public point<T,D> {};
+class vector : public point<T,D> {
+
+public:
+    vector() : point() {}
+    vector(const vector<T,D>& v) : point(v) {}
+
+};
 
 /* Sphere Basetype ************************************************************/
 template<typename T, std::size_t D>

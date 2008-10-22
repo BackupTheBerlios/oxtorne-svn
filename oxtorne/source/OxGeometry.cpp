@@ -472,7 +472,7 @@ point<T,3> closest_point_on_line_from_point(const line<T,3>& _line, const point<
 
 template<typename T>
 point<T,3> closest_point_on_plane_from_point(const plane<T,3>& _plane, const point<T,3>& _point) {
-    return _plane.normal * (_plane.constant - dot_product(_plane.normal, _point));
+    return _point - _plane.normal * (dot_product(_plane.normal, _point) - _plane.constant);
 }
 
 template<typename T>

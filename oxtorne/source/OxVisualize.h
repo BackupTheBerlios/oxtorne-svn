@@ -10,7 +10,7 @@
 namespace oxtorne {
 
     template<typename T> GLuint wire (const box<T,3>&);
-    template<typename T> GLuint wire (const line<T,3>&);
+    template<typename T> GLuint wire (const line<T,3>&, const std::size_t& = 0);
     template<typename T> GLuint wire (const ray<T,3>&);
     template<typename T> GLuint wire (const sphere<T,3>&);
 
