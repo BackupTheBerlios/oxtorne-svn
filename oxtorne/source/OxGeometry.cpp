@@ -140,11 +140,11 @@ triangle<T,3> make_triangle(const point<T,3>& _p0, const point<T,3>& _p1, const 
 }
 
 template<typename T> triangle<T,3> make_triangle(const T& _x, const T& _y, const T& _z, const T& _u, const T& _v, const T& _w, const T& _a, const T& _b, const T& _c) {
-    triangle<T,D> _triangle;
+    triangle<T,3> _triangle;
     _triangle[0] = make_point(_x, _y, _z);
     _triangle[1] = make_point(_u, _v, _w);
     _triangle[2] = make_point(_a, _b, _c);
-    return triangle;
+    return _triangle;
 }
 
 template<typename T, std::size_t D>
@@ -350,6 +350,61 @@ bool intersect(const triangle<T,3>& _triangle, const line<T,3>& _line) {
 	if ((v < 0.0) || ((u + v) > 1.0)) return false;
 
 	return true;
+}
+
+template<typename T>
+bool intersect(const triangle<T,3>& _triangle, const ray<T,3>& _ray) {
+	T edge1_x = _triangle[1][0] - _triangle[0][0];
+	T edge1_y = _triangle[1][1] - _triangle[0][1];
+	T edge1_z = _triangle[1][2] - _triangle[0][2];
+	T edge2_x = _triangle[2][0] - _triangle[0][0];
+	T edge2_y = _triangle[2][1] - _triangle[0][1];
+	T edge2_z = _triangle[2][2] - _triangle[0][2];
+
+	T pvec_x = _ray.direction[1] * edge2_z - _ray.direction[2] * edge2_y;
+	T pvec_y = _ray.direction[2] * edge2_x - _ray.direction[0] * edge2_z;
+	T pvec_z = _ray.direction[0] * edge2_y - _ray.direction[1] * edge2_x;
+
+	T det = edge1_x * pvec_x + edge1_y * pvec_y + edge1_z * pvec_z;
+
+	if (is_equal(det,T(0.0))) return false;
+
+	T inv_det = T(1.0) / det;
+
+	T tvec_x = _ray.origin[0] - _triangle[0][0];
+	T tvec_y = _ray.origin[1] - _triangle[0][1];
+	T tvec_z = _ray.origin[2] - _triangle[0][2];
+
+	T u = (tvec_x * pvec_x + tvec_y * pvec_y + tvec_z * pvec_z) * inv_det;
+
+	if (u < 0.0 || u > 1.0) return false;
+
+	T qvec_x = tvec_y * edge1_z - tvec_z * edge1_y;
+	T qvec_y = tvec_z * edge1_x - tvec_x * edge1_z;
+	T qvec_z = tvec_x * edge1_y - tvec_y * edge1_x;
+
+	T v = ((_ray.direction[0]) * qvec_x +
+	       (_ray.direction[1]) * qvec_y +
+		   (_ray.direction[2]) * qvec_z) * inv_det;
+
+	if ((v < 0.0) || ((u + v) > 1.0)) return false;
+
+    point<float,3> _p =
+        ((u + v) * _triangle[0]) +
+              (u * _triangle[1]) +
+              (v * _triangle[2]);
+
+    if (dot_product(_p - _ray.origin, _ray.direction) < T(0.0))
+        return false;
+
+	return true;
+}
+
+template<typename T> bool intersect(const triangle<T,3>& _triangle, const sphere<T,3>& _sphere) {
+    point<T,3> _point = closest_point_on_triangle_from_point(_triangle, _sphere.center);
+    if (distance(_point, _sphere.center) <= _sphere.radius)
+        return true;
+    return false;
 }
 
 template<typename T>

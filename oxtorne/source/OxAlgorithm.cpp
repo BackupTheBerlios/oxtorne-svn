@@ -113,7 +113,15 @@ namespace oxtorne {
         
             // relevant faces
             if (_next->leaf()) {
-                _faces.insert(_next->value.second.begin(), _next->value.second.end());
+                std::vector<mesh<T,3>::f_handle>::iterator f_iter = _next->value.second.begin();
+                std::vector<mesh<T,3>::f_handle>::iterator f_end  = _next->value.second.end();
+
+                for (; f_iter != f_end; ++f_iter) {
+                    triangle<T,3> _triangle = make_triangle(_mesh, *f_iter);
+                    if (intersect(_triangle, _ray))
+                        _faces.insert(*f_iter);
+                }
+
                 continue;
             }
 
@@ -124,6 +132,71 @@ namespace oxtorne {
 
         // done
         return _faces;
+    }
+
+    template<typename T>
+    std::set<typename mesh<T,3>::f_handle>
+    intersecting_triangles (mesh<T,3>& _mesh, octree<T,3>& _tree, const sphere<T,3>& _sphere) {
+        // build a queue to remember nodes
+        typedef octree<T,3>::node node;
+        std::queue<node*> _nodes;
+
+        // start iterating
+        _nodes.push(_tree.root());
+
+        // collect the faces here
+        std::set<mesh<T,3>::f_handle> _faces;
+
+        while(!_nodes.empty()) {
+            // prepare next node
+            node* _next = _nodes.front();
+            _nodes.pop();
+
+            // approximation by using more simple types
+            sphere<T,3> _s = minimum_bounding_sphere(_next->value.first);
+
+            // irrevelant faces
+            if (distance(_s.center, _sphere.center) > _sphere.radius + _s.radius)
+                continue;
+
+            // relevant faces
+            if (_next->leaf()) {
+                std::vector<mesh<T,3>::f_handle>::iterator f_iter = _next->value.second.begin();
+                std::vector<mesh<T,3>::f_handle>::iterator f_end  = _next->value.second.end();
+
+                for (; f_iter != f_end; ++f_iter) {
+                    triangle<T,3> _triangle = make_triangle(_mesh, *f_iter);
+                    if (intersect(_triangle, _sphere))
+                        _faces.insert(*f_iter);
+                }
+
+                continue;
+            }
+
+            // leaf not reached yet
+            for (std::size_t i = 0; i < _next->size(); ++i)
+                _nodes.push(_next->at(i));
+        }
+
+        // done
+        return _faces;
+    }
+
+    template<typename T>
+    bool
+    point_in_mesh (mesh<T,3>& _mesh, octree<T,3>& _tree, const point<T,3>& _point) {
+        ray<T,3> _ray = make_ray(_point[0], _point[1], _point[2], T(0.0), T(0.0), T(1.0));
+        return (intersecting_triangles(_mesh, _tree, _ray).size() % 2 != 0);
+    }
+
+    template<typename T>
+    bool
+    intersect (mesh<T,3>& _mesh, octree<T,3>& _tree, const sphere<T,3>& _sphere) {
+        // spheres inside the mesh should also be removed
+        // function missing since not yet required
+        if (!intersecting_triangles(_mesh, _tree, _sphere).empty())
+            return true;
+        return false;
     }
 
 };

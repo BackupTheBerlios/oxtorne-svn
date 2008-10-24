@@ -11,12 +11,13 @@ namespace oxtorne {
 
     template<typename T> GLuint wire (const box<T,3>&);
     template<typename T> GLuint wire (const line<T,3>&, const std::size_t& = 0);
-    template<typename T> GLuint wire (const ray<T,3>&);
+    template<typename T> GLuint wire (const ray<T,3>&, const std::size_t& = 0);
     template<typename T> GLuint wire (const sphere<T,3>&);
 
     template<typename T> GLuint solid (mesh<T,3>&);
     template<typename T> GLuint solid (const point<T,3>&, const std::size_t& = 0);
     template<typename T> GLuint solid (const sphere<T,3>&);
+    template<typename T> GLuint solid (const triangle<T,3>&, const std::size_t& = 0);
 
     template<typename T> void   coordinate_system (const T&);
     template<typename T> GLuint mesh_white(mesh<T,3>&);

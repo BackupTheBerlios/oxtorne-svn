@@ -69,12 +69,12 @@ wire(const line<T, 3>& _line, const std::size_t& _color) {
 
 template<typename T>
 GLuint
-wire(const ray<T, 3>& _ray) {
+wire(const ray<T, 3>& _ray, const std::size_t& _color) {
 	GLuint _reference = glGenLists(1);
 	glNewList(_reference, GL_COMPILE);
 	
 	glLineWidth(1.0);
-	glColor3f(0.0, 1.0, 0.0);
+	glColor3f(color_table[_color][0], color_table[_color][1], color_table[_color][2]);
 	glDisable(GL_LIGHTING);
 	
 	glBegin(GL_LINES);
@@ -167,12 +167,12 @@ solid(const sphere<T,3>& _sphere) {
 
 template<typename T>
 GLuint
-solid(const triangle<T, 3>& _triangle) {
+solid(const triangle<T, 3>& _triangle, const std::size_t& _color) {
     GLuint _reference = glGenLists(1);
 	glNewList(_reference, GL_COMPILE);
 	
 	glLineWidth(1.0);
-	glColor3f(1.0, 0.0, 0.0);
+    glColor3f(color_table[_color][0], color_table[_color][1], color_table[_color][2]);
 	glDisable(GL_LIGHTING);
 
     glBegin(GL_TRIANGLES);

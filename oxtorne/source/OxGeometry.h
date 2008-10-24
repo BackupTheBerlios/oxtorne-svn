@@ -169,6 +169,8 @@ template<typename T> bool             intersect(const box<T,3>&, const triangle<
 template<typename T> bool             intersect(const line<T,3>&, const plane<T,3>&);
 template<typename T> bool             intersect(const ray<T,3>&, const plane<T,3>&);
 template<typename T> bool             intersect(const triangle<T,3>&, const line<T,3>&);
+template<typename T> bool             intersect(const triangle<T,3>&, const ray<T,3>&);
+template<typename T> bool             intersect(const triangle<T,3>&, const sphere<T,3>&);
 
 
 template<typename T> point<T,3>               intersection_point(const line<T,3>&, const plane<T,3>&);
