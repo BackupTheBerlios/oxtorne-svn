@@ -20,7 +20,10 @@ namespace oxtorne {
     template<typename T> GLuint solid (const triangle<T,3>&, const std::size_t& = 0);
 
     template<typename T> void   coordinate_system (const T&);
-    template<typename T> GLuint mesh_white(mesh<T,3>&);
+    template<typename T> void   box_white_nolist (const box<T,3>&);
+    
+    template<typename T> GLuint mesh_white (mesh<T,3>&);
+    template<typename T> GLuint box_white (const box<T,3>&);
 
 };
 

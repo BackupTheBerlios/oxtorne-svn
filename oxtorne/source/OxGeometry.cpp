@@ -104,9 +104,9 @@ box<T,3> make_box(const T& _ax, const T& _ay, const T& _az, const T& _bx, const 
     _box.min[0] = std::min(_ax, _bx);
     _box.min[1] = std::min(_ay, _by);
     _box.min[2] = std::min(_az, _bz);
-    _box.max[0] = std::min(_ax, _bx);
-    _box.max[1] = std::min(_ay, _by);
-    _box.max[2] = std::min(_az, _bz);
+    _box.max[0] = std::max(_ax, _bx);
+    _box.max[1] = std::max(_ay, _by);
+    _box.max[2] = std::max(_az, _bz);
     return _box;
 }
 

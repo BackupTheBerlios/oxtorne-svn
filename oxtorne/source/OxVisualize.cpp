@@ -203,6 +203,47 @@ coordinate_system (const T& _size) {
 }
 
 template<typename T>
+void
+box_white_nolist (const box<T,3>& _box) {
+    T _lx = min(_box.min[0], _box.max[0]);
+    T _ly = min(_box.min[1], _box.max[1]);
+    T _lz = min(_box.min[2], _box.max[2]);
+    T _ux = max(_box.min[0], _box.max[0]);
+    T _uy = max(_box.min[1], _box.max[1]);
+    T _uz = max(_box.min[2], _box.max[2]);
+    
+    glDisable(GL_LIGHTING);
+    glColor3f(1.0f, 0.0f, 1.0f);
+
+    glBegin(GL_QUAD_STRIP);
+        // the quadstrip
+        glVertex3f(_lx, _ly, _lz);
+        glVertex3f(_ux, _ly, _lz);
+        glVertex3f(_lx, _uy, _lz);
+        glVertex3f(_ux, _uy, _lz);
+        glVertex3f(_lx, _uy, _uz);
+        glVertex3f(_ux, _uy, _uz);
+        glVertex3f(_lx, _ly, _uz);
+        glVertex3f(_ux, _ly, _uz);
+        glVertex3f(_lx, _ly, _lz);
+        glVertex3f(_ux, _ly, _lz);
+    glEnd();
+    
+    glBegin(GL_QUADS);
+        // the missing quads
+        glVertex3f(_lx, _ly, _lz);
+        glVertex3f(_lx, _uy, _lz);
+        glVertex3f(_lx, _uy, _uz);
+        glVertex3f(_lx, _ly, _uz);
+        
+        glVertex3f(_ux, _ly, _lz);
+        glVertex3f(_ux, _uy, _lz);
+        glVertex3f(_ux, _uy, _uz);
+        glVertex3f(_ux, _ly, _uz);
+    glEnd();
+}
+
+template<typename T>
 GLuint
 mesh_white(mesh<T,3>& _mesh) {
 
@@ -223,6 +264,18 @@ mesh_white(mesh<T,3>& _mesh) {
 
     glEnd();
 	
+	glEndList();
+	return _reference;
+}
+
+template<typename T>
+GLuint
+box_white (const box<T,3>& _box) {
+    GLuint _reference = glGenLists(1);
+	glNewList(_reference, GL_COMPILE);
+    
+    box_white_nolist(_box);
+
 	glEndList();
 	return _reference;
 }
