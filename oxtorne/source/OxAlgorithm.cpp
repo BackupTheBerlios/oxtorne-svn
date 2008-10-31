@@ -161,15 +161,7 @@ namespace oxtorne {
 
             // relevant faces
             if (_next->leaf()) {
-                std::vector<mesh<T,3>::f_handle>::iterator f_iter = _next->value.second.begin();
-                std::vector<mesh<T,3>::f_handle>::iterator f_end  = _next->value.second.end();
-
-                for (; f_iter != f_end; ++f_iter) {
-                    triangle<T,3> _triangle = make_triangle(_mesh, *f_iter);
-                    if (intersect(_triangle, _sphere))
-                        _faces.insert(*f_iter);
-                }
-
+                _faces.insert(_next->value.second.begin(), _next->value.second.end());
                 continue;
             }
 
