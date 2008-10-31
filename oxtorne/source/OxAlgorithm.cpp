@@ -113,15 +113,7 @@ namespace oxtorne {
         
             // relevant faces
             if (_next->leaf()) {
-                std::vector<mesh<T,3>::f_handle>::iterator f_iter = _next->value.second.begin();
-                std::vector<mesh<T,3>::f_handle>::iterator f_end  = _next->value.second.end();
-
-                for (; f_iter != f_end; ++f_iter) {
-                    triangle<T,3> _triangle = make_triangle(_mesh, *f_iter);
-                    if (intersect(_triangle, _ray))
-                        _faces.insert(*f_iter);
-                }
-
+                _faces.insert(_next->value.second.begin(), _next->value.second.end());
                 continue;
             }
 
@@ -184,10 +176,41 @@ namespace oxtorne {
     template<typename T>
     bool
     intersect (mesh<T,3>& _mesh, octree<T,3>& _tree, const sphere<T,3>& _sphere) {
-        // spheres inside the mesh should also be removed
-        // function missing since not yet required
-        if (!intersecting_triangles(_mesh, _tree, _sphere).empty())
-            return true;
+        // build a queue to remember nodes
+        typedef octree<T,3>::node node;
+        std::queue<node*> _nodes;
+
+        // start iterating
+        _nodes.push(_tree.root());
+
+        while(!_nodes.empty()) {
+            // prepare next node
+            node* _next = _nodes.front();
+            _nodes.pop();
+
+            // approximation by using more simple types
+            sphere<T,3> _s = minimum_bounding_sphere(_next->value.first);
+
+            // irrevelant faces
+            if (distance(_s.center, _sphere.center) > _sphere.radius + _s.radius)
+                continue;
+
+            // relevant faces
+            if (_next->leaf()) {
+                std::vector<mesh<T,3>::f_handle>::iterator f_iter = _next->value.second.begin();
+
+                for (; f_iter != _next->value.second.end(); ++f_iter)
+                    if (intersect(make_triangle(_mesh, *f_iter), _sphere))
+                        return true;
+                continue;
+            }
+
+            // leaf not reached yet
+            for (std::size_t i = 0; i < _next->size(); ++i)
+                _nodes.push(_next->at(i));
+        }
+
+        // done
         return false;
     }
 
