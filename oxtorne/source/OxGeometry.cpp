@@ -298,7 +298,12 @@ bool intersect(const box<T,3>& _box, const triangle<T,3>& _triangle) {
     if (point_in_box(_box, _p1)) return true;
     if (point_in_box(_box, _p2)) return true;
     
-    // TODO eine etwas umfangreiche ueberprüfung!
+    point<float,3> _center = (_box.min + _box.max) * T(0.5);
+    point<float,3> _point = closest_point_on_triangle_from_point(_triangle, _center);
+
+    if (distance(_center, _point) <= distance (_center, _box.min))
+        return true;
+
     return false;
 }
 
