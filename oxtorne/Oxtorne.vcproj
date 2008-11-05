@@ -183,10 +183,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\source\OxMath.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\source\OxMesh.cpp"
 				>
 			</File>
@@ -206,6 +202,10 @@
 			>
 			<File
 				RelativePath=".\source\OxAlgorithm.h"
+				>
+			</File>
+			<File
+				RelativePath=".\source\OxConsole.h"
 				>
 			</File>
 			<File

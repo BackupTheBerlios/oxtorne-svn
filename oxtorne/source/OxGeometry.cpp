@@ -461,30 +461,6 @@ std::vector<point<T,3> > intersection_point(const sphere<T,3>& _sphere, const ra
     
     std::vector<point<T,3> > _results;
 
-    /*T _r = _sphere.radius;
-    vector<T,3> _v = _ray.origin - _sphere.center;
-    T _a = dot_product(_v, _v) - (_r * _r);
-    T _b = dot_product(_v, _ray.direction) * T(2.0);
-    T _c = dot_product(_ray.direction, _ray.direction);
-
-    T _d = (_b * _b) - (T(4.0) * _a * _c);
-
-    if (_d < T(0.0))
-        return _results;
-
-    if (is_equal(_d, T(0.0))) {
-        T _t = -_b / (T(2.0) * _a);
-        _results.push_back(_ray.origin + (_ray.direction * _t));
-        return _results;
-    }
-
-    T _sqrt = sqrt(_d);
-
-    _results.push_back(_ray.origin + (_ray.direction * ((-_b + _sqrt) / (T(2.0) * _a))));
-    _results.push_back(_ray.origin + (_ray.direction * ((-_b - _sqrt) / (T(2.0) * _a))));
-
-    return _results;*/
-
     vector<T,3> _v = _ray.origin - _sphere.center;
     T _d = dot_product(_v, _v) - (_sphere.radius * _sphere.radius);
 
