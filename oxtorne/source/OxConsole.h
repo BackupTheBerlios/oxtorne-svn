@@ -4,31 +4,26 @@
 
 #include "OxGeometry.h"
 
+#include <iostream>
+#include <iomanip>
+
 namespace oxtorne {
 
     template<typename T, std::size_t D>
     inline std::ostream& operator<<(std::ostream& os, const point<T,D>& _p) {
-        os << std::scientific
-           << std::showpoint
-           << std::setprecision(4)
-           << "(";
+        os << "(";
         for (std::size_t i = 0; i < D; ++i)
-            os << _p[i] << (i == D - 1 ? "" : ",");
+            os << std::showpoint << _p[i] << (i == D - 1 ? "" : ",");
         os << ")";
         return os;
     }
 
     template<typename T, std::size_t D>
     inline std::ostream& operator<<(std::ostream& os, const sphere<T,D>& _s) {
-        os << std::scientific
-           << std::showpoint
-           << std::setprecision(4)
-           << "(";
+        os << "(";
         for (std::size_t i = 0; i < D; ++i)
-            os << _s[i] << ",";
-        os << "radius:"
-           << _s.radius
-           << ")";
+            os << std::showpoint << _s[i] << ",";
+        os << "radius:" << std::showpoint << _s.radius << ")";
         return os;
     }
 
@@ -41,15 +36,10 @@ namespace oxtorne {
 
     template<typename T, std::size_t D>
     inline std::ostream& operator<<(std::ostream& os, const plane<T,D>& _p) {
-        os << std::scientific
-           << std::showpoint
-           << std::setprecision(4)
-           << "(";
+        os << "(";
         for (std::size_t i = 0; i < D; ++i)
-            os << _p[i] << ",";
-        os << "constant:"
-           << _p.constant
-           << ")";
+            os << std::showpoint << _p[i] << ",";
+        os << "constant:" << std::showpoint << _p.constant << ")";
         return os;
     }
 
