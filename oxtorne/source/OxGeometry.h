@@ -122,7 +122,9 @@ public:
 };
 
 /* Operations *****************************************************************/
+template<typename T> point<T,2>       make_point(const T&, const T&);
 template<typename T> point<T,3>       make_point(const T&, const T&, const T&);
+template<typename T> vector<T,2>      make_vector(const T&, const T&);
 template<typename T> vector<T,3>      make_vector(const T&, const T&, const T&);
 template<typename T> sphere<T,3>      make_sphere(const T&, const T&, const T&, const T&);
 template<typename T> sphere<T,3>      make_sphere(const point<T,3>&, const T&);
@@ -130,6 +132,8 @@ template<typename T> ray<T,3>         make_ray(const T&, const T&, const T&, con
 template<typename T> ray<T,3>         make_ray(const point<T,3>&, const vector<T,3>&);
 template<typename T> plane<T,3>       make_plane(const point<T,3>&, const point<T,3>&, const point<T,3>&);
 template<typename T> plane<T,3>       make_plane(const point<T,3>&, const vector<T,3>&);
+template<typename T> box<T,2>         make_box(const point<T,2>&, const point<T,2>&);
+template<typename T> box<T,2>         make_box(const T&, const T&, const T&, const T&);
 template<typename T> box<T,3>         make_box(const point<T,3>&, const point<T,3>&);
 template<typename T> box<T,3>         make_box(const T&, const T&, const T&, const T&, const T&, const T&);
 template<typename T> line<T,3>        make_line(const point<T,3>&, const point<T,3>&);
@@ -147,6 +151,7 @@ template<typename T, std::size_t D> vector<T,D> operator*(const vector<T,D>&, co
 template<typename T, std::size_t D> point<T,D>  operator*(const T&, const point<T,D>&);
 template<typename T, std::size_t D> vector<T,D> operator*(const T&, const vector<T,D>&);
 
+template<typename T, std::size_t D> bool box_in_box(const box<T,D>&, const box<T,D>&);
 
 template<typename T> bool             is_equal(const T&, const T&);
 
@@ -161,6 +166,7 @@ template<typename T> vector<T,3>      cross_product(const vector<T,3>&, const ve
 template<typename T> T                dot_product(const point<T,3>&, const point<T,3>&);
 
 
+template<typename T> bool             point_in_box(const box<T,2>&, const point<T,2>&);
 template<typename T> bool             point_in_box(const box<T,3>&, const point<T,3>&);
 template<typename T> bool             point_in_box(const box<T,3>&, const T&, const T&, const T&);
 

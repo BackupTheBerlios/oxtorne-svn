@@ -9,12 +9,28 @@
 namespace oxtorne {
 
 template<typename T>
+point<T,2> make_point(const T& _x, const T& _y) {
+    point<T,2> _point;
+    _point[0] = _x;
+    _point[1] = _y;
+    return _point;
+}
+
+template<typename T>
 point<T,3> make_point(const T& _x, const T& _y, const T& _z) {
     point<T,3> _point;
     _point[0] = _x;
     _point[1] = _y;
     _point[2] = _z;
     return _point;
+}
+
+template<typename T>
+vector<T,2> make_vector(const T& _x, const T& _y) {
+    vector<T,2> _vector;
+    _vector[0] = _x;
+    _vector[1] = _y;
+    return _vector;
 }
 
 template<typename T>
@@ -87,6 +103,24 @@ plane<T,3> make_plane(const point<T,3>& _point, const vector<T,3>& _vector) {
 }
 
 template<typename T>
+box<T,2> make_box(const point<T,2>& _a, const point<T,2>& _b) {
+    box<T,2> _box;
+    _box.min = _a;
+    _box.max = _b;
+    return _box;
+}
+
+template<typename T>
+box<T,2> make_box(const T& _a, const T& _b, const T& _x, const T& _y) {
+    box<T,2> _box;
+    _box.min[0] = _a;
+    _box.min[1] = _b;
+    _box.max[0] = _x;
+    _box.max[1] = _y;
+    return _box;
+}
+
+template<typename T>
 box<T,3> make_box(const point<T,3>& _a, const point<T,3>& _b) {
     box<T,3> _box;
     _box.min[0] = std::min(_a[0], _b[0]);
@@ -101,12 +135,12 @@ box<T,3> make_box(const point<T,3>& _a, const point<T,3>& _b) {
 template<typename T>
 box<T,3> make_box(const T& _ax, const T& _ay, const T& _az, const T& _bx, const T& _by, const T& _bz) {
     box<T,3> _box;
-    _box.min[0] = std::min(_ax, _bx);
-    _box.min[1] = std::min(_ay, _by);
-    _box.min[2] = std::min(_az, _bz);
-    _box.max[0] = std::max(_ax, _bx);
-    _box.max[1] = std::max(_ay, _by);
-    _box.max[2] = std::max(_az, _bz);
+    _box.min[0] = _ax < _bx ? _ax : _bx;
+    _box.min[1] = _ay < _by ? _ay : _by;
+    _box.min[2] = _az < _bz ? _az : _bz;
+    _box.max[0] = _ax > _bx ? _ax : _bx;
+    _box.max[1] = _ay > _by ? _ay : _by;
+    _box.max[2] = _az > _bz ? _az : _bz;
     return _box;
 }
 
@@ -219,6 +253,11 @@ vector<T,D> operator*(const T& _scalar, const vector<T,D>& _vector) {
     return _result;
 }
 
+template<typename T, std::size_t D>
+bool box_in_box(const box<T,D>& _outer, const box<T,D>& _inner) {
+    return point_in_box(_outer, _inner.min) && point_in_box(_outer, _inner.max);
+}
+
 template<typename T>
 bool
 is_equal(const T& _a, const T& _b) {
@@ -273,7 +312,13 @@ template<typename T>
 T dot_product(const point<T,3>& _a, const point<T,3>& _b) {
     return _a[0] * _b[0] + _a[1] * _b[1] + _a[2] * _b[2];
 }
-   
+
+template<typename T>
+bool point_in_box(const box<T,2>& _box, const point<T,2>& _point) {
+    return (_box.min[0] <= _point[0]) && (_box.max[0] >= _point[0]) &&
+           (_box.min[1] <= _point[1]) && (_box.max[1] >= _point[1]);
+}
+
 template<typename T>
 bool point_in_box(const box<T,3>& _box, const point<T,3>& _point) {
     return (_box.min[0] <= _point[0]) && (_box.max[0] >= _point[0]) &&

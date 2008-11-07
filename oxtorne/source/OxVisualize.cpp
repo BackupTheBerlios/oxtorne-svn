@@ -7,6 +7,14 @@ namespace oxtorne{
 
 template<typename T>
 GLuint
+wire(const box<T, 2>& _box) {
+    return wire(make_box(
+        _box.min[0], _box.min[1], T(0.0),
+        _box.max[0], _box.max[1], T(0.0)));
+}
+
+template<typename T>
+GLuint
 wire(const box<T, 3>& _box) {
 	GLuint _reference = glGenLists(1);
 	glNewList(_reference, GL_COMPILE);
