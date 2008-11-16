@@ -7,14 +7,6 @@ namespace oxtorne{
 
 template<typename T>
 GLuint
-wire(const box<T, 2>& _box) {
-    return wire(make_box(
-        _box.min[0], _box.min[1], T(0.0),
-        _box.max[0], _box.max[1], T(0.0)));
-}
-
-template<typename T>
-GLuint
 wire(const box<T, 3>& _box) {
 	GLuint _reference = glGenLists(1);
 	glNewList(_reference, GL_COMPILE);
@@ -120,12 +112,12 @@ solid (mesh<T,3>& _mesh) {
 	glColor3f(1.0f, 1.0f, 1.0f);
 
     glBegin(GL_TRIANGLES);
-	for (mesh<T,3>::fiter f_iter = _mesh.faces_begin(); f_iter != _mesh.faces_end(); ++f_iter) {
-        mesh<T,3>::f_handle _fhandle = *f_iter;
+	for (typename mesh<T,3>::fiter f_iter = _mesh.faces_begin(); f_iter != _mesh.faces_end(); ++f_iter) {
+        typename mesh<T,3>::f_handle _fhandle = *f_iter;
         oxtorne::vector<float,3> _v = _mesh.face_normal(_fhandle);
         glNormal3fv(&_v[0]);
 
-        mesh<T,3>::he_handle _he0 = _fhandle->edge;
+        typename mesh<T,3>::he_handle _he0 = _fhandle->edge;
         glVertex3f((*_he0->vertex)[0], (*_he0->vertex)[1], (*_he0->vertex)[2]); _he0 = _he0->next;
         glVertex3f((*_he0->vertex)[0], (*_he0->vertex)[1], (*_he0->vertex)[2]); _he0 = _he0->next;
         glVertex3f((*_he0->vertex)[0], (*_he0->vertex)[1], (*_he0->vertex)[2]);
@@ -262,9 +254,9 @@ mesh_white(mesh<T,3>& _mesh) {
 
     glBegin(GL_TRIANGLES);
 
-    for (mesh<T,3>::fiter f_iter = _mesh.faces_begin(); f_iter != _mesh.faces_end(); ++f_iter) {
-        mesh<T,3>::f_handle _fhandle = *f_iter;
-        mesh<T,3>::he_handle _he0 = _fhandle->edge;
+    for (typename mesh<T,3>::fiter f_iter = _mesh.faces_begin(); f_iter != _mesh.faces_end(); ++f_iter) {
+        typename mesh<T,3>::f_handle _fhandle = *f_iter;
+        typename mesh<T,3>::he_handle _he0 = _fhandle->edge;
         glVertex3f((*_he0->vertex)[0], (*_he0->vertex)[1], (*_he0->vertex)[2]); _he0 = _he0->next;
         glVertex3f((*_he0->vertex)[0], (*_he0->vertex)[1], (*_he0->vertex)[2]); _he0 = _he0->next;
         glVertex3f((*_he0->vertex)[0], (*_he0->vertex)[1], (*_he0->vertex)[2]);

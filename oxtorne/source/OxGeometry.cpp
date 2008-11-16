@@ -9,28 +9,12 @@
 namespace oxtorne {
 
 template<typename T>
-point<T,2> make_point(const T& _x, const T& _y) {
-    point<T,2> _point;
-    _point[0] = _x;
-    _point[1] = _y;
-    return _point;
-}
-
-template<typename T>
 point<T,3> make_point(const T& _x, const T& _y, const T& _z) {
     point<T,3> _point;
     _point[0] = _x;
     _point[1] = _y;
     _point[2] = _z;
     return _point;
-}
-
-template<typename T>
-vector<T,2> make_vector(const T& _x, const T& _y) {
-    vector<T,2> _vector;
-    _vector[0] = _x;
-    _vector[1] = _y;
-    return _vector;
 }
 
 template<typename T>
@@ -103,24 +87,6 @@ plane<T,3> make_plane(const point<T,3>& _point, const vector<T,3>& _vector) {
 }
 
 template<typename T>
-box<T,2> make_box(const point<T,2>& _a, const point<T,2>& _b) {
-    box<T,2> _box;
-    _box.min = _a;
-    _box.max = _b;
-    return _box;
-}
-
-template<typename T>
-box<T,2> make_box(const T& _a, const T& _b, const T& _x, const T& _y) {
-    box<T,2> _box;
-    _box.min[0] = _a;
-    _box.min[1] = _b;
-    _box.max[0] = _x;
-    _box.max[1] = _y;
-    return _box;
-}
-
-template<typename T>
 box<T,3> make_box(const point<T,3>& _a, const point<T,3>& _b) {
     box<T,3> _box;
     _box.min[0] = std::min(_a[0], _b[0]);
@@ -135,12 +101,12 @@ box<T,3> make_box(const point<T,3>& _a, const point<T,3>& _b) {
 template<typename T>
 box<T,3> make_box(const T& _ax, const T& _ay, const T& _az, const T& _bx, const T& _by, const T& _bz) {
     box<T,3> _box;
-    _box.min[0] = _ax < _bx ? _ax : _bx;
-    _box.min[1] = _ay < _by ? _ay : _by;
-    _box.min[2] = _az < _bz ? _az : _bz;
-    _box.max[0] = _ax > _bx ? _ax : _bx;
-    _box.max[1] = _ay > _by ? _ay : _by;
-    _box.max[2] = _az > _bz ? _az : _bz;
+    _box.min[0] = std::min(_ax, _bx);
+    _box.min[1] = std::min(_ay, _by);
+    _box.min[2] = std::min(_az, _bz);
+    _box.max[0] = std::max(_ax, _bx);
+    _box.max[1] = std::max(_ay, _by);
+    _box.max[2] = std::max(_az, _bz);
     return _box;
 }
 
@@ -253,26 +219,25 @@ vector<T,D> operator*(const T& _scalar, const vector<T,D>& _vector) {
     return _result;
 }
 
-template<typename T, std::size_t D>
-bool box_in_box(const box<T,D>& _outer, const box<T,D>& _inner) {
-    return point_in_box(_outer, _inner.min) && point_in_box(_outer, _inner.max);
-}
-
 template<typename T>
 bool
 is_equal(const T& _a, const T& _b) {
     T _d = _a - _b;
-    return -T(1E-5) <= _d && _d <= T(1E-5);
+    return -T(Epsilon) <= _d && _d <= T(Epsilon);
 }
 
 template<typename T>
-bool is_beyond(const triangle<T,3>& _triangle, const ray<T,3>& _ray, const T& _radius) {
-    point<T,3> _point = closest_point_on_triangle_from_point(_triangle, _ray.origin);
-    vector<T,3> _d = _point - _ray.origin;
-    T _dot = dot_product(_d, _ray.direction);
-    if (_dot < T(0.0) && distance(_point, _ray.origin) > _radius)
-        return true;
-    return false;
+bool
+is_equal_or_smaller(const T& _a, const T& _b) {
+    T _d = _a - _b;
+    return (-T(Epsilon) <= _d && _d <= T(Epsilon)) || (_a < _b);
+}
+
+template<typename T>
+bool
+is_equal_or_greater(const T& _a, const T& _b) {
+    T _d = _a - _b;
+    return (-T(Epsilon) <= _d && _d <= T(Epsilon)) || (_a > _b);
 }
 
 template<typename T>
@@ -312,13 +277,7 @@ template<typename T>
 T dot_product(const point<T,3>& _a, const point<T,3>& _b) {
     return _a[0] * _b[0] + _a[1] * _b[1] + _a[2] * _b[2];
 }
-
-template<typename T>
-bool point_in_box(const box<T,2>& _box, const point<T,2>& _point) {
-    return (_box.min[0] <= _point[0]) && (_box.max[0] >= _point[0]) &&
-           (_box.min[1] <= _point[1]) && (_box.max[1] >= _point[1]);
-}
-
+   
 template<typename T>
 bool point_in_box(const box<T,3>& _box, const point<T,3>& _point) {
     return (_box.min[0] <= _point[0]) && (_box.max[0] >= _point[0]) &&
@@ -502,39 +461,47 @@ point<T,3> intersection_point(const line<T,3>& _line, const triangle<T,3>& _tria
 }
 
 template<typename T>
-std::vector<point<T,3> > intersection_point(const sphere<T,3>& _sphere, const ray<T,3>& _ray) {
+void intersection_point(const sphere<T,3>& _sphere, const ray<T,3>& _ray, point<T,3>*& _intersections, uint& _nintersections) {
     
-    std::vector<point<T,3> > _results;
-
     vector<T,3> _v = _ray.origin - _sphere.center;
+    
     T _d = dot_product(_v, _v) - (_sphere.radius * _sphere.radius);
 
     if (_d <= T(0.0)) {
         T _a = dot_product(_ray.direction, _v);
         T _t = -_a + sqrt((_a * _a) - _d);
-        _results.push_back(_ray.origin + _t * _ray.direction);
-        return _results;
+        
+        _intersections = (point<T,3>*) malloc( sizeof(point<T,3>) );
+        _intersections[0] = _ray.origin + _t * _ray.direction;
+        _nintersections = 1;
+        return;
     }
 
     T _a = dot_product(_ray.direction, _v);
     if (_a >= T(0.0)) {
-        return _results;
+        _nintersections = 0;
+        return;
     }
 
     T _det = (_a * _a) - _d;
     if (_det < T(0.0)) {
-          return _results;
+        _nintersections = 0;
+        return;
     } else if (_det >= T(0.0)) {
         T _root = sqrt(_det);
         T _t1 = -_a - _root;
         T _t2 = -_a + _root;
-        _results.push_back(_ray.origin + _t1 * _ray.direction);
-        _results.push_back(_ray.origin + _t2 * _ray.direction);
+        _intersections = (point<T,3>*) malloc( 2 * sizeof(point<T,3>) );
+        _intersections[0] = _ray.origin + _t1 * _ray.direction;
+        _intersections[1] = _ray.origin + _t2 * _ray.direction;
+        _nintersections = 2;
+        return;
     } else {
-        _results.push_back(_ray.origin - _a * _ray.direction);
+        _intersections = (point<T,3>*) malloc( sizeof(point<T,3>) );
+        _intersections[0] = _ray.origin - _a * _ray.direction;
+        _nintersections = 1;
+        return;
     }
-
-    return _results;
 }
 
 template<typename T>
