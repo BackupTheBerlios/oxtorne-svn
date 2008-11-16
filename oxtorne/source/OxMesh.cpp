@@ -27,35 +27,35 @@ namespace oxtorne {
     template<typename T, std::size_t D>
     typename mesh<T,D>::vertex&
     mesh<T,D>::vviter::operator* () const {
-        return *_current;
+        return *this->_current;
     }
 
     // vv_iter -> operator
     template<typename T, std::size_t D>
     typename mesh<T,D>::vertex*
     mesh<T,D>::vviter::operator->() const {
-        return &*_current;
+        return &*this->_current;
     }
     
     // vv_iter == operator
     template<typename T, std::size_t D>
     bool
     mesh<T,D>::vviter::operator==(const vviter& _other) const {
-        return _current == _other._current;
+        return this->_current == _other._current;
     }
 
     // vv_iter != operator
     template<typename T, std::size_t D>
     bool
     mesh<T,D>::vviter::operator!=(const vviter& _other) const {
-        return _current != _other.current;
+        return this->_current != _other.current;
     }
 
     // vv_iter ++ operator (post)
     template<typename T, std::size_t D>
     typename mesh<T,D>::vviter&
     mesh<T,D>::vviter::operator++() {
-        ++_current;
+        ++this->_current;
         return *this;
     }
 
@@ -63,21 +63,21 @@ namespace oxtorne {
     template<typename T, std::size_t D>
     typename mesh<T,D>::vviter
     mesh<T,D>::vviter::operator++(const int) {
-        vvhandle _previous = *this;
+        typename mesh<T,D>::vvhandle _previous = *this;
         (*this)++;
         return _previous;
     }
 
     template<typename T, std::size_t D>
-    mesh<T,D>::fviter::fviter(halfedge* _he) {
-        current = _he;
-        base = _he;
+    mesh<T,D>::fviter::fviter(const face* _face) {
+        this->current = _face->edge;
+        this->base = _face->edge;
     }
 
     template<typename T, std::size_t D>
-    mesh<T,D>::fviter::fviter(fviter& _iter) {
-        current = _iter.current;
-        base = _iter.base;
+    mesh<T,D>::fviter::fviter(const fviter& _iter) {
+        this->current = _iter.current;
+        this->base = _iter.base;
     }
 
     // fv_iter * operator
@@ -98,14 +98,14 @@ namespace oxtorne {
     template<typename T, std::size_t D>
     bool
     mesh<T,D>::fviter::operator==(const fviter& _fviter) const {
-        current == _fviter->current;
+        return current == _fviter->current;
     }
     
     // fv_iter != operator
     template<typename T, std::size_t D>
     bool
-    mesh<T,D>::fviter::operator!=(const fviter&) const {
-        current != _fvite->current;
+    mesh<T,D>::fviter::operator!=(const fviter& _fviter) const {
+        return current != _fviter->current;
     }
 
     // fv_iter ++ operator (post)
@@ -182,7 +182,7 @@ namespace oxtorne {
     // mesh add_face function
     template<typename T, std::size_t D>
     typename mesh<T,D>::f_handle
-    mesh<T,D>::add_face (const point<T,D>& _p0, const point<T,D>& _p1, const point<T,D>& _2) {
+    mesh<T,D>::add_face (const point<T,D>& _p0, const point<T,D>& _p1, const point<T,D>& _p2) {
         
         // create new vertices on the heap
         v_handle _vh0 = add_vertex(_p0);
@@ -195,7 +195,7 @@ namespace oxtorne {
         assert(_vh2 != NULL);
 
         // construct a face from the vertices
-        return add_face(_v0, _v1, _v2);
+        return add_face(_vh0, _vh1, _vh2);
     }
 
     // mesh find_edge_from_to function
@@ -238,7 +238,7 @@ namespace oxtorne {
 
     // mesh face_normal function
     template<typename T, std::size_t D>
-    typename vector<T,3>
+    vector<T,3>
     mesh<T,D>::face_normal (const f_handle& _face) {
         
         // get the handles
@@ -247,8 +247,8 @@ namespace oxtorne {
         he_handle _he2 = _he1->next;
         
         // sides of the face
-        typename vector<T,D> _v = *_he0->vertex - *_he1->vertex;
-        typename vector<T,D> _w = *_he0->vertex - *_he2->vertex;
+        vector<T,D> _v = *_he0->vertex - *_he1->vertex;
+        vector<T,D> _w = *_he0->vertex - *_he2->vertex;
 
         // checks (cross product defined in 3D)
         assert(D == 3);
@@ -272,7 +272,7 @@ namespace oxtorne {
     template<typename T, std::size_t D>
     typename mesh<T,D>::fviter
     mesh<T,D>::face_vertex_begin(const f_handle& _fh) {
-        return fviter(_fh->edge);
+        return fviter(_fh);
     }
 
     template<typename T, std::size_t D>
@@ -288,17 +288,8 @@ namespace oxtorne {
         // do the normal vector check
         bool _incorrect_normals = false;
 
-        // create something to associate points with pointers
-        struct comparator {
-            const bool operator()(const point<T,3>& _p, const point<T,3>& _q) const {
-                for (int i = 0; i < 3; ++i)
-                    if (_p[i] != _q[i]) return _p[i] < _q[i];
-                return false;
-            }
-        };
-        
         // the map to map points to pointers
-        std::map<point<T,3>, mesh<T,3>::v_handle, comparator> _map;
+        std::map<point<T,3>, typename mesh<T,3>::v_handle, comparator<T> > _map;
 
         // and finally map the points to the pointers
         for (std::size_t i = 0; i < _points.size(); ++i) {
@@ -310,12 +301,12 @@ namespace oxtorne {
         // add all points to the mesh
         while (!_points.empty()) {
 
-            mesh<T,3>::v_handle _vh0 = _map[_points.back()]; _points.pop_back();
-            mesh<T,3>::v_handle _vh1 = _map[_points.back()]; _points.pop_back();
-            mesh<T,3>::v_handle _vh2 = _map[_points.back()]; _points.pop_back();
+            typename mesh<T,3>::v_handle _vh0 = _map[_points.back()]; _points.pop_back();
+            typename mesh<T,3>::v_handle _vh1 = _map[_points.back()]; _points.pop_back();
+            typename mesh<T,3>::v_handle _vh2 = _map[_points.back()]; _points.pop_back();
 
             // add the face
-            mesh<T,3>::f_handle _f0  = _mesh.add_face(_vh2, _vh1, _vh0);
+            typename mesh<T,3>::f_handle _f0  = _mesh.add_face(_vh2, _vh1, _vh0);
 
 #ifndef NDEBUG
             // test correctness of the normals
@@ -422,8 +413,8 @@ namespace oxtorne {
     template<typename T>
     box<T,3>
     bounding_box(mesh<T,3>& _mesh) {
-        mesh<T,3>::viter _viter = _mesh.vertices_begin();
-        mesh<T,3>::viter _vend  = _mesh.vertices_end();
+        typename mesh<T,3>::viter _viter = _mesh.vertices_begin();
+        typename mesh<T,3>::viter _vend  = _mesh.vertices_end();
 
         point<T,3> _min = make_point(T(INT_MAX), T(INT_MAX), T(INT_MAX));
         point<T,3> _max = make_point(T(INT_MIN), T(INT_MIN), T(INT_MIN));

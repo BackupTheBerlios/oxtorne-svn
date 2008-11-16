@@ -3,16 +3,16 @@
 #include "OxTree.h"
 #include "OxVisualize.h"
 
-#include <GL/glut.h>
+#include <GLUT/glut.h>
 
 #include <iostream>
 #include <cstdlib>
 #include <vector>
 #include <ctime>
 
-static GLfloat translation_x = 0,  translation_y = 0,  translation_z = 0;
-static GLfloat rotation_x = 0,     rotation_y = 0,     rotation_z = 0;
-static GLfloat last_x = 0,         last_y = 0,         last_z = 0;
+static GLfloat translation_x = 0,  translation_y = 0;
+static GLfloat rotation_x = 0,     rotation_y = 0;
+static GLfloat last_x = 0,         last_y = 0;
 static GLfloat zoom = 10;
 static GLuint mouse_button;
 static std::vector<GLuint> lists;

@@ -31,8 +31,8 @@ node_<C,D>::depth () {
 /* Implementations for the octree *****************************************/
 template<typename T, std::size_t D>
 octree<T,D>::octree(const box<T,D>& _box) {
-    origin = new node();
-    origin->value.first = _box;
+    this->origin = new node();
+    this->origin->value.first = _box;
 }
 
 template<typename T, std::size_t D>
@@ -58,13 +58,13 @@ void
 octree<T,D>::add_face (mesh<T,3>& _mesh, const typename mesh<T,3>::f_handle& _face) {
     triangle<T,3> _triangle;
 
-    mesh<T,3>::fviter fv_iter = _mesh.face_vertex_begin(_face);
+    typename mesh<T,3>::fviter fv_iter = _mesh.face_vertex_begin(_face);
     _triangle[0] = (*fv_iter); fv_iter++;
     _triangle[1] = (*fv_iter); fv_iter++;
     _triangle[2] = (*fv_iter);
 
     // build a queue to remember nodes
-    typedef octree<T,3>::node node;
+    typedef typename octree<T,3>::node node;
     std::queue<node*> _nodes;
 
     // start iterating
@@ -94,8 +94,8 @@ octree<T,D>::add_face (mesh<T,3>& _mesh, const typename mesh<T,3>::f_handle& _fa
 }
 
 template<typename T> octree<T,3> make_octree(mesh<T,3>& _mesh, const std::size_t& _depth) {
-    mesh<T,3>::viter _viter = _mesh.vertices_begin();
-    mesh<T,3>::viter _vend  = _mesh.vertices_end();
+    typename mesh<T,3>::viter _viter = _mesh.vertices_begin();
+    typename mesh<T,3>::viter _vend  = _mesh.vertices_end();
 
     point<T,3> _min = make_point(T(INT_MAX), T(INT_MAX), T(INT_MAX));
     point<T,3> _max = make_point(T(INT_MIN), T(INT_MIN), T(INT_MIN));
@@ -113,7 +113,7 @@ template<typename T> octree<T,3> make_octree(mesh<T,3>& _mesh, const std::size_t
     octree<T,3> _tree(make_box(_min, _max));
     
     // build a queue to remember nodes
-    typedef octree<T,3>::node node;
+    typedef typename octree<T,3>::node node;
     std::queue<node*> _nodes;
 
     // start iterating
@@ -138,7 +138,7 @@ template<typename T> octree<T,3> make_octree(mesh<T,3>& _mesh, const std::size_t
     }
 
     // the tree has been created - now insert all faces
-    mesh<T,3>::fiter f_iter = _mesh.faces_begin();
+    typename mesh<T,3>::fiter f_iter = _mesh.faces_begin();
     
     // iterator over the faces
     for (; f_iter != _mesh.faces_end(); ++f_iter)

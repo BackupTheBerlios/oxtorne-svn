@@ -2,7 +2,7 @@
 #ifndef OXVISUALIZE_H
 #define OXVISUALIZE_H
 
-#include <GL/glut.h>
+#include <GLUT/glut.h>
 
 #include "OxGeometry.h"
 #include "OxMesh.h"

@@ -7,24 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		891765440E7B03D8003E4E05 /* TreeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 891765430E7B03D8003E4E05 /* TreeTest.cpp */; };
-		899BFDB50E981E6B00E23136 /* OxMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 899BFDB40E981E6B00E23136 /* OxMesh.cpp */; };
+		897D61EC0ED0A26800D1CBB8 /* ArrayTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 897D61E70ED0A1E100D1CBB8 /* ArrayTest.cpp */; };
+		8990A3B10ECE9C5F0060F284 /* MeshTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8990A3B00ECE9C5F0060F284 /* MeshTest.cpp */; };
+		8990A4510ECEA2060060F284 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E2698B0DD4EC5800FB5641 /* GLUT.framework */; };
+		8990A4520ECEA2060060F284 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E2698C0DD4EC5800FB5641 /* OpenGL.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		891765390E7B0103003E4E05 /* OxGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxGeometry.h; path = source/OxGeometry.h; sourceTree = "<group>"; };
-		8917653A0E7B0103003E4E05 /* OxMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxMath.h; path = source/OxMath.h; sourceTree = "<group>"; };
 		8917653B0E7B0103003E4E05 /* OxTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxTree.h; path = source/OxTree.h; sourceTree = "<group>"; };
 		8917653C0E7B010D003E4E05 /* OxTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxTree.cpp; path = source/OxTree.cpp; sourceTree = "<group>"; };
-		8917653D0E7B010D003E4E05 /* OxMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxMath.cpp; path = source/OxMath.cpp; sourceTree = "<group>"; };
 		8917653E0E7B010D003E4E05 /* OxGeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxGeometry.cpp; path = source/OxGeometry.cpp; sourceTree = "<group>"; };
-		891765430E7B03D8003E4E05 /* TreeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TreeTest.cpp; path = source/TreeTest.cpp; sourceTree = "<group>"; };
+		897D61E70ED0A1E100D1CBB8 /* ArrayTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ArrayTest.cpp; path = source/ArrayTest.cpp; sourceTree = "<group>"; };
+		897D61F30ED0A26800D1CBB8 /* oxtorne */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = oxtorne; sourceTree = BUILT_PRODUCTS_DIR; };
+		898041C30ED0720000A5F980 /* OxMemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxMemory.h; path = source/OxMemory.h; sourceTree = "<group>"; };
+		898041C50ED07A5800A5F980 /* OxMemory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxMemory.cpp; path = source/OxMemory.cpp; sourceTree = "<group>"; };
+		8990A3B00ECE9C5F0060F284 /* MeshTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MeshTest.cpp; path = source/MeshTest.cpp; sourceTree = "<group>"; };
+		8990A3B30ECE9C860060F284 /* OxAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxAlgorithm.h; path = source/OxAlgorithm.h; sourceTree = "<group>"; };
+		8990A3B40ECE9C8F0060F284 /* OxAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxAlgorithm.cpp; path = source/OxAlgorithm.cpp; sourceTree = "<group>"; };
+		8990A3B60ECE9C970060F284 /* OxVisualize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxVisualize.h; path = source/OxVisualize.h; sourceTree = "<group>"; };
+		8990A3B70ECE9CA50060F284 /* OxVisualize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxVisualize.cpp; path = source/OxVisualize.cpp; sourceTree = "<group>"; };
 		899BFDB30E981E5900E23136 /* OxMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxMesh.h; path = source/OxMesh.h; sourceTree = "<group>"; };
 		899BFDB40E981E6B00E23136 /* OxMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxMesh.cpp; path = source/OxMesh.cpp; sourceTree = "<group>"; };
 		89E2698B0DD4EC5800FB5641 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/GLUT.framework; sourceTree = DEVELOPER_DIR; };
 		89E2698C0DD4EC5800FB5641 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/OpenGL.framework; sourceTree = DEVELOPER_DIR; };
 		8DD76F6C0486A84900D96B5E /* oxtorne */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = oxtorne; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8990A4550ECEA2340060F284 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8990A4510ECEA2060060F284 /* GLUT.framework in Frameworks */,
+				8990A4520ECEA2060060F284 /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		08FB7794FE84155DC02AAC07 /* oxtorne */ = {
@@ -33,6 +53,8 @@
 				89E269930DD4EC5D00FB5641 /* Frameworks */,
 				891B5F160DCD18C400B44E22 /* Header */,
 				08FB7795FE84155DC02AAC07 /* Source */,
+				8990A3B00ECE9C5F0060F284 /* MeshTest.cpp */,
+				897D61E70ED0A1E100D1CBB8 /* ArrayTest.cpp */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
 			);
 			name = oxtorne;
@@ -41,11 +63,12 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				8990A3B40ECE9C8F0060F284 /* OxAlgorithm.cpp */,
+				8990A3B70ECE9CA50060F284 /* OxVisualize.cpp */,
 				8917653E0E7B010D003E4E05 /* OxGeometry.cpp */,
-				8917653D0E7B010D003E4E05 /* OxMath.cpp */,
 				8917653C0E7B010D003E4E05 /* OxTree.cpp */,
-				891765430E7B03D8003E4E05 /* TreeTest.cpp */,
 				899BFDB40E981E6B00E23136 /* OxMesh.cpp */,
+				898041C50ED07A5800A5F980 /* OxMemory.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -54,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				8DD76F6C0486A84900D96B5E /* oxtorne */,
+				897D61F30ED0A26800D1CBB8 /* oxtorne */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,10 +85,12 @@
 		891B5F160DCD18C400B44E22 /* Header */ = {
 			isa = PBXGroup;
 			children = (
+				8990A3B60ECE9C970060F284 /* OxVisualize.h */,
+				8990A3B30ECE9C860060F284 /* OxAlgorithm.h */,
 				891765390E7B0103003E4E05 /* OxGeometry.h */,
-				8917653A0E7B0103003E4E05 /* OxMath.h */,
 				8917653B0E7B0103003E4E05 /* OxTree.h */,
 				899BFDB30E981E5900E23136 /* OxMesh.h */,
+				898041C30ED0720000A5F980 /* OxMemory.h */,
 			);
 			name = Header;
 			sourceTree = "<group>";
@@ -81,17 +107,34 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8DD76F620486A84900D96B5E /* oxtorne */ = {
+		897D61E90ED0A26800D1CBB8 /* ArrayTest */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "oxtorne" */;
+			buildConfigurationList = 897D61F00ED0A26800D1CBB8 /* Build configuration list for PBXNativeTarget "ArrayTest" */;
 			buildPhases = (
-				8DD76F640486A84900D96B5E /* Sources */,
+				897D61EA0ED0A26800D1CBB8 /* Sources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = oxtorne;
+			name = ArrayTest;
+			productInstallPath = "$(HOME)/bin";
+			productName = oxtorne;
+			productReference = 897D61F30ED0A26800D1CBB8 /* oxtorne */;
+			productType = "com.apple.product-type.tool";
+		};
+		8DD76F620486A84900D96B5E /* MeshTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "MeshTest" */;
+			buildPhases = (
+				8DD76F640486A84900D96B5E /* Sources */,
+				8990A4550ECEA2340060F284 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MeshTest;
 			productInstallPath = "$(HOME)/bin";
 			productName = oxtorne;
 			productReference = 8DD76F6C0486A84900D96B5E /* oxtorne */;
@@ -109,18 +152,26 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8DD76F620486A84900D96B5E /* oxtorne */,
+				8DD76F620486A84900D96B5E /* MeshTest */,
+				897D61E90ED0A26800D1CBB8 /* ArrayTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		897D61EA0ED0A26800D1CBB8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				897D61EC0ED0A26800D1CBB8 /* ArrayTest.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DD76F640486A84900D96B5E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				891765440E7B03D8003E4E05 /* TreeTest.cpp in Sources */,
-				899BFDB50E981E6B00E23136 /* OxMesh.cpp in Sources */,
+				8990A3B10ECE9C5F0060F284 /* MeshTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +182,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -151,6 +203,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_MODEL_TUNING = G5;
 				HEADER_SEARCH_PATHS = $SRCROOT/source;
 				INSTALL_PATH = /usr/local/bin;
@@ -183,10 +236,44 @@
 			};
 			name = Release;
 		};
+		897D61F10ED0A26800D1CBB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"_GLIBCXX_DEBUG=1",
+					"_GLIBCXX_DEBUG_PEDANTIC=1",
+				);
+				HEADER_SEARCH_PATHS = $SRCROOT/source;
+				INSTALL_PATH = /usr/local/bin;
+				PRODUCT_NAME = oxtorne;
+				SDKROOT = "";
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		897D61F20ED0A26800D1CBB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_MODEL_TUNING = G5;
+				HEADER_SEARCH_PATHS = $SRCROOT/source;
+				INSTALL_PATH = /usr/local/bin;
+				PRODUCT_NAME = oxtorne;
+				SDKROOT = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "oxtorne" */ = {
+		1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "MeshTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB923208733DC60010E9CD /* Debug */,
@@ -200,6 +287,15 @@
 			buildConfigurations = (
 				1DEB923608733DC60010E9CD /* Debug */,
 				1DEB923708733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		897D61F00ED0A26800D1CBB8 /* Build configuration list for PBXNativeTarget "ArrayTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				897D61F10ED0A26800D1CBB8 /* Debug */,
+				897D61F20ED0A26800D1CBB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

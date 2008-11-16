@@ -5,9 +5,12 @@
 #include <cstddef>
 #include <vector>
 
-#include "OxMath.h"
-
 namespace oxtorne {
+
+/* Mathematical definitions ***************************************************/
+const float Epsilon = 1.0E-5;
+
+typedef unsigned long int uint;
 
 /* Simple enum type ***********************************************************/
 enum axis { x, y, z };
@@ -28,13 +31,12 @@ public:
 
     point(const point<T,D>& _other) {
         for(std::size_t i = 0; i < D; ++i)
-            value[i] = _other.value[i];
+            this->value[i] = _other.value[i];
     }
    
     inline point<T,D>& operator=(const point<T,D>& _other) {
-        if (this == &_other)
-            return *this;
-        for(std::size_t i = 0; i < D; ++i) { value[i] = _other.value[i]; }
+        for(std::size_t i = 0; i < D; ++i)
+            this->value[i] = _other.value[i];
         return *this;
     }
 
@@ -51,8 +53,8 @@ template<typename T, std::size_t D>
 class vector : public point<T,D> {
 
 public:
-    vector() : point() {}
-    vector(const vector<T,D>& v) : point(v) {}
+    vector() : point<T,D>() {}
+    vector(const vector<T,D>& v) : point<T,D>(v) {}
 
 };
 
@@ -115,6 +117,22 @@ public:
     typedef       point<T,D>& reference;
     typedef const point<T,D>& const_reference;
 
+    triangle() {}
+   ~triangle() {}
+
+    triangle(const triangle<T,D>& _other) {
+        this->points[0] = _other.points[0];
+        this->points[1] = _other.points[1];
+        this->points[2] = _other.points[2];
+    }
+   
+    inline triangle<T,D>& operator=(const triangle<T,D>& _other) {
+        this->points[0] = _other.points[0];
+        this->points[1] = _other.points[1];
+        this->points[2] = _other.points[2];
+        return *this;
+    }
+
     inline reference       operator[](const std::size_t& index)       { return points[index]; }
     inline const_reference operator[](const std::size_t& index) const { return points[index]; }
     inline std::size_t     size      ()                               { return 3;             }
@@ -154,10 +172,8 @@ template<typename T, std::size_t D> vector<T,D> operator*(const T&, const vector
 template<typename T, std::size_t D> bool box_in_box(const box<T,D>&, const box<T,D>&);
 
 template<typename T> bool             is_equal(const T&, const T&);
-
-
-template<typename T> bool             is_beyond(const triangle<T,3>&, const ray<T,3>&, const T&);
-
+template<typename T> bool             is_equal_or_smaller(const T&, const T&);
+template<typename T> bool             is_equal_or_greater(const T&, const T&);
 
 template<typename T> T                length(const vector<T,3>&);
 template<typename T> T                distance(const point<T,3>&, const point<T,3>&);
@@ -179,10 +195,10 @@ template<typename T> bool             intersect(const triangle<T,3>&, const ray<
 template<typename T> bool             intersect(const triangle<T,3>&, const sphere<T,3>&);
 
 
-template<typename T> point<T,3>               intersection_point(const line<T,3>&, const plane<T,3>&);
-template<typename T> point<T,3>               intersection_point(const ray<T,3>&, const plane<T,3>&);
-template<typename T> point<T,3>               intersection_point(const line<T,3>&, const triangle<T,3>&);
-template<typename T> std::vector<point<T,3> > intersection_point(const sphere<T,3>&, const ray<T,3>&);
+template<typename T> point<T,3>       intersection_point(const line<T,3>&, const plane<T,3>&);
+template<typename T> point<T,3>       intersection_point(const ray<T,3>&, const plane<T,3>&);
+template<typename T> point<T,3>       intersection_point(const line<T,3>&, const triangle<T,3>&);
+template<typename T> void             intersection_point(const sphere<T,3>&, const ray<T,3>&, point<T,3>*&, int&);
 
 
 template<typename T> point<T,3>       closest_point_on_ray_from_point(const ray<T,3>&, const point<T,3>&);

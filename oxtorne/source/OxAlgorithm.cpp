@@ -48,14 +48,14 @@ namespace oxtorne {
     std::set<typename mesh<T,3>::f_handle>
     intersecting_triangles (mesh<T,3>& _mesh, octree<T,3>& _tree, const line<T,3>& _line, const T& _radius) {
         // build a queue to remember nodes
-        typedef octree<T,3>::node node;
+        typedef typename octree<T,3>::node node;
         std::queue<node*> _nodes;
 
         // start iterating
         _nodes.push(_tree.root());
 
         // collect the faces here
-        std::set<mesh<T,3>::f_handle> _faces;
+        std::set<typename mesh<T,3>::f_handle> _faces;
 
         while(!_nodes.empty()) {
             // prepare next node
@@ -89,14 +89,14 @@ namespace oxtorne {
     std::set<typename mesh<T,3>::f_handle>
     intersecting_triangles (mesh<T,3>& _mesh, octree<T,3>& _tree, const ray<T,3>& _ray, const T& _radius) {
         // build a queue to remember nodes
-        typedef octree<T,3>::node node;
+        typedef typename octree<T,3>::node node;
         std::queue<node*> _nodes;
 
         // start iterating
         _nodes.push(_tree.root());
 
         // collect the faces here
-        std::set<mesh<T,3>::f_handle> _faces;
+        std::set<typename mesh<T,3>::f_handle> _faces;
 
         while(!_nodes.empty()) {
             // prepare next node
@@ -130,14 +130,14 @@ namespace oxtorne {
     std::set<typename mesh<T,3>::f_handle>
     intersecting_triangles (mesh<T,3>& _mesh, octree<T,3>& _tree, const sphere<T,3>& _sphere) {
         // build a queue to remember nodes
-        typedef octree<T,3>::node node;
+        typedef typename octree<T,3>::node node;
         std::queue<node*> _nodes;
 
         // start iterating
         _nodes.push(_tree.root());
 
         // collect the faces here
-        std::set<mesh<T,3>::f_handle> _faces;
+        std::set<typename mesh<T,3>::f_handle> _faces;
 
         while(!_nodes.empty()) {
             // prepare next node
@@ -177,7 +177,7 @@ namespace oxtorne {
     bool
     intersect (mesh<T,3>& _mesh, octree<T,3>& _tree, const sphere<T,3>& _sphere) {
         // build a queue to remember nodes
-        typedef octree<T,3>::node node;
+        typedef typename octree<T,3>::node node;
         std::queue<node*> _nodes;
 
         // start iterating
@@ -197,7 +197,7 @@ namespace oxtorne {
 
             // relevant faces
             if (_next->leaf()) {
-                std::vector<mesh<T,3>::f_handle>::iterator f_iter = _next->value.second.begin();
+                typename std::vector<typename mesh<T,3>::f_handle>::iterator f_iter = _next->value.second.begin();
 
                 for (; f_iter != _next->value.second.end(); ++f_iter)
                     if (intersect(make_triangle(_mesh, *f_iter), _sphere))

@@ -9,20 +9,29 @@
 
 namespace oxtorne {
 
-    /* Forward declarations *********************************************/
+    /* Coparator type *********************************************************/
+    template<typename T> struct comparator {
+        const bool operator()(const point<T,3>& _p, const point<T,3>& _q) const {
+            for (int i = 0; i < 3; ++i)
+                if (_p[i] != _q[i]) return _p[i] < _q[i];
+            return false;
+        }
+    };
+
+    /* Forward declarations ***************************************************/
     template <typename T, std::size_t D> class vertex;
     template <typename T, std::size_t D> class face;
     template <typename T, std::size_t D> class halfedge;
 
-    /* Vertex type*******************************************************/
+    /* Vertex type*************************************************************/
     template<typename T, std::size_t D>
     class vertex : public point<T,D> {
     public:
-        vertex() : point(), edge(0) {}
+        vertex() : point<T,D>(), edge(0) {}
         halfedge<T,D>* edge;
     };
 
-    /* Face type ********************************************************/
+    /* Face type **************************************************************/
     template<typename T, std::size_t D>
     class face {
     public:
@@ -31,7 +40,7 @@ namespace oxtorne {
         
         halfedge<T,D>* edge; };
 
-    /* Halfedge Type ****************************************************/
+    /* Halfedge Type **********************************************************/
     template<typename T, std::size_t D>
     class halfedge {
     public:
@@ -45,7 +54,7 @@ namespace oxtorne {
 
     };
 
-    /* Mesh type ********************************************************/
+    /* Mesh type **************************************************************/
     template<typename T, std::size_t D>
     class mesh {
 
@@ -54,18 +63,17 @@ namespace oxtorne {
         mesh() {}
        ~mesh() {}
 
-        typedef typename face<T,D> face;
-        typedef typename vertex<T,D> vertex;
-        typedef typename halfedge<T,D> halfedge;
+        typedef face<T,D> face;
+        typedef vertex<T,D> vertex;
+        typedef halfedge<T,D> halfedge;
 
-        typedef typename face* f_handle;
-        typedef typename vertex* v_handle;
-        typedef typename halfedge* he_handle;
+        typedef face* f_handle;
+        typedef vertex* v_handle;
+        typedef halfedge* he_handle;
 
         typedef typename std::set<f_handle>::iterator fiter;
         typedef typename std::set<v_handle>::iterator viter;
         typedef typename std::set<he_handle>::iterator heiter;
-
 
         class vviter {
         public:
@@ -85,11 +93,10 @@ namespace oxtorne {
             vertex* base;
         };
 
-
         class fviter {
         public:
-            fviter(halfedge*);
-            fviter(fviter&);
+            fviter(const face*);
+            fviter(const fviter&);
 
             vertex& operator* () const;
             vertex* operator->() const;
@@ -104,20 +111,18 @@ namespace oxtorne {
             halfedge* base;
         };
 
-
         f_handle        add_face          (const v_handle&,   const v_handle&,   const v_handle&);
         f_handle        add_face          (const point<T,D>&, const point<T,D>&, const point<T,D>&);
         he_handle       find_edge_from_to (const v_handle&,   const v_handle&);
         v_handle        add_vertex        (const point<T,D>&);
         vector<T,3>     face_normal       (const f_handle&);
 
-
-        fiter           faces_begin()     { return faces.begin();    }
-        fiter           faces_end()       { return faces.end();      }
-        viter           vertices_begin()  { return vertices.begin(); }
-        viter           vertices_end()    { return vertices.end();   }
-        heiter          edges_begin()     { return edges.begin();    } 
-        heiter          edges_end()       { return edges.end();      }
+        fiter           faces_begin()     { return faces.begin();     }
+        fiter           faces_end()       { return faces.end();       }
+        viter           vertices_begin()  { return vertices.begin();  }
+        viter           vertices_end()    { return vertices.end();    }
+        heiter          edges_begin()     { return halfedges.begin(); } 
+        heiter          edges_end()       { return halfedges.end();   }
 
         vviter          vertex_vertex_begin(const v_handle&);
         vviter          vertex_vertex_end(const v_handle&);
@@ -136,7 +141,7 @@ namespace oxtorne {
 
     };
 
-    /* Functionals ******************************************************/
+    /* Functionals ************************************************************/
     template<typename T> int create_mesh_from_points(mesh<T,3>&, std::vector<point<T,3> >&);
     template<typename T> int read_binary_stl(mesh<T,3>&, const std::string&);
     template<typename T> int read_ascii_stl(mesh<T,3>&, const std::string&);

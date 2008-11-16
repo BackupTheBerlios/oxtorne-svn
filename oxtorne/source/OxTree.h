@@ -74,8 +74,8 @@ namespace oxtorne {
         octree(const box<T,D>&);
        ~octree();
 
-        inline       node* root()       { return origin; }
-        inline const node* root() const { return origin; }
+        inline       node* root()       { return this->origin; }
+        inline const node* root() const { return this->origin; }
        
         void subdivide_node (node*);
         void add_face       (mesh<T,3>&, const typename mesh<T,3>::f_handle&);
