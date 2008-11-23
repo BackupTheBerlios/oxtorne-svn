@@ -5,7 +5,7 @@
 
 namespace oxtorne {
 
-    template<typename T>
+/*    template<typename T>
     std::vector<box<T, 3> >
     subdivide_box(const box<T, 3>& _box, const int& _dim) {
 
@@ -212,7 +212,7 @@ namespace oxtorne {
 
         // done
         return false;
-    }
+    }*/
 
 };
 

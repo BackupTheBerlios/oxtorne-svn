@@ -109,18 +109,18 @@ int main(int argc, char* argv[]) {
     glutFullScreen();
 
     typedef oxtorne::mesh<float,3> mesh;
-    typedef oxtorne::octree<float,3> tree;
+    // typedef oxtorne::octree<float,3> tree;
 
     mesh _mesh;
 
     oxtorne::read_stl(_mesh, "./example/final.stl");
-    tree _tree = oxtorne::make_octree(_mesh, 5);
-    tree::node* _root = _tree.root();
+    //tree _tree = oxtorne::make_octree(_mesh, 5);
+    //tree::node* _root = _tree.root();
     
     glColor3f(1.0f, 0.0f, 0.0f);
 
-    for (std::size_t i = 0; i < _root->size(); i++)
-        lists.push_back(wire(_root->at(i)->value.first));
+    //for (std::size_t i = 0; i < _root->size(); i++)
+    //    lists.push_back(wire(_root->at(i)->value.first));
 
     GLuint mymesh = glGenLists(1);
     glNewList(mymesh, GL_COMPILE);
@@ -140,7 +140,7 @@ int main(int argc, char* argv[]) {
         glVertex3f((*_he0->vertex)[0], (*_he0->vertex)[1], (*_he0->vertex)[2]);
     }*/
 
-    for (std::size_t i = 0; i < _root->at(2)->at(4)->value.second.size(); ++i) {
+    /*for (std::size_t i = 0; i < _root->at(2)->at(4)->value.second.size(); ++i) {
         mesh::f_handle _fhandle = _root->at(2)->at(4)->value.second[i];
 
         oxtorne::vector<float,3> _v = _mesh.face_normal(_fhandle);
@@ -150,7 +150,7 @@ int main(int argc, char* argv[]) {
         glVertex3f((*_he0->vertex)[0], (*_he0->vertex)[1], (*_he0->vertex)[2]); _he0 = _he0->next;
         glVertex3f((*_he0->vertex)[0], (*_he0->vertex)[1], (*_he0->vertex)[2]); _he0 = _he0->next;
         glVertex3f((*_he0->vertex)[0], (*_he0->vertex)[1], (*_he0->vertex)[2]);
-    }
+    }*/
 
     glEnd();
     glEndList();
