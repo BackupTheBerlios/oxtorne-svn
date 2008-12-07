@@ -3,7 +3,56 @@
 
 #include "OxVisualize.h"
 
-namespace oxtorne{
+namespace oxtorne {
+
+    template<typename T> void wire(const box<T,3>& _box) {
+        
+        float low_x = _box.min[0];
+        float low_y = _box.min[1];
+        float low_z = _box.min[2];
+        
+        float up_x = _box.max[0];
+        float up_y = _box.max[1];
+        float up_z = _box.max[2];
+        
+        glBegin(GL_LINE_STRIP);
+            glVertex3f(low_x, low_y, low_z);
+            glVertex3f(up_x, low_y, low_z);
+            glVertex3f(up_x, up_y, low_z);
+            glVertex3f(low_x, up_y, low_z);
+            glVertex3f(low_x, low_y, low_z);
+	
+            glVertex3f(low_x, low_y, up_z);
+            glVertex3f(up_x, low_y, up_z);
+            glVertex3f(up_x, up_y, up_z);
+            glVertex3f(low_x, up_y, up_z);
+            glVertex3f(low_x, low_y, up_z);
+        glEnd();
+	
+        glBegin(GL_LINES);
+            glVertex3f(up_x, low_y, low_z);
+            glVertex3f(up_x, low_y, up_z);
+            glVertex3f(up_x, up_y, low_z);
+            glVertex3f(up_x, up_y, up_z);
+            glVertex3f(low_x, up_y, low_z);
+            glVertex3f(low_x, up_y, up_z);
+        glEnd();
+    }
+    
+    template<typename T> void wire(const sphere<T,3>& _sphere) {
+        glPushMatrix();
+        glTranslatef(
+            _sphere.center[0],
+            _sphere.center[1],
+            _sphere.center[2]);
+        glutWireSphere(_sphere.radius, 8, 8);
+        glPopMatrix();
+    }
+
+};
+
+
+/*namespace oxtorne{
 
 template<typename T>
 GLuint
@@ -280,6 +329,6 @@ box_white (const box<T,3>& _box) {
 	return _reference;
 }
 
-};
+};*/
 
 

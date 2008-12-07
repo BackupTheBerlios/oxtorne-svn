@@ -4,6 +4,7 @@
 #include "OxGeometry.h"
 
 #include <cmath>
+#include <cfloat>
 #include <algorithm>
 
 namespace oxtorne {
@@ -223,21 +224,21 @@ template<typename T>
 bool
 is_equal(const T& _a, const T& _b) {
     T _d = _a - _b;
-    return -T(Epsilon) <= _d && _d <= T(Epsilon);
+    return -T(FLT_EPSILON) <= _d && _d <= T(FLT_EPSILON);
 }
 
 template<typename T>
 bool
 is_equal_or_smaller(const T& _a, const T& _b) {
     T _d = _a - _b;
-    return (-T(Epsilon) <= _d && _d <= T(Epsilon)) || (_a < _b);
+    return (-T(FLT_EPSILON) <= _d && _d <= T(FLT_EPSILON)) || (_a < _b);
 }
 
 template<typename T>
 bool
 is_equal_or_greater(const T& _a, const T& _b) {
     T _d = _a - _b;
-    return (-T(Epsilon) <= _d && _d <= T(Epsilon)) || (_a > _b);
+    return (-T(FLT_EPSILON) <= _d && _d <= T(FLT_EPSILON)) || (_a > _b);
 }
 
 template<typename T>
@@ -461,7 +462,7 @@ point<T,3> intersection_point(const line<T,3>& _line, const triangle<T,3>& _tria
 }
 
 template<typename T>
-void intersection_point(const sphere<T,3>& _sphere, const ray<T,3>& _ray, point<T,3>*& _intersections, uint& _nintersections) {
+void intersection_point(const sphere<T,3>& _sphere, const ray<T,3>& _ray, point<T,3>*& _intersections, size_t& _nintersections) {
     
     vector<T,3> _v = _ray.origin - _sphere.center;
     
@@ -628,6 +629,14 @@ sphere<T,3> minimum_bounding_sphere(const box<T,3>& _box) {
     _sphere.center = (_box.min + _box.max) * T(0.5);
     _sphere.radius = distance(_sphere.center, _box.max);
     return _sphere;
+}
+
+template<typename T> point<T,3> mirror(const plane<T,3>& _plane, const point<T,3>& _point) {
+    return _point - _plane.normal * (T(2.0) * (dot_product(_plane.normal, _point) - _plane.constant));
+}
+
+template<typename T> vector<T,3> mirror(const plane<T,3>& _plane, const vector<T,3>& _vector) {
+    return _vector - _plane.normal * (T(2.0) * (dot_product(_plane.normal, _vector) - _plane.constant));
 }
 
 }

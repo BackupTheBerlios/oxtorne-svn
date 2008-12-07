@@ -5,9 +5,15 @@
 #include <GLUT/glut.h>
 
 #include "OxGeometry.h"
-#include "OxMesh.h"
 
 namespace oxtorne {
+
+    template<typename T> void wire(const box<T,3>&);
+    template<typename T> void wire(const sphere<T,3>&);
+
+};
+
+/*namespace oxtorne {
 
     template<typename T> GLuint wire (const box<T,2>&);
     template<typename T> GLuint wire (const box<T,3>&);
@@ -31,8 +37,8 @@ namespace oxtorne {
 const unsigned int color_table_size = 54;
 const unsigned int color_table[54][3] = {
     {0,   0,   0  },
-    // {255, 255, 255},
-    // {255, 0,   0  },
+    {255, 255, 255},
+    {255, 0,   0  },
     {0,   255, 0  },
     {0,   0,   255},
     {255, 255, 0  },
@@ -86,7 +92,7 @@ const unsigned int color_table[54][3] = {
     {153, 51,  102},
     {51,  51,  153},
     {51,  51,  51 }
-};
+};*/
 
 #if !defined(OXVISUALIZE_CPP)
 #include "OxVisualize.cpp"

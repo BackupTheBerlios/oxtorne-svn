@@ -8,7 +8,7 @@
 
 namespace oxtorne {
 
-    /* Node Type ******************************************************************/
+    /* Node Type **************************************************************/
     template<typename C>
     class node {
 
@@ -24,7 +24,7 @@ namespace oxtorne {
 
     };
 
-    /* Tree Type ******************************************************************/
+    /* Tree Type **************************************************************/
     template<typename T>
     class tree {
     
@@ -32,7 +32,7 @@ namespace oxtorne {
         tree();
        ~tree();
 
-        // iterator for preorder tree traversal
+        /* iterator for preorder tree traversal *******************************/
         class preorder_iterator : public std::iterator<std::forward_iterator_tag,T> {
         protected:
             node<T>* p;
@@ -47,7 +47,7 @@ namespace oxtorne {
             int&               operator*  ();
         };
 
-        // iterator for inorder tree traversal
+        /* iterator for inorder tree traversal ********************************/
         class postorder_iterator : public std::iterator<std::forward_iterator_tag,T> {
         protected:
             node<T>* p;
@@ -62,11 +62,44 @@ namespace oxtorne {
             int&                operator*  ();
         };
 
-        // functionality
-        template<class C> void add_child     (const C&, const T&);
-        template<class C> void add_sibling   (const C&, const T&);
-        template<class C> void erase         (const C&);
-        template<class C> void erase_subtree (const C&);
+        /* iterator for breadth first search **********************************/
+        class broadth_iterator : public std::iterator<std::forward_iterator_tag,T> {
+        protected:
+            queue<Node<T>*> broadth_queue;
+
+        public:
+            broadth_iterator             (const node<T>* x);
+            broadth_iterator             (const broadth_iterator&);
+            broadth_iterator& operator++ ();
+            broadth_iterator& operator++ (int);
+            bool              operator== (const broadth_iterator&);
+            bool              operator!= (const broadth_iterator&);
+            int&              operator*  ();
+        };
+        
+        /* iterate a constant level *******************************************/
+        class level_iterator : public std::iterator<std::forward_iterator_tag,T> {
+        protected:
+            queue<Node<T>*> broadth_queue;
+
+        public:
+            level_iterator             (const node<T>* x);
+            level_iterator             (const level_iterator&);
+            level_iterator& operator++ ();
+            level_iterator& operator++ (int);
+            bool            operator== (const level_iterator&);
+            bool            operator!= (const level_iterator&);
+            int&            operator*  ();
+        };
+
+        /* functionality ******************************************************/
+        template<class C> void add_child       (const C&, const T&);
+        template<class C> void add_first_child (const C&, const T&);
+        template<class C> void add_last_child  (const C&, const T&);
+        template<class C> void add_before      (const C&, const T&);
+        template<class C> void add_after       (const C&, const T&);
+
+        template<class C> void erase_subtree   (const C&);
 
     protected:
         node<T>* origin;

@@ -7,13 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		897D61EC0ED0A26800D1CBB8 /* ArrayTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 897D61E70ED0A1E100D1CBB8 /* ArrayTest.cpp */; };
-		8990A3B10ECE9C5F0060F284 /* MeshTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8990A3B00ECE9C5F0060F284 /* MeshTest.cpp */; };
-		8990A4510ECEA2060060F284 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E2698B0DD4EC5800FB5641 /* GLUT.framework */; };
-		8990A4520ECEA2060060F284 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E2698C0DD4EC5800FB5641 /* OpenGL.framework */; };
-		89A36FA10ED85A720006CBEC /* TreeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89A36F980ED85A1E0006CBEC /* TreeTest.cpp */; };
-		89A36FA30ED85A720006CBEC /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E2698B0DD4EC5800FB5641 /* GLUT.framework */; };
-		89A36FA40ED85A720006CBEC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E2698C0DD4EC5800FB5641 /* OpenGL.framework */; };
+		891BF0F70EEC17C50058F448 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E2698B0DD4EC5800FB5641 /* GLUT.framework */; };
+		891BF0F80EEC17C50058F448 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E2698C0DD4EC5800FB5641 /* OpenGL.framework */; };
+		891BF0F90EEC17CA0058F448 /* Pong.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 891BF0CD0EEC17830058F448 /* Pong.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,8 +17,9 @@
 		8917653B0E7B0103003E4E05 /* OxTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxTree.h; path = source/OxTree.h; sourceTree = "<group>"; };
 		8917653C0E7B010D003E4E05 /* OxTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxTree.cpp; path = source/OxTree.cpp; sourceTree = "<group>"; };
 		8917653E0E7B010D003E4E05 /* OxGeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxGeometry.cpp; path = source/OxGeometry.cpp; sourceTree = "<group>"; };
+		891BF0CD0EEC17830058F448 /* Pong.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Pong.cpp; path = source/Pong.cpp; sourceTree = "<group>"; };
+		891BF0D10EEC17B20058F448 /* Pong */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Pong; sourceTree = BUILT_PRODUCTS_DIR; };
 		897D61E70ED0A1E100D1CBB8 /* ArrayTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ArrayTest.cpp; path = source/ArrayTest.cpp; sourceTree = "<group>"; };
-		897D61F30ED0A26800D1CBB8 /* ArrayTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ArrayTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		898041C30ED0720000A5F980 /* OxMemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxMemory.h; path = source/OxMemory.h; sourceTree = "<group>"; };
 		898041C50ED07A5800A5F980 /* OxMemory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxMemory.cpp; path = source/OxMemory.cpp; sourceTree = "<group>"; };
 		8990A3B00ECE9C5F0060F284 /* MeshTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MeshTest.cpp; path = source/MeshTest.cpp; sourceTree = "<group>"; };
@@ -33,28 +30,17 @@
 		899BFDB30E981E5900E23136 /* OxMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxMesh.h; path = source/OxMesh.h; sourceTree = "<group>"; };
 		899BFDB40E981E6B00E23136 /* OxMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxMesh.cpp; path = source/OxMesh.cpp; sourceTree = "<group>"; };
 		89A36F980ED85A1E0006CBEC /* TreeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TreeTest.cpp; path = source/TreeTest.cpp; sourceTree = "<group>"; };
-		89A36FA80ED85A720006CBEC /* TreeTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TreeTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		89E2698B0DD4EC5800FB5641 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/GLUT.framework; sourceTree = DEVELOPER_DIR; };
 		89E2698C0DD4EC5800FB5641 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/OpenGL.framework; sourceTree = DEVELOPER_DIR; };
-		8DD76F6C0486A84900D96B5E /* MeshTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MeshTest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8990A4550ECEA2340060F284 /* Frameworks */ = {
+		891BF0CF0EEC17B20058F448 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8990A4510ECEA2060060F284 /* GLUT.framework in Frameworks */,
-				8990A4520ECEA2060060F284 /* OpenGL.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		89A36FA20ED85A720006CBEC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				89A36FA30ED85A720006CBEC /* GLUT.framework in Frameworks */,
-				89A36FA40ED85A720006CBEC /* OpenGL.framework in Frameworks */,
+				891BF0F70EEC17C50058F448 /* GLUT.framework in Frameworks */,
+				891BF0F80EEC17C50058F448 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +56,7 @@
 				8990A3B00ECE9C5F0060F284 /* MeshTest.cpp */,
 				89A36F980ED85A1E0006CBEC /* TreeTest.cpp */,
 				897D61E70ED0A1E100D1CBB8 /* ArrayTest.cpp */,
+				891BF0CD0EEC17830058F448 /* Pong.cpp */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
 			);
 			name = oxtorne;
@@ -91,9 +78,7 @@
 		1AB674ADFE9D54B511CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8DD76F6C0486A84900D96B5E /* MeshTest */,
-				897D61F30ED0A26800D1CBB8 /* ArrayTest */,
-				89A36FA80ED85A720006CBEC /* TreeTest */,
+				891BF0D10EEC17B20058F448 /* Pong */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -123,54 +108,20 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		897D61E90ED0A26800D1CBB8 /* ArrayTest */ = {
+		891BF0D00EEC17B20058F448 /* Pong */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 897D61F00ED0A26800D1CBB8 /* Build configuration list for PBXNativeTarget "ArrayTest" */;
+			buildConfigurationList = 891BF0FB0EEC17E80058F448 /* Build configuration list for PBXNativeTarget "Pong" */;
 			buildPhases = (
-				897D61EA0ED0A26800D1CBB8 /* Sources */,
+				891BF0CE0EEC17B20058F448 /* Sources */,
+				891BF0CF0EEC17B20058F448 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = ArrayTest;
-			productInstallPath = "$(HOME)/bin";
-			productName = oxtorne;
-			productReference = 897D61F30ED0A26800D1CBB8 /* ArrayTest */;
-			productType = "com.apple.product-type.tool";
-		};
-		89A36F9E0ED85A720006CBEC /* TreeTest */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 89A36FA50ED85A720006CBEC /* Build configuration list for PBXNativeTarget "TreeTest" */;
-			buildPhases = (
-				89A36F9F0ED85A720006CBEC /* Sources */,
-				89A36FA20ED85A720006CBEC /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = TreeTest;
-			productInstallPath = "$(HOME)/bin";
-			productName = oxtorne;
-			productReference = 89A36FA80ED85A720006CBEC /* TreeTest */;
-			productType = "com.apple.product-type.tool";
-		};
-		8DD76F620486A84900D96B5E /* MeshTest */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "MeshTest" */;
-			buildPhases = (
-				8DD76F640486A84900D96B5E /* Sources */,
-				8990A4550ECEA2340060F284 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = MeshTest;
-			productInstallPath = "$(HOME)/bin";
-			productName = oxtorne;
-			productReference = 8DD76F6C0486A84900D96B5E /* MeshTest */;
+			name = Pong;
+			productName = Pong;
+			productReference = 891BF0D10EEC17B20058F448 /* Pong */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -185,75 +136,23 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8DD76F620486A84900D96B5E /* MeshTest */,
-				897D61E90ED0A26800D1CBB8 /* ArrayTest */,
-				89A36F9E0ED85A720006CBEC /* TreeTest */,
+				891BF0D00EEC17B20058F448 /* Pong */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		897D61EA0ED0A26800D1CBB8 /* Sources */ = {
+		891BF0CE0EEC17B20058F448 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				897D61EC0ED0A26800D1CBB8 /* ArrayTest.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		89A36F9F0ED85A720006CBEC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				89A36FA10ED85A720006CBEC /* TreeTest.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8DD76F640486A84900D96B5E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8990A3B10ECE9C5F0060F284 /* MeshTest.cpp in Sources */,
+				891BF0F90EEC17CA0058F448 /* Pong.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		1DEB923208733DC60010E9CD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"_GLIBCXX_DEBUG=1",
-					"_GLIBCXX_DEBUG_PEDANTIC=1",
-				);
-				HEADER_SEARCH_PATHS = $SRCROOT/source;
-				INSTALL_PATH = /usr/local/bin;
-				PRODUCT_NAME = MeshTest;
-				SDKROOT = "";
-				ZERO_LINK = YES;
-			};
-			name = Debug;
-		};
-		1DEB923308733DC60010E9CD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_MODEL_TUNING = G5;
-				HEADER_SEARCH_PATHS = $SRCROOT/source;
-				INSTALL_PATH = /usr/local/bin;
-				PRODUCT_NAME = MeshTest;
-				SDKROOT = "";
-			};
-			name = Release;
-		};
 		1DEB923608733DC60010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -278,7 +177,7 @@
 			};
 			name = Release;
 		};
-		897D61F10ED0A26800D1CBB8 /* Debug */ = {
+		891BF0D30EEC17B30058F448 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
@@ -287,77 +186,31 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"_GLIBCXX_DEBUG=1",
-					"_GLIBCXX_DEBUG_PEDANTIC=1",
-				);
-				HEADER_SEARCH_PATHS = $SRCROOT/source;
 				INSTALL_PATH = /usr/local/bin;
-				PRODUCT_NAME = ArrayTest;
-				SDKROOT = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Pong;
 				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
-		897D61F20ED0A26800D1CBB8 /* Release */ = {
+		891BF0D40EEC17B30058F448 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
-				HEADER_SEARCH_PATHS = $SRCROOT/source;
 				INSTALL_PATH = /usr/local/bin;
-				PRODUCT_NAME = ArrayTest;
-				SDKROOT = "";
-			};
-			name = Release;
-		};
-		89A36FA60ED85A720006CBEC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"_GLIBCXX_DEBUG=1",
-					"_GLIBCXX_DEBUG_PEDANTIC=1",
-				);
-				HEADER_SEARCH_PATHS = $SRCROOT/source;
-				INSTALL_PATH = /usr/local/bin;
-				PRODUCT_NAME = TreeTest;
-				SDKROOT = "";
-				ZERO_LINK = YES;
-			};
-			name = Debug;
-		};
-		89A36FA70ED85A720006CBEC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_MODEL_TUNING = G5;
-				HEADER_SEARCH_PATHS = $SRCROOT/source;
-				INSTALL_PATH = /usr/local/bin;
-				PRODUCT_NAME = TreeTest;
-				SDKROOT = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Pong;
+				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "MeshTest" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1DEB923208733DC60010E9CD /* Debug */,
-				1DEB923308733DC60010E9CD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "oxtorne" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -367,20 +220,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		897D61F00ED0A26800D1CBB8 /* Build configuration list for PBXNativeTarget "ArrayTest" */ = {
+		891BF0FB0EEC17E80058F448 /* Build configuration list for PBXNativeTarget "Pong" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				897D61F10ED0A26800D1CBB8 /* Debug */,
-				897D61F20ED0A26800D1CBB8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		89A36FA50ED85A720006CBEC /* Build configuration list for PBXNativeTarget "TreeTest" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				89A36FA60ED85A720006CBEC /* Debug */,
-				89A36FA70ED85A720006CBEC /* Release */,
+				891BF0D30EEC17B30058F448 /* Debug */,
+				891BF0D40EEC17B30058F448 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
