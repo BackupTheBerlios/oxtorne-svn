@@ -1,15 +1,9 @@
 
-#define OXGEOMETRY_CPP
-
-#include "OxGeometry.h"
-
-#include <cmath>
-#include <cfloat>
 #include <algorithm>
 
 namespace oxtorne {
 
-template<typename T>
+inline template<typename T>
 point<T,3> make_point(const T& _x, const T& _y, const T& _z) {
     point<T,3> _point;
     _point[0] = _x;
@@ -18,7 +12,7 @@ point<T,3> make_point(const T& _x, const T& _y, const T& _z) {
     return _point;
 }
 
-template<typename T>
+inline template<typename T>
 vector<T,3> make_vector(const T& _x, const T& _y, const T& _z) {
     vector<T,3> _vector;
     _vector[0] = _x;
@@ -27,7 +21,7 @@ vector<T,3> make_vector(const T& _x, const T& _y, const T& _z) {
     return _vector;
 }
 
-template<typename T>
+inline template<typename T>
 sphere<T,3> make_sphere(const T& _x, const T& _y, const T& _z, const T& _radius) {
     sphere<T,3> _sphere;
     _sphere.center[0] = _x;
@@ -37,7 +31,7 @@ sphere<T,3> make_sphere(const T& _x, const T& _y, const T& _z, const T& _radius)
     return _sphere;
 }
 
-template<typename T>
+inline template<typename T>
 sphere<T,3> make_sphere(const point<T,3>& _center, const T& _radius) {
     sphere<T,3> _sphere;
     _sphere.center[0] = _center[0];
@@ -47,7 +41,7 @@ sphere<T,3> make_sphere(const point<T,3>& _center, const T& _radius) {
     return _sphere;
 }
 
-template<typename T>
+inline template<typename T>
 ray<T,3> make_ray(const T& _ox, const T& _oy, const T& _oz, const T& _dx, const T& _dy, const T& _dz) {
     ray<T,3> _ray;
     _ray.origin[0] = _ox;
@@ -59,7 +53,7 @@ ray<T,3> make_ray(const T& _ox, const T& _oy, const T& _oz, const T& _dx, const 
     return _ray;
 }
 
-template<typename T>
+inline template<typename T>
 ray<T,3> make_ray(const point<T,3>& _origin, const vector<T,3>& _direction) {
     ray<T,3> _ray;
     _ray.origin = _origin;
@@ -67,7 +61,7 @@ ray<T,3> make_ray(const point<T,3>& _origin, const vector<T,3>& _direction) {
     return _ray;
 }
 
-template<typename T>
+inline template<typename T>
 plane<T,3> make_plane(const point<T,3>& _a, const point<T,3>& _b, const point<T,3>& _c) {
     plane<T,3> _plane;
     vector<T,3> _v0 = _b - _a;
@@ -76,7 +70,7 @@ plane<T,3> make_plane(const point<T,3>& _a, const point<T,3>& _b, const point<T,
     return make_plane(_a, _normal);
 }
 
-template<typename T>
+inline template<typename T>
 plane<T,3> make_plane(const point<T,3>& _point, const vector<T,3>& _vector) {
     vector<T,3> _normalized = normalize(_vector);
     T _constant = dot_product(_vector, _point);
@@ -87,7 +81,7 @@ plane<T,3> make_plane(const point<T,3>& _point, const vector<T,3>& _vector) {
     return _plane;
 }
 
-template<typename T>
+inline template<typename T>
 box<T,3> make_box(const point<T,3>& _a, const point<T,3>& _b) {
     box<T,3> _box;
     _box.min[0] = std::min(_a[0], _b[0]);
@@ -99,7 +93,7 @@ box<T,3> make_box(const point<T,3>& _a, const point<T,3>& _b) {
     return _box;
 }
 
-template<typename T>
+inline template<typename T>
 box<T,3> make_box(const T& _ax, const T& _ay, const T& _az, const T& _bx, const T& _by, const T& _bz) {
     box<T,3> _box;
     _box.min[0] = std::min(_ax, _bx);
@@ -111,7 +105,7 @@ box<T,3> make_box(const T& _ax, const T& _ay, const T& _az, const T& _bx, const 
     return _box;
 }
 
-template<typename T>
+inline template<typename T>
 line<T,3> make_line(const point<T,3>& _a, const point<T,3>& _b) {
     line<T,3> _line;
     _line.a = _a;
@@ -119,7 +113,7 @@ line<T,3> make_line(const point<T,3>& _a, const point<T,3>& _b) {
     return _line;
 }
 
-template<typename T>
+inline template<typename T>
 line<T,3> make_line(const T& _ax, const T& _ay, const T& _az, const T& _bx, const T& _by, const T& _bz) {
     line<T,3> _line;
     _line.a.x = _ax;
@@ -131,7 +125,7 @@ line<T,3> make_line(const T& _ax, const T& _ay, const T& _az, const T& _bx, cons
     return _line;
 }
 
-template<typename T>
+inline template<typename T>
 triangle<T,3> make_triangle(const point<T,3>& _p0, const point<T,3>& _p1, const point<T,3>& _p2) {
     triangle<T,3> _triangle;
     _triangle[0] = _p0;
@@ -140,7 +134,7 @@ triangle<T,3> make_triangle(const point<T,3>& _p0, const point<T,3>& _p1, const 
     return _triangle;
 }
 
-template<typename T> triangle<T,3> make_triangle(const T& _x, const T& _y, const T& _z, const T& _u, const T& _v, const T& _w, const T& _a, const T& _b, const T& _c) {
+inline template<typename T> triangle<T,3> make_triangle(const T& _x, const T& _y, const T& _z, const T& _u, const T& _v, const T& _w, const T& _a, const T& _b, const T& _c) {
     triangle<T,3> _triangle;
     _triangle[0] = make_point(_x, _y, _z);
     _triangle[1] = make_point(_u, _v, _w);
@@ -148,7 +142,7 @@ template<typename T> triangle<T,3> make_triangle(const T& _x, const T& _y, const
     return _triangle;
 }
 
-template<typename T, std::size_t D>
+inline template<typename T, std::size_t D>
 bool operator==(const point<T,D>& _a, const point<T,D>& _b) {
     // compiler loop unroll desired here
     for (int i = 0; i < D; ++i)
@@ -157,7 +151,7 @@ bool operator==(const point<T,D>& _a, const point<T,D>& _b) {
     return true;
 }
 
-template<typename T, std::size_t D>
+inline template<typename T, std::size_t D>
 point<T,D> operator+(const point<T,D>& _a, const point<T,D>& _b) {
     point<T,D> _point;
     // compiler loop unroll desired here
@@ -166,7 +160,7 @@ point<T,D> operator+(const point<T,D>& _a, const point<T,D>& _b) {
     return _point;
 }
 
-template<typename T, std::size_t D>
+inline template<typename T, std::size_t D>
 vector<T,D> operator+(const vector<T,D>& _a, const vector<T,D>& _b) {
     vector<T,D> _vector;
     // compiler loop unroll desired here
@@ -175,7 +169,7 @@ vector<T,D> operator+(const vector<T,D>& _a, const vector<T,D>& _b) {
     return _vector;
 }
 
-template<typename T, std::size_t D>
+inline template<typename T, std::size_t D>
 vector<T,D> operator-(const point<T,D>& _a, const point<T,D>& _b) {
     vector<T,D> _vector;
     // compiler loop unroll desired here
@@ -184,7 +178,7 @@ vector<T,D> operator-(const point<T,D>& _a, const point<T,D>& _b) {
     return _vector;
 }
 
-template<typename T, std::size_t D>
+inline template<typename T, std::size_t D>
 point<T,D> operator*(const point<T,D>& _point, const T& _scalar) {
     point<T,D> _result;
     // compiler loop unroll desired here
@@ -193,7 +187,7 @@ point<T,D> operator*(const point<T,D>& _point, const T& _scalar) {
     return _result;
 }
 
-template<typename T, std::size_t D>
+inline template<typename T, std::size_t D>
 vector<T,D> operator*(const vector<T,D>& _vector, const T& _scalar) {
     vector<T,D> _result;
     // compiler loop unroll desired here
@@ -202,7 +196,7 @@ vector<T,D> operator*(const vector<T,D>& _vector, const T& _scalar) {
     return _result;
 }
 
-template<typename T, std::size_t D>
+inline template<typename T, std::size_t D>
 point<T,D>  operator*(const T& _scalar, const point<T,D>& _point) {
     point<T,D> _result;
     // compiler loop unroll desired here
@@ -211,7 +205,7 @@ point<T,D>  operator*(const T& _scalar, const point<T,D>& _point) {
     return _result;
 }
 
-template<typename T, std::size_t D>
+inline template<typename T, std::size_t D>
 vector<T,D> operator*(const T& _scalar, const vector<T,D>& _vector) {
     vector<T,D> _result;
     // compiler loop unroll desired here
@@ -220,33 +214,33 @@ vector<T,D> operator*(const T& _scalar, const vector<T,D>& _vector) {
     return _result;
 }
 
-template<typename T>
+inline template<typename T>
 bool
 is_equal(const T& _a, const T& _b) {
     T _d = _a - _b;
     return -T(FLT_EPSILON) <= _d && _d <= T(FLT_EPSILON);
 }
 
-template<typename T>
+inline template<typename T>
 bool
 is_equal_or_smaller(const T& _a, const T& _b) {
     T _d = _a - _b;
     return (-T(FLT_EPSILON) <= _d && _d <= T(FLT_EPSILON)) || (_a < _b);
 }
 
-template<typename T>
+inline template<typename T>
 bool
 is_equal_or_greater(const T& _a, const T& _b) {
     T _d = _a - _b;
     return (-T(FLT_EPSILON) <= _d && _d <= T(FLT_EPSILON)) || (_a > _b);
 }
 
-template<typename T>
+inline template<typename T>
 T length(const vector<T,3>& _v) {
     return sqrt(_v[0] * _v[0] + _v[1] * _v[1] + _v[2] * _v[2]);
 }
 
-template<typename T>
+inline template<typename T>
 T distance(const point<T,3>& _p0, const point<T,3>& _p1) {
     return sqrt(
         (_p0[0] - _p1[0]) * (_p0[0] - _p1[0]) +
@@ -254,7 +248,7 @@ T distance(const point<T,3>& _p0, const point<T,3>& _p1) {
         (_p0[2] - _p1[2]) * (_p0[2] - _p1[2]));
 }
 
-template<typename T>
+inline template<typename T>
 vector<T,3> normalize(const vector<T,3>& _v) {
     T _length = sqrt(_v[0] * _v[0] + _v[1] * _v[1] + _v[2] * _v[2]);
     
@@ -265,7 +259,7 @@ vector<T,3> normalize(const vector<T,3>& _v) {
     return _normalized;
 }
 
-template<typename T>
+inline template<typename T>
 vector<T,3> cross_product(const vector<T,3>& _a, const vector<T,3>& _b) {
     vector<T,3> _result;
     _result[0] = _a[1] * _b[2] - _a[2] * _b[1];
@@ -274,26 +268,26 @@ vector<T,3> cross_product(const vector<T,3>& _a, const vector<T,3>& _b) {
     return _result;
 }
 
-template<typename T>
+inline template<typename T>
 T dot_product(const point<T,3>& _a, const point<T,3>& _b) {
     return _a[0] * _b[0] + _a[1] * _b[1] + _a[2] * _b[2];
 }
    
-template<typename T>
+inline template<typename T>
 bool point_in_box(const box<T,3>& _box, const point<T,3>& _point) {
     return (_box.min[0] <= _point[0]) && (_box.max[0] >= _point[0]) &&
            (_box.min[1] <= _point[1]) && (_box.max[1] >= _point[1]) &&
            (_box.min[2] <= _point[2]) && (_box.max[2] >= _point[2]);
 }
 
-template<typename T>
+inline template<typename T>
 bool point_in_box(const box<T,3>& _box, const T& _x, const T& _y, const T& _z) {
     return _box.min[0] <= _x && _box.min[1] <= _y &&
            _box.min[2] <= _z && _box.max[0] >= _x &&
            _box.max[1] >= _y && _box.max[2] >= _z;
 }
 
-template<typename T>
+inline template<typename T>
 bool intersect(const box<T,3>& _box, const triangle<T,3>& _triangle) {
     point<T,3> _p0 = _triangle[0];
     point<T,3> _p1 = _triangle[1];
@@ -312,17 +306,17 @@ bool intersect(const box<T,3>& _box, const triangle<T,3>& _triangle) {
     return false;
 }
 
-template<typename T, std::size_t D>
+inline template<typename T, std::size_t D>
 bool intersect(const line<T,D>& _line, const plane<T,D>& _plane) {
     return dot_product(_line.a - _line.b, _plane.normal) != T(0.0);
 }
 
-template<typename T>
+inline template<typename T>
 bool intersect(const ray<T,3>& _ray, const plane<T,3>& _plane) {
     return dot_product(_ray.direction, _plane.normal) != T(0.0);
 }
 
-template<typename T>
+inline template<typename T>
 bool intersect(const triangle<T,3>& _triangle, const line<T,3>& _line) {
 	T edge1_x = _triangle[1][0] - _triangle[0][0];
 	T edge1_y = _triangle[1][1] - _triangle[0][1];
@@ -362,7 +356,7 @@ bool intersect(const triangle<T,3>& _triangle, const line<T,3>& _line) {
 	return true;
 }
 
-template<typename T>
+inline template<typename T>
 bool intersect(const triangle<T,3>& _triangle, const ray<T,3>& _ray) {
 	T edge1_x = _triangle[1][0] - _triangle[0][0];
 	T edge1_y = _triangle[1][1] - _triangle[0][1];
@@ -410,27 +404,27 @@ bool intersect(const triangle<T,3>& _triangle, const ray<T,3>& _ray) {
 	return true;
 }
 
-template<typename T> bool intersect(const triangle<T,3>& _triangle, const sphere<T,3>& _sphere) {
+inline template<typename T> bool intersect(const triangle<T,3>& _triangle, const sphere<T,3>& _sphere) {
     point<T,3> _point = closest_point_on_triangle_from_point(_triangle, _sphere.center);
     if (distance(_point, _sphere.center) <= _sphere.radius)
         return true;
     return false;
 }
 
-template<typename T>
+inline template<typename T>
 point<T,3> intersection_point(const line<T,3>& _line, const plane<T,3>& _plane) {
     ray<T,3> _ray = make_ray(_line.a, _line.b - _line.a);
     return intersection_point(_ray, _plane);
 }
 
-template<typename T>
+inline template<typename T>
 point<T,3> intersection_point(const ray<T,3>& _ray, const plane<T,3>& _plane) {
     T _dot   = dot_product(_ray.origin,    _plane.normal);
     T _unit  = dot_product(_ray.direction, _plane.normal);
     return _ray.direction * ((_dot - _plane.constant) / _unit);
 }
 
-template<typename T>
+inline template<typename T>
 point<T,3> intersection_point(const line<T,3>& _line, const triangle<T,3>& _triangle) {
       T _ux = _triangle[1][0] - _triangle[0][0];
       T _uy = _triangle[1][1] - _triangle[0][1];
@@ -461,7 +455,7 @@ point<T,3> intersection_point(const line<T,3>& _line, const triangle<T,3>& _tria
                         _line.a[2] + (_r * _dirz));
 }
 
-template<typename T>
+inline template<typename T>
 void intersection_point(const sphere<T,3>& _sphere, const ray<T,3>& _ray, point<T,3>*& _intersections, size_t& _nintersections) {
     
     vector<T,3> _v = _ray.origin - _sphere.center;
@@ -505,7 +499,7 @@ void intersection_point(const sphere<T,3>& _sphere, const ray<T,3>& _ray, point<
     }
 }
 
-template<typename T>
+inline template<typename T>
 point<T,3> closest_point_on_ray_from_point(const ray<T,3>& _ray, const point<T,3>& _point) {
     T _p = dot_product(_point - _ray.origin, _ray.direction);
 
@@ -514,17 +508,17 @@ point<T,3> closest_point_on_ray_from_point(const ray<T,3>& _ray, const point<T,3
     return _ray.origin + (_ray.direction * _p);
 }
 
-template<typename T>
+inline template<typename T>
 point<T,3> closest_point_on_line_from_point(const line<T,3>& _line, const point<T,3>& _point) {
     return _line.a + ((_line.b - _line.a) * dot_product(_point - _line.a, _line.b - _line.a));
 }
 
-template<typename T>
+inline template<typename T>
 point<T,3> closest_point_on_plane_from_point(const plane<T,3>& _plane, const point<T,3>& _point) {
     return _point - _plane.normal * (dot_product(_plane.normal, _point) - _plane.constant);
 }
 
-template<typename T>
+inline template<typename T>
 point<T,3> closest_point_on_triangle_from_point(const triangle<T,3>& _triangle, const point<T,3>& _point) {
     vector<T,3> ab = _triangle[1] - _triangle[0];
     vector<T,3> ac = _triangle[2] - _triangle[0];
@@ -571,7 +565,7 @@ point<T,3> closest_point_on_triangle_from_point(const triangle<T,3>& _triangle, 
     return (_triangle[0] * u) + (_triangle[1] * v) + (_triangle[2] * w);
 }
 
-template<typename T>
+inline template<typename T>
 sphere<T,3> minimum_bounding_sphere(const triangle<T,3>& _triangle) {
 
     point<T,3> A = _triangle[0];
@@ -623,7 +617,7 @@ sphere<T,3> minimum_bounding_sphere(const triangle<T,3>& _triangle) {
 	return _sphere;
 }
 
-template<typename T>
+inline template<typename T>
 sphere<T,3> minimum_bounding_sphere(const box<T,3>& _box) {
     sphere<T,3> _sphere;
     _sphere.center = (_box.min + _box.max) * T(0.5);
@@ -631,11 +625,11 @@ sphere<T,3> minimum_bounding_sphere(const box<T,3>& _box) {
     return _sphere;
 }
 
-template<typename T> point<T,3> mirror(const plane<T,3>& _plane, const point<T,3>& _point) {
+inline template<typename T> point<T,3> mirror(const plane<T,3>& _plane, const point<T,3>& _point) {
     return _point - _plane.normal * (T(2.0) * (dot_product(_plane.normal, _point) - _plane.constant));
 }
 
-template<typename T> vector<T,3> mirror(const plane<T,3>& _plane, const vector<T,3>& _vector) {
+inline template<typename T> vector<T,3> mirror(const plane<T,3>& _plane, const vector<T,3>& _vector) {
     return _vector - _plane.normal * (T(2.0) * (dot_product(_plane.normal, _vector) - _plane.constant));
 }
 
