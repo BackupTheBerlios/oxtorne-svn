@@ -6,18 +6,39 @@
 	objectVersion = 44;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		89CF264F0F642556003B7770 /* geometryTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89CF264E0F642556003B7770 /* geometryTest.cpp */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		891765390E7B0103003E4E05 /* OxGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxGeometry.h; path = source/OxGeometry.h; sourceTree = "<group>"; };
 		8917653E0E7B010D003E4E05 /* OxGeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxGeometry.cpp; path = source/OxGeometry.cpp; sourceTree = "<group>"; };
 		8990A3B30ECE9C860060F284 /* OxAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxAlgorithm.h; path = source/OxAlgorithm.h; sourceTree = "<group>"; };
 		8990A3B40ECE9C8F0060F284 /* OxAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxAlgorithm.cpp; path = source/OxAlgorithm.cpp; sourceTree = "<group>"; };
+		89CF26460F6422A6003B7770 /* Oxtorne Unit Tests.cptest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Oxtorne Unit Tests.cptest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		89CF26480F6422A6003B7770 /* OxtorneUTests.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = OxtorneUTests.plist; sourceTree = "<group>"; };
+		89CF264D0F642556003B7770 /* geometryTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = geometryTest.h; path = source/tests/geometryTest.h; sourceTree = "<group>"; };
+		89CF264E0F642556003B7770 /* geometryTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = geometryTest.cpp; path = source/tests/geometryTest.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		89CF26430F6422A6003B7770 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		08FB7794FE84155DC02AAC07 /* oxtorne */ = {
 			isa = PBXGroup;
 			children = (
+				89CF26500F64255C003B7770 /* Tests */,
 				89FD098B0F61B1AC0031A0F6 /* Geometry */,
+				89CF26470F6422A6003B7770 /* Products */,
+				89CF26480F6422A6003B7770 /* OxtorneUTests.plist */,
 			);
 			name = oxtorne;
 			sourceTree = "<group>";
@@ -40,6 +61,23 @@
 			name = Header;
 			sourceTree = "<group>";
 		};
+		89CF26470F6422A6003B7770 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				89CF26460F6422A6003B7770 /* Oxtorne Unit Tests.cptest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		89CF26500F64255C003B7770 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				89CF264D0F642556003B7770 /* geometryTest.h */,
+				89CF264E0F642556003B7770 /* geometryTest.cpp */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
 		89FD098B0F61B1AC0031A0F6 /* Geometry */ = {
 			isa = PBXGroup;
 			children = (
@@ -51,6 +89,27 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXNativeTarget section */
+		89CF26450F6422A6003B7770 /* Oxtorne Unit Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89CF264B0F6422A9003B7770 /* Build configuration list for PBXNativeTarget "Oxtorne Unit Tests" */;
+			buildPhases = (
+				89CF26410F6422A6003B7770 /* Resources */,
+				89CF26420F6422A6003B7770 /* Sources */,
+				89CF26430F6422A6003B7770 /* Frameworks */,
+				89CF26440F6422A6003B7770 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Oxtorne Unit Tests";
+			productName = "Oxtorne Unit Tests";
+			productReference = 89CF26460F6422A6003B7770 /* Oxtorne Unit Tests.cptest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
 /* Begin PBXProject section */
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
@@ -58,12 +117,51 @@
 			compatibilityVersion = "Xcode 3.0";
 			hasScannedForEncodings = 1;
 			mainGroup = 08FB7794FE84155DC02AAC07 /* oxtorne */;
+			productRefGroup = 89CF26470F6422A6003B7770 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				89CF26450F6422A6003B7770 /* Oxtorne Unit Tests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		89CF26410F6422A6003B7770 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		89CF26440F6422A6003B7770 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		89CF26420F6422A6003B7770 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89CF264F0F642556003B7770 /* geometryTest.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
 		1DEB923608733DC60010E9CD /* Debug */ = {
@@ -90,6 +188,58 @@
 			};
 			name = Release;
 		};
+		89CF26490F6422A9003B7770 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				INFOPLIST_FILE = OxtorneUTests.plist;
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+					"-framework",
+					CPlusTest,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "Oxtorne Unit Tests";
+				WRAPPER_EXTENSION = cptest;
+			};
+			name = Debug;
+		};
+		89CF264A0F6422A9003B7770 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				INFOPLIST_FILE = OxtorneUTests.plist;
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+					"-framework",
+					CPlusTest,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "Oxtorne Unit Tests";
+				WRAPPER_EXTENSION = cptest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -98,6 +248,15 @@
 			buildConfigurations = (
 				1DEB923608733DC60010E9CD /* Debug */,
 				1DEB923708733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		89CF264B0F6422A9003B7770 /* Build configuration list for PBXNativeTarget "Oxtorne Unit Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89CF26490F6422A9003B7770 /* Debug */,
+				89CF264A0F6422A9003B7770 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
