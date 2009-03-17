@@ -112,9 +112,11 @@
 		898F82850F6ED5C600E6E11C /* Endian.cc in Sources */ = {isa = PBXBuildFile; fileRef = 898F810D0F6ED2C800E6E11C /* Endian.cc */; };
 		898F82860F6ED5C600E6E11C /* SingletonT.cc in Sources */ = {isa = PBXBuildFile; fileRef = 898F81130F6ED2C800E6E11C /* SingletonT.cc */; };
 		898F82910F6ED7A800E6E11C /* OxObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 898F82900F6ED7A800E6E11C /* OxObject.h */; };
-		898F82C30F6EDDC600E6E11C /* OpenMesh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 898F821B0F6ED56500E6E11C /* OpenMesh.framework */; };
 		898F83400F6EE2BD00E6E11C /* Kula.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 898F833F0F6EE2BD00E6E11C /* Kula.cpp */; };
 		898F83500F6EECFA00E6E11C /* OxBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 898F834F0F6EECFA00E6E11C /* OxBox.cpp */; };
+		89D8259C0F703646001C37D5 /* OxGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89D8259B0F703646001C37D5 /* OxGL.cpp */; };
+		89D825A20F703956001C37D5 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D825A00F703956001C37D5 /* GLUT.framework */; };
+		89D825A30F703956001C37D5 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D825A10F703956001C37D5 /* OpenGL.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -253,6 +255,10 @@
 		898F834F0F6EECFA00E6E11C /* OxBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxBox.cpp; path = source/kula/OxBox.cpp; sourceTree = "<group>"; };
 		8990A3B30ECE9C860060F284 /* OxAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxAlgorithm.h; path = source/OxAlgorithm.h; sourceTree = "<group>"; };
 		8990A3B40ECE9C8F0060F284 /* OxAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxAlgorithm.cpp; path = source/OxAlgorithm.cpp; sourceTree = "<group>"; };
+		89D8259A0F703646001C37D5 /* OxGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxGL.h; path = source/OxGL.h; sourceTree = "<group>"; };
+		89D8259B0F703646001C37D5 /* OxGL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxGL.cpp; path = source/OxGL.cpp; sourceTree = "<group>"; };
+		89D825A00F703956001C37D5 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		89D825A10F703956001C37D5 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,7 +266,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				898F82C30F6EDDC600E6E11C /* OpenMesh.framework in Frameworks */,
+				89D825A20F703956001C37D5 /* GLUT.framework in Frameworks */,
+				89D825A30F703956001C37D5 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +277,8 @@
 		08FB7794FE84155DC02AAC07 /* oxtorne */ = {
 			isa = PBXGroup;
 			children = (
+				89D825A00F703956001C37D5 /* GLUT.framework */,
+				89D825A10F703956001C37D5 /* OpenGL.framework */,
 				898F828F0F6ED76300E6E11C /* Kula */,
 				898F808F0F6ED2C800E6E11C /* OpenMesh */,
 				89FD098B0F61B1AC0031A0F6 /* Geometry */,
@@ -550,6 +559,8 @@
 				8990A3B40ECE9C8F0060F284 /* OxAlgorithm.cpp */,
 				891765390E7B0103003E4E05 /* OxGeometry.h */,
 				8917653E0E7B010D003E4E05 /* OxGeometry.cpp */,
+				89D8259A0F703646001C37D5 /* OxGL.h */,
+				89D8259B0F703646001C37D5 /* OxGL.cpp */,
 			);
 			name = Geometry;
 			sourceTree = "<group>";
@@ -737,6 +748,7 @@
 			files = (
 				898F83400F6EE2BD00E6E11C /* Kula.cpp in Sources */,
 				898F83500F6EECFA00E6E11C /* OxBox.cpp in Sources */,
+				89D8259C0F703646001C37D5 /* OxGL.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
