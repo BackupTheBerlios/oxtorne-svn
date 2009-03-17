@@ -8,9 +8,11 @@
  */
 
 #include "OxBox.h"
+#include "OxGL.h"
 
-OxBox::OxBox(const box<float,3>&)
+OxBox::OxBox(const box<float,3>& _box)
 {
+    m_box = _box;
 }
 
 OxBox::~OxBox()
@@ -29,5 +31,6 @@ bool OxBox::obstructing() const
 
 void OxBox::draw() const
 {
-
+    glColor3f(1.0f, 0.0f, 0.0f);
+    draw_solid(m_box);
 }

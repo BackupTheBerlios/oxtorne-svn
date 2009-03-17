@@ -27,5 +27,6 @@ public:
 	void draw() const;
 
 protected:
+    box<float,3> m_box;
 
 };
