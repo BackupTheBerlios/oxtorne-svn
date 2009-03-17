@@ -26,4 +26,6 @@ public:
 	bool obstructing() const;
 	void draw() const;
 
+protected:
+
 };

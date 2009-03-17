@@ -136,10 +136,10 @@ template<typename T> inline ray<T,3>       make_ray(const T&, const T&, const T&
 template<typename T> inline ray<T,3>       make_ray(const point<T,3>&, const vector<T,3>&);
 template<typename T> inline plane<T,3>     make_plane(const point<T,3>&, const point<T,3>&, const point<T,3>&);
 template<typename T> inline plane<T,3>     make_plane(const point<T,3>&, const vector<T,3>&);
-template<typename T> inline box<T,2>       make_box(const point<T,2>&, const point<T,2>&);
-template<typename T> inline box<T,2>       make_box(const T&, const T&, const T&, const T&);
 template<typename T> inline box<T,3>       make_box(const point<T,3>&, const point<T,3>&);
 template<typename T> inline box<T,3>       make_box(const T&, const T&, const T&, const T&, const T&, const T&);
+template<typename T> inline box<T,3>       make_box(const point<T,3>&, const T&);
+template<typename T> inline box<T,3>       make_box(const T&, const T&, const T&, const T&);
 template<typename T> inline line<T,3>      make_line(const point<T,3>&, const point<T,3>&);
 template<typename T> inline line<T,3>      make_line(const T&, const T&, const T&, const T&, const T&, const T&);
 template<typename T> inline triangle<T,3>  make_triangle(const point<T,3>&, const point<T,3>&, const point<T,3>&);

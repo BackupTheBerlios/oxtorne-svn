@@ -547,8 +547,8 @@
 			isa = PBXGroup;
 			children = (
 				8990A3B30ECE9C860060F284 /* OxAlgorithm.h */,
-				891765390E7B0103003E4E05 /* OxGeometry.h */,
 				8990A3B40ECE9C8F0060F284 /* OxAlgorithm.cpp */,
+				891765390E7B0103003E4E05 /* OxGeometry.h */,
 				8917653E0E7B010D003E4E05 /* OxGeometry.cpp */,
 			);
 			name = Geometry;

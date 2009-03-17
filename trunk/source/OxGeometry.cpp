@@ -106,6 +106,17 @@ box<T,3> make_box(const T& _ax, const T& _ay, const T& _az, const T& _bx, const 
 }
 
 template<typename T> inline
+box<T,3> make_box(const point<T,3>& _center, const T& _size) {
+	vector<T,3> _vector = make_vector(T(1.0), T(1.0), T(1.0));
+	return make_box(_center + _size * _vector, _center - _size * _vector);
+}
+
+template<typename T> inline
+box<T,3> make_box(const T& _cx, const T& _cy, const T& _cz, const T& _s) {
+	return make_box(make_point(_cx, _cy, _cz), _s);
+}
+
+template<typename T> inline
 line<T,3> make_line(const point<T,3>& _a, const point<T,3>& _b) {
     line<T,3> _line;
     _line.a = _a;

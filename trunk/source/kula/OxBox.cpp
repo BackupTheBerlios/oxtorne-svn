@@ -29,4 +29,5 @@ bool OxBox::obstructing() const
 
 void OxBox::draw() const
 {
+
 }
