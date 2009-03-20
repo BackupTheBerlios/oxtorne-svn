@@ -8,6 +8,7 @@
  */
 
 #include <vector>
+#include <cmath>
 #include <GLUT/glut.h>
 
 #include "OxBox.h"
@@ -17,16 +18,19 @@
 using namespace oxtorne;
 
 std::vector<OxBox> objects;
+vector<float,3> forward;
+vector<float,3> up;
+point<float,3> position;
 
 float rota_x, rota_y;
 float last_x, last_y;
-float posi_x, posi_y, posi_z;
 
 void world_display(void) {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(90.0, 1.5, 1.0, 100.0);
-    gluLookAt(posi_x, posi_y, posi_z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    gluLookAt(position[0], position[1], position[2],
+              0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -35,7 +39,7 @@ void world_display(void) {
 
     glPushMatrix();
     glRotatef(rota_x, 1.0, 0.0, 0.0);
-    glRotatef(rota_y, 0.0, 1.0, 0.0);
+    glRotatef(rota_y, 0.0, 0.0, 1.0);
     
     for (std::size_t i = 0; i < objects.size(); ++i)
         objects.at(i).draw();
@@ -94,22 +98,22 @@ void world_keys(unsigned char key, int, int) {
 
     switch(key) {
         case 'w':
-            posi_y += 0.5f;
+            position[1] += 0.5f;
             break;
         case 'x':
-            posi_y -= 0.5f;
+            position[1] -= 0.5f;
             break;
         case 'a':
-            posi_x += 0.5f;
+            position[0] += 0.5f;
             break;
         case 'd':
-            posi_x -= 0.5f;
+            position[0] -= 0.5f;
             break;
         case 'q':
-            posi_z += 0.5f;
+            position[2] += 0.5f;
             break;
         case 'e':
-            posi_z -= 0.5f;
+            position[2] -= 0.5f;
             break;
     }
     
@@ -119,11 +123,12 @@ void world_keys(unsigned char key, int, int) {
 
 int main(int argc, char* argv[])
 {
+    forward = make_vector(1.0f, 0.0f, 0.0f);
+    up      = make_vector(0.0f, 0.0f, 1.0f);
+    position = make_point(5.0f, 0.0f, 0.0f);
+
     last_x = last_y = 0.0;
     rota_x = rota_y = 0.0;
-    posi_x = -5.0;
-    posi_y =  0.0;
-    posi_z =  2.0;
 
     glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
     glutInitWindowSize(512, 512);
@@ -141,6 +146,14 @@ int main(int argc, char* argv[])
 	objects.push_back(OxBox(make_box(1.0f, 0.0f, 0.0f, 0.5f)));
 	objects.push_back(OxBox(make_box(2.0f, 0.0f, 0.0f, 0.5f)));
 	objects.push_back(OxBox(make_box(3.0f, 1.0f, 0.0f, 0.5f)));
+    objects.push_back(OxBox(make_box(0.0f, 1.0f, 1.0f, 0.5f)));
+	objects.push_back(OxBox(make_box(1.0f, 1.0f, 1.0f, 0.5f)));
+	objects.push_back(OxBox(make_box(2.0f, 0.0f, 1.0f, 0.5f)));
+	objects.push_back(OxBox(make_box(3.0f, 1.0f, 2.0f, 0.5f)));
+    objects.push_back(OxBox(make_box(0.0f, 0.0f, 3.0f, 0.5f)));
+	objects.push_back(OxBox(make_box(1.0f, 0.0f, 4.0f, 0.5f)));
+	objects.push_back(OxBox(make_box(2.0f, 0.0f, 4.0f, 0.5f)));
+	objects.push_back(OxBox(make_box(3.0f, 1.0f, 4.0f, 0.5f)));
     
     glutMainLoop();
 }
