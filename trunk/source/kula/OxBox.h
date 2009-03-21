@@ -1,3 +1,6 @@
+#ifndef OXBOX_INCLUDE
+#define OXBOX_INCLUDE
+
 /*
  *  OxBox.h
  *  oxtorne
@@ -30,3 +33,5 @@ protected:
     box<float,3> m_box;
 
 };
+
+#endif

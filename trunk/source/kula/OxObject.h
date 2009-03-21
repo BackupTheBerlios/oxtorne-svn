@@ -1,3 +1,6 @@
+#ifndef OXOBJECT_INCLUDE
+#define OXOBJECT_INCLUDE
+
 /*
  *  OxObject.h
  *  oxtorne
@@ -18,3 +21,5 @@ public:
 	virtual void draw() const = 0;
 
 };
+
+#endif

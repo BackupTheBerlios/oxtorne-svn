@@ -10,6 +10,8 @@
 #include <vector>
 #include <cmath>
 #include <GLUT/glut.h>
+
+#include "OxWorld.h"
 #include "OxBox.h"
 #include "OxConsole.h"
 
@@ -47,15 +49,8 @@ void world_display(void) {
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(1.0, 0.0, 0.0);
-
-    // glPushMatrix();
-    // glRotatef(rota_x, 1.0, 0.0, 0.0);
-    // glRotatef(rota_y, 0.0, 0.0, 1.0);
-    
-    for (std::size_t i = 0; i < objects.size(); ++i)
-        objects.at(i).draw();
-        
-    // glPopMatrix();
+	
+	ox_draw_world();
 
     glutSwapBuffers();
 }
@@ -96,8 +91,8 @@ void world_motion(int x, int y) {
 	vector<float,3> right = cross_product(up, forward);
 	std::cout << "UP: " << up << std::endl;
 	std::cout << "RIGHT:  " << right << std::endl;
-	forward = normalize( rotate( right, forward, float(y - last_y) / 100.0f ) );
-	forward = normalize( rotate( up,    forward, float(x - last_x) / 100.0f ) );
+	forward = normalize( rotate( right, forward,  float(y - last_y) / 100.0f ) );
+	forward = normalize( rotate( up,    forward, -float(x - last_x) / 100.0f ) );
 	up = normalize( cross_product(forward, right) );
 
 	
@@ -117,22 +112,16 @@ void world_keys(unsigned char key, int, int) {
 
     switch(key) {
         case 'w':
-            position = position + (forward * 0.1f);
+            position = position + (forward * 0.6f);
             break;
-        case 'x':
-            position = position - (forward * 0.1f);
+        case 's':
+            position = position - (forward * 0.6f);
             break;
         case 'a':
-            position = position - (cross_product(up, forward) * 0.1f);
+            position = position + (cross_product(up, forward) * 0.6f);
             break;
         case 'd':
-            position = position + (cross_product(up, forward) * 0.1f);
-            break;
-        case 'q':
-            position[2] += 0.5f;
-            break;
-        case 'e':
-            position[2] -= 0.5f;
+            position = position - (cross_product(up, forward) * 0.6f);
             break;
     }
     
@@ -149,6 +138,8 @@ int main(int argc, char* argv[])
     last_x = last_y = 0.0;
     rota_x = rota_y = 0.0;
 
+	ox_load_world_debug();
+
     glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
     glutInitWindowSize(512, 512);
     glutInitWindowPosition(8, 8);
@@ -160,19 +151,6 @@ int main(int argc, char* argv[])
     glutMotionFunc(world_motion);
     glutMouseFunc(world_mouse);
     glutKeyboardFunc(world_keys);
-
-	objects.push_back(OxBox(make_box(0.0f, 0.0f, 0.0f, 0.5f)));
-	objects.push_back(OxBox(make_box(1.0f, 0.0f, 0.0f, 0.5f)));
-	objects.push_back(OxBox(make_box(2.0f, 0.0f, 0.0f, 0.5f)));
-	objects.push_back(OxBox(make_box(3.0f, 1.0f, 0.0f, 0.5f)));
-    objects.push_back(OxBox(make_box(0.0f, 1.0f, 1.0f, 0.5f)));
-	objects.push_back(OxBox(make_box(1.0f, 1.0f, 1.0f, 0.5f)));
-	objects.push_back(OxBox(make_box(2.0f, 0.0f, 1.0f, 0.5f)));
-	objects.push_back(OxBox(make_box(3.0f, 1.0f, 2.0f, 0.5f)));
-    objects.push_back(OxBox(make_box(0.0f, 0.0f, 3.0f, 0.5f)));
-	objects.push_back(OxBox(make_box(1.0f, 0.0f, 4.0f, 0.5f)));
-	objects.push_back(OxBox(make_box(2.0f, 0.0f, 4.0f, 0.5f)));
-	objects.push_back(OxBox(make_box(3.0f, 1.0f, 4.0f, 0.5f)));
     
     glutMainLoop();
 }
