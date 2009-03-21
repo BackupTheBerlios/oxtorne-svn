@@ -198,6 +198,11 @@ template<typename T> inline sphere<T,3>    minimum_bounding_sphere(const box<T,3
 template<typename T> inline point<T,3>     mirror(const plane<T,3>&, const point<T,3>&);
 template<typename T> inline vector<T,3>    mirror(const plane<T,3>&, const vector<T,3>&);
 
+/* Rotate Vectors *************************************************************/
+template<typename T> inline vector<T,3>    rotate(const vector<T,3>&, const vector<T,3>&, const T&);
+
+};
+
 #include "OxGeometry.cpp"
 
 #endif

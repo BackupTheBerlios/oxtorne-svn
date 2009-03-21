@@ -122,6 +122,7 @@
 /* Begin PBXFileReference section */
 		891765390E7B0103003E4E05 /* OxGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxGeometry.h; path = source/OxGeometry.h; sourceTree = "<group>"; };
 		8917653E0E7B010D003E4E05 /* OxGeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxGeometry.cpp; path = source/OxGeometry.cpp; sourceTree = "<group>"; };
+		8971812A0F74E2160044B4F1 /* OxConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxConsole.h; path = source/OxConsole.h; sourceTree = "<group>"; };
 		898F80910F6ED2C800E6E11C /* ACGMakefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ACGMakefile; sourceTree = "<group>"; };
 		898F80920F6ED2C800E6E11C /* Core.pro */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Core.pro; sourceTree = "<group>"; };
 		898F80940F6ED2C800E6E11C /* ACGMakefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ACGMakefile; sourceTree = "<group>"; };
@@ -555,6 +556,7 @@
 		89FD098B0F61B1AC0031A0F6 /* Geometry */ = {
 			isa = PBXGroup;
 			children = (
+				8971812A0F74E2160044B4F1 /* OxConsole.h */,
 				8990A3B30ECE9C860060F284 /* OxAlgorithm.h */,
 				8990A3B40ECE9C8F0060F284 /* OxAlgorithm.cpp */,
 				891765390E7B0103003E4E05 /* OxGeometry.h */,

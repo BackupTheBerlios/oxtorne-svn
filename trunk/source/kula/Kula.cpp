@@ -6,14 +6,14 @@
  *  Copyright 2009 Markus Friese. All rights reserved.
  *
  */
-
+ 
 #include <vector>
 #include <cmath>
 #include <GLUT/glut.h>
-
 #include "OxBox.h"
+#include "OxConsole.h"
 
-#include <stdio.h>
+#include <iostream>
 
 using namespace oxtorne;
 
@@ -26,25 +26,36 @@ float rota_x, rota_y;
 float last_x, last_y;
 
 void world_display(void) {
+	
+
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(90.0, 1.5, 1.0, 100.0);
-    gluLookAt(position[0], position[1], position[2],
-              0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    gluPerspective(45.0, 1.5, 1.0, 100.0);
+    gluLookAt(
+		  position[0]
+		, position[1]
+		, position[2]
+		, position[0] + forward[0]
+		, position[1] + forward[1]
+		, position[2] + forward[2]
+		, up[0]
+		, up[1]
+		, up[2]);
+
 	glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(1.0, 0.0, 0.0);
 
-    glPushMatrix();
-    glRotatef(rota_x, 1.0, 0.0, 0.0);
-    glRotatef(rota_y, 0.0, 0.0, 1.0);
+    // glPushMatrix();
+    // glRotatef(rota_x, 1.0, 0.0, 0.0);
+    // glRotatef(rota_y, 0.0, 0.0, 1.0);
     
     for (std::size_t i = 0; i < objects.size(); ++i)
         objects.at(i).draw();
         
-    glPopMatrix();
+    // glPopMatrix();
 
     glutSwapBuffers();
 }
@@ -56,11 +67,11 @@ void world_reshape(int width, int height) {
 	glShadeModel(GL_SMOOTH);
 	glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(90.0, 1.5, 1.0, 100.0);
+    gluPerspective(45.0, 1.5, 1.0, 100.0);
     gluLookAt(-5.0, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
+	GLfloat light_position[] = { 1.0, 0.5, 0.75, 0.0 };
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	glEnable(GL_LIGHT0);
 	glEnable(GL_DEPTH_TEST);
@@ -81,13 +92,21 @@ void world_mouse(int button, int state, int x, int y) {
 
 
 void world_motion(int x, int y) {
+	
+	vector<float,3> right = cross_product(up, forward);
+	std::cout << "UP: " << up << std::endl;
+	std::cout << "RIGHT:  " << right << std::endl;
+	forward = normalize( rotate( right, forward, float(y - last_y) / 100.0f ) );
+	forward = normalize( rotate( up,    forward, float(x - last_x) / 100.0f ) );
+	up = normalize( cross_product(forward, right) );
+
+	
+
     rota_x += float(x - last_x);
     rota_y += float(y - last_y);
     
     last_x = float(x);
 	last_y = float(y);
-
-    printf("%i %i\n", x, y);
 
     glutPostRedisplay();
 }
@@ -98,16 +117,16 @@ void world_keys(unsigned char key, int, int) {
 
     switch(key) {
         case 'w':
-            position[1] += 0.5f;
+            position = position + (forward * 0.1f);
             break;
         case 'x':
-            position[1] -= 0.5f;
+            position = position - (forward * 0.1f);
             break;
         case 'a':
-            position[0] += 0.5f;
+            position = position - (cross_product(up, forward) * 0.1f);
             break;
         case 'd':
-            position[0] -= 0.5f;
+            position = position + (cross_product(up, forward) * 0.1f);
             break;
         case 'q':
             position[2] += 0.5f;

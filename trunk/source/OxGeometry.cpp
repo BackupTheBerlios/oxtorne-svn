@@ -623,4 +623,27 @@ template<typename T> inline vector<T,3> mirror(const plane<T,3>& _plane, const v
     return _vector - _plane.normal * (T(2.0) * (dot_product(_plane.normal, _vector) - _plane.constant));
 }
 
+template<typename T> inline vector<T,3> rotate(const vector<T,3>& _vector, const vector<T,3>& _point, const T& _angle) {
+	T _ux = _vector[0] * _point[0];
+	T _uy = _vector[0] * _point[1];
+	T _uz = _vector[0] * _point[2];
+	
+	T _vx = _vector[1] * _point[0];
+	T _vy = _vector[1] * _point[1];
+	T _vz = _vector[1] * _point[2];
+	
+	T _wx = _vector[2] * _point[0];
+	T _wy = _vector[2] * _point[1];
+	T _wz = _vector[2] * _point[2];
+	
+	T _sa = sin(_angle);
+	T _ca = cos(_angle);
+	
+	T _x = _vector[0] * (_ux + _vy + _wz) + (_point[0] * (_vector[1] * _vector[1] + _vector[2] * _vector[2]) - _vector[0] * (_vy + _wz)) * _ca + (-_wy + _vz) * _sa;
+    T _y = _vector[1] * (_ux + _vy + _wz) + (_point[1] * (_vector[0] * _vector[0] + _vector[2] * _vector[2]) - _vector[1] * (_ux + _wz)) * _ca + ( _wx - _uz) * _sa;
+	T _z = _vector[2] * (_ux + _vy + _wz) + (_point[2] * (_vector[0] * _vector[0] + _vector[1] * _vector[1]) - _vector[2] * (_ux + _vy)) * _ca + (-_vx + _uy) * _sa;
+
+	return make_vector(_x, _y, _z);
+}
+
 }
