@@ -9,6 +9,14 @@
  *  Copyright 2009 Markus Friese. All rights reserved.
  *
  */
+/*
+#include "OxPlayer.h"
+
+
+typedef enum {
+    NONE = 0,
+    OBSTACLE = 1
+} OXobjectType;
 
 
 class OxObject
@@ -16,10 +24,9 @@ class OxObject
 
 public:
 	
-	virtual bool collides(const OxObject&) const = 0;
-	virtual bool obstructing() const { return false; }
-	virtual void draw() const = 0;
+	virtual OXobjectType get_object_type( void ) = 0;
+    virtual void draw_object( void );
 
 };
-
+*/
 #endif

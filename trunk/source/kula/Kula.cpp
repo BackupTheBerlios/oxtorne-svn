@@ -12,17 +12,21 @@
 #include <GLUT/glut.h>
 
 #include "OxWorld.h"
-#include "OxBox.h"
 #include "OxConsole.h"
+#include "OxPlayer.h"
 
 #include <iostream>
 
 using namespace oxtorne;
+using std::cout;
+using std::endl;
 
-std::vector<OxBox> objects;
 vector<float,3> forward;
 vector<float,3> up;
 point<float,3> position;
+
+Player player;
+World world(16, 12, 8);
 
 float rota_x, rota_y;
 float last_x, last_y;
@@ -50,7 +54,8 @@ void world_display(void) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(1.0, 0.0, 0.0);
 	
-	ox_draw_world();
+	world.draw();
+    player.draw();
 
     glutSwapBuffers();
 }
@@ -123,6 +128,21 @@ void world_keys(unsigned char key, int, int) {
         case 'd':
             position = position - (cross_product(up, forward) * 0.6f);
             break;
+        case 'u':
+            player.move_forward();
+            if (world.above_solid(player)) cout << "Player above solid" << endl;
+            else cout << "Player not above solid" << endl;
+            
+            if (world.facing_solid(player)) cout << "Player facing solid" << endl;
+            else cout << "Player can move forward" << endl;
+            
+            break;
+        case 'h':
+            player.rotate_left();
+            break;
+        case 'k':
+            player.rotate_right();
+            break;
     }
     
     glutPostRedisplay();
@@ -138,7 +158,7 @@ int main(int argc, char* argv[])
     last_x = last_y = 0.0;
     rota_x = rota_y = 0.0;
 
-	ox_load_world_debug();
+	// ox_load_world_debug();
 
     glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
     glutInitWindowSize(512, 512);

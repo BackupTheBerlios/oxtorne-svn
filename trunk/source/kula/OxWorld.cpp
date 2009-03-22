@@ -10,67 +10,176 @@
 /// Common requirenments
 //
 #include "OxWorld.h"
-#include "OxObject.h"
+#include "OxGL.h"
+#include <cmath>
 
-
-/// for debugging
-//
-#include "OxBox.h"
-
-
-/// for ease of use
-//
 using namespace oxtorne;
 
-
-/// World entities
-//
-static OxObject** objects;
-static size_t n_objects;
-
-
-/// Load world data for debugging
-// return 0 on fail and 1 on success
-//
-int ox_load_world_debug( void ) {
-	n_objects = 12;
-	objects = (OxObject**) malloc (n_objects * sizeof(OxObject*));
-
-	objects[0] = new OxBox(make_box(0.0f, 0.0f, 0.0f, 0.5f));
-	objects[1] = new OxBox(make_box(1.0f, 0.0f, 0.0f, 0.5f));
-	objects[2] = new OxBox(make_box(2.0f, 0.0f, 0.0f, 0.5f));
-	objects[3] = new OxBox(make_box(3.0f, 1.0f, 0.0f, 0.5f));
-	objects[4] = new OxBox(make_box(0.0f, 1.0f, 1.0f, 0.5f));
-	objects[5] = new OxBox(make_box(1.0f, 1.0f, 1.0f, 0.5f));
-	objects[6] = new OxBox(make_box(2.0f, 0.0f, 1.0f, 0.5f));
-	objects[7] = new OxBox(make_box(3.0f, 1.0f, 2.0f, 0.5f));
-	objects[8] = new OxBox(make_box(0.0f, 0.0f, 3.0f, 0.5f));
-	objects[9] = new OxBox(make_box(1.0f, 0.0f, 4.0f, 0.5f));
-	objects[10] = new OxBox(make_box(2.0f, 0.0f, 4.0f, 0.5f));
-	objects[11] = new OxBox(make_box(3.0f, 1.0f, 4.0f, 0.5f));
-	
-	return 1;
+// *****************************************************************************
+Player::Player()
+{
+    forward = make_vector(1.0f, 0.0f, 0.0f);
+    upward = make_vector(0.0f, 0.0f, 1.0f);
+    position = make_point(0.5f, 0.5f, 1.5f);
 }
 
-
-/// Clear world data
-// return 0 on fail and 1 on success
-//
-int ox_clear_world( void ) {
-	free(objects);
-	
-	return 1;
+Player::~Player()
+{
 }
 
+oxtorne::vector<float,3>& Player::get_forward() { return forward; }
+oxtorne::vector<float,3>& Player::get_upward() { return upward; }
+oxtorne::point<float,3>& Player::get_position() { return position; }
 
-/// Draw world data (however it's done)
-// return 0 on fail and 1 on success
-//
-int ox_draw_world( void ) {
-	
-	for (size_t i = 0; i < n_objects; ++i)
-		objects[i]->draw();
-	
-	return 1;
+void Player::draw( void )
+{
+    sphere<float,3> _sphere = make_sphere(position, 0.3f);
+    draw_solid(_sphere);
 }
 
+void Player::move_forward( void ) {
+    position = position + forward;
+}
+
+void Player::rotate_right( void ) {
+    forward = normalize( rotate( upward, forward, -0.5f * 3.14159265f ) );
+}
+
+void Player::rotate_left( void ) {
+    forward = normalize( rotate( upward, forward, 0.5f * 3.14159265f ) );
+}
+
+// *****************************************************************************
+Block::Block( const bool& m )
+{
+    massive = m;
+}
+
+Block::~Block()
+{
+}
+    
+void Block::set_massive( const bool& m )
+{
+    massive = m;
+}
+
+bool Block::is_massive( void )
+{
+    return massive;
+}
+
+void Block::draw( void )
+{
+    // always draw between 0 and 1
+    draw_solid( make_box(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f) );
+}
+
+// *****************************************************************************
+World::World( const int& x, const int& y, const int& z, bool debug )
+{
+    size_x = x;
+    size_y = y;
+    size_z = z;
+
+    gameField.assign(x * y * z, Block());
+    
+    if (debug)
+    {
+        set_block_at(0, 0, 0, Block(true));
+        set_block_at(1, 0, 0, Block(true));
+        set_block_at(2, 0, 0, Block(true));
+        set_block_at(3, 0, 0, Block(true));
+        set_block_at(3, 0, 1, Block(true));
+    }
+}
+
+World::~World()
+{
+}
+
+bool World::above_solid( Player& player )
+{
+    // meaning the negative up direction points towards a solid block
+    point<int,3> position = floor( player.get_position() );
+    vector<int,3> up = round( player.get_upward() );
+    // the floor is now at the position - up direction
+    point<int,3> floor = position - up;
+    
+    // now simply check, if the floor is set to solid
+    return get_block_at(floor[0], floor[1], floor[2]).is_massive();
+}
+
+bool World::facing_solid( Player& player )
+{
+    // meaning the negative forward direction points towards a solid block
+    point<int,3> position = floor( player.get_position() );
+    vector<int,3> forward = round( player.get_forward() );
+    // the floor is now at the position - up direction
+    point<int,3> wall = position + forward;
+    
+    // now simply check, if the floor is set to solid
+    return get_block_at(wall[0], wall[1], wall[2]).is_massive();
+}
+
+void World::set_block_at( const int& x, const int& y, const int& z, const Block& block )
+{
+    // Faelle ausschliessen
+    if (x < 0 || x >= size_x) return;
+    if (y < 0 || y >= size_y) return;
+    if (z < 0 || z >= size_z) return;
+    
+    gameField.at(z * (size_x * size_y) + y * size_x + x) = block;
+}
+
+Block World::get_block_at( const int& x, const int& y, const int& z )
+{
+    // Faelle ausschliessen
+    if (x < 0 || x >= size_x) return Block();
+    if (y < 0 || y >= size_y) return Block();
+    if (z < 0 || z >= size_z) return Block();
+    
+    return gameField.at(z * (size_x * size_y) + y * size_x + x);
+}
+
+void World::draw( void )
+{
+    for (size_t x = 0; x < size_x; ++x)
+        for (size_t y = 0; y < size_y; ++y)
+            for (size_t z = 0; z < size_z; ++z)
+            {
+                // do we have to draw?
+                if ( get_block_at(x, y, z).is_massive() )
+                {
+                    glPushMatrix();
+                    glTranslatef(float(x), float(y), float(z));
+                    get_block_at(x, y, z).draw();
+                    glPopMatrix();
+                }
+            }
+}
+
+// *****************************************************************************
+point<int,3> floor( const point<float,3>& _point )
+{
+    return make_point(
+        int(floor( _point[0] )),
+        int(floor( _point[1] )),
+        int(floor( _point[2] )));
+}
+
+point<int,3> ceil( const point<float,3>& _point )
+{
+    return make_point(
+        int(ceil( _point[0] )),
+        int(ceil( _point[1] )),
+        int(ceil( _point[2] )));
+}
+
+vector<int,3> round( const vector<float,3>& _vector )
+{
+    return make_vector(
+        int(floor( _vector[0] + 0.5f )),
+        int(floor( _vector[1] + 0.5f )),
+        int(floor( _vector[2] + 0.5f )));
+}

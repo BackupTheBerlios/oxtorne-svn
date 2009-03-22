@@ -6,7 +6,7 @@
  *  Copyright 2009 Markus Friese. All rights reserved.
  *
  */
-
+/*
 #include "OxBox.h"
 #include "OxGL.h"
 
@@ -19,18 +19,14 @@ OxBox::~OxBox()
 {
 }
 
-bool OxBox::collides(const OxObject& object) const
+OXobjectType OxBox::get_object_type( void )
 {
-	return false;
+    return OBSTACLE;
 }
 
-bool OxBox::obstructing() const
-{
-	return true;
-}
-
-void OxBox::draw() const
+void OxBox::draw_object( void )
 {
     glColor3f(1.0f, 0.0f, 0.0f);
-    oxtorne::draw_solid(m_box);
+    // oxtorne::draw_solid(m_box);
 }
+*/

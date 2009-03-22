@@ -4,6 +4,7 @@
 namespace oxtorne {
     
 template<typename T> inline void draw_solid(const oxtorne::box<T, 3>&);
+template<typename T> inline void draw_solid(const oxtorne::sphere<T,3>&);
     
 };
 

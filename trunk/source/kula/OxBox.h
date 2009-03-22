@@ -10,7 +10,7 @@
  *
  */
 
-
+/*
 #include "OxGeometry.h"
 #include "OxObject.h"
 
@@ -25,13 +25,13 @@ public:
 	OxBox(const box<float,3>&);
 	~OxBox();
 	
-	bool collides(const OxObject&) const;
-	bool obstructing() const;
-	void draw() const;
+	OXobjectType get_object_type( void );
+    void draw_object( void );
 
 protected:
     box<float,3> m_box;
 
 };
+*/
 
 #endif
