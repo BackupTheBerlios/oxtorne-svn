@@ -112,10 +112,7 @@
 		898F82840F6ED5C600E6E11C /* BaseProperty.cc in Sources */ = {isa = PBXBuildFile; fileRef = 898F810A0F6ED2C800E6E11C /* BaseProperty.cc */; };
 		898F82850F6ED5C600E6E11C /* Endian.cc in Sources */ = {isa = PBXBuildFile; fileRef = 898F810D0F6ED2C800E6E11C /* Endian.cc */; };
 		898F82860F6ED5C600E6E11C /* SingletonT.cc in Sources */ = {isa = PBXBuildFile; fileRef = 898F81130F6ED2C800E6E11C /* SingletonT.cc */; };
-		898F82910F6ED7A800E6E11C /* OxObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 898F82900F6ED7A800E6E11C /* OxObject.h */; };
 		898F83400F6EE2BD00E6E11C /* Kula.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 898F833F0F6EE2BD00E6E11C /* Kula.cpp */; };
-		898F83500F6EECFA00E6E11C /* OxBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 898F834F0F6EECFA00E6E11C /* OxBox.cpp */; };
-		89C6F9060F75BD2200500A75 /* OxPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89C6F9040F75BD2200500A75 /* OxPlayer.cpp */; };
 		89D8259C0F703646001C37D5 /* OxGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89D8259B0F703646001C37D5 /* OxGL.cpp */; };
 		89D825A20F703956001C37D5 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D825A00F703956001C37D5 /* GLUT.framework */; };
 		89D825A30F703956001C37D5 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D825A10F703956001C37D5 /* OpenGL.framework */; };
@@ -252,16 +249,11 @@
 		898F81160F6ED2C800E6E11C /* vector_traits.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vector_traits.hh; sourceTree = "<group>"; };
 		898F81170F6ED2C800E6E11C /* VS2008Core.vcproj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = VS2008Core.vcproj; sourceTree = "<group>"; };
 		898F821B0F6ED56500E6E11C /* OpenMesh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenMesh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		898F82900F6ED7A800E6E11C /* OxObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxObject.h; path = source/kula/OxObject.h; sourceTree = "<group>"; };
 		898F82980F6EDCDC00E6E11C /* Kula.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kula.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		898F829A0F6EDCDC00E6E11C /* Kula.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Kula.plist; sourceTree = "<group>"; };
 		898F833F0F6EE2BD00E6E11C /* Kula.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Kula.cpp; path = source/kula/Kula.cpp; sourceTree = "<group>"; };
-		898F834E0F6EECFA00E6E11C /* OxBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxBox.h; path = source/kula/OxBox.h; sourceTree = "<group>"; };
-		898F834F0F6EECFA00E6E11C /* OxBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxBox.cpp; path = source/kula/OxBox.cpp; sourceTree = "<group>"; };
 		8990A3B30ECE9C860060F284 /* OxAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxAlgorithm.h; path = source/OxAlgorithm.h; sourceTree = "<group>"; };
 		8990A3B40ECE9C8F0060F284 /* OxAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxAlgorithm.cpp; path = source/OxAlgorithm.cpp; sourceTree = "<group>"; };
-		89C6F9040F75BD2200500A75 /* OxPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxPlayer.cpp; path = source/kula/OxPlayer.cpp; sourceTree = "<group>"; };
-		89C6F9050F75BD2200500A75 /* OxPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxPlayer.h; path = source/kula/OxPlayer.h; sourceTree = "<group>"; };
 		89D8259A0F703646001C37D5 /* OxGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxGL.h; path = source/OxGL.h; sourceTree = "<group>"; };
 		89D8259B0F703646001C37D5 /* OxGL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxGL.cpp; path = source/OxGL.cpp; sourceTree = "<group>"; };
 		89D825A00F703956001C37D5 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
@@ -293,24 +285,6 @@
 				898F829A0F6EDCDC00E6E11C /* Kula.plist */,
 			);
 			name = oxtorne;
-			sourceTree = "<group>";
-		};
-		897481010F74FE3A008AF66A /* World */ = {
-			isa = PBXGroup;
-			children = (
-				897481020F74FE91008AF66A /* OxWorld.h */,
-				897481030F74FE91008AF66A /* OxWorld.cpp */,
-			);
-			name = World;
-			sourceTree = "<group>";
-		};
-		897481790F751C4E008AF66A /* Player */ = {
-			isa = PBXGroup;
-			children = (
-				89C6F9050F75BD2200500A75 /* OxPlayer.h */,
-				89C6F9040F75BD2200500A75 /* OxPlayer.cpp */,
-			);
-			name = Player;
 			sourceTree = "<group>";
 		};
 		898F808F0F6ED2C800E6E11C /* OpenMesh */ = {
@@ -544,30 +518,11 @@
 		898F828F0F6ED76300E6E11C /* Kula */ = {
 			isa = PBXGroup;
 			children = (
-				897481790F751C4E008AF66A /* Player */,
-				897481010F74FE3A008AF66A /* World */,
-				898F83430F6EE4A500E6E11C /* Objects */,
+				897481020F74FE91008AF66A /* OxWorld.h */,
+				897481030F74FE91008AF66A /* OxWorld.cpp */,
 				898F833F0F6EE2BD00E6E11C /* Kula.cpp */,
 			);
 			name = Kula;
-			sourceTree = "<group>";
-		};
-		898F83430F6EE4A500E6E11C /* Objects */ = {
-			isa = PBXGroup;
-			children = (
-				898F834C0F6EEA9300E6E11C /* ObjectBase */,
-				898F834E0F6EECFA00E6E11C /* OxBox.h */,
-				898F834F0F6EECFA00E6E11C /* OxBox.cpp */,
-			);
-			name = Objects;
-			sourceTree = "<group>";
-		};
-		898F834C0F6EEA9300E6E11C /* ObjectBase */ = {
-			isa = PBXGroup;
-			children = (
-				898F82900F6ED7A800E6E11C /* OxObject.h */,
-			);
-			name = ObjectBase;
 			sourceTree = "<group>";
 		};
 		89CF26470F6422A6003B7770 /* Products */ = {
@@ -678,7 +633,6 @@
 				898F826A0F6ED5AF00E6E11C /* SingletonT.hh in Headers */,
 				898F826B0F6ED5AF00E6E11C /* vector_cast.hh in Headers */,
 				898F826C0F6ED5AF00E6E11C /* vector_traits.hh in Headers */,
-				898F82910F6ED7A800E6E11C /* OxObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -775,10 +729,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				898F83400F6EE2BD00E6E11C /* Kula.cpp in Sources */,
-				898F83500F6EECFA00E6E11C /* OxBox.cpp in Sources */,
 				89D8259C0F703646001C37D5 /* OxGL.cpp in Sources */,
 				897481040F74FE91008AF66A /* OxWorld.cpp in Sources */,
-				89C6F9060F75BD2200500A75 /* OxPlayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

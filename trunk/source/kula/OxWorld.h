@@ -11,29 +11,33 @@
  */
 
 #include <vector>
-
 #include "OxGeometry.h"
+using namespace oxtorne;
 
+
+// *****************************************************************************
 class Player {
 
 public:
     Player();
+	Player( const point<float,3>&, const vector<float,3>&, const vector<float,3>& );
     virtual ~Player();
+	void draw( void );
 
-    oxtorne::vector<float,3>& get_forward();
-    oxtorne::vector<float,3>& get_upward();
-    oxtorne::point<float,3>& get_position();
+	// modifyable version
+    inline vector<float,3>& forward() { return m_forward; }
+    inline vector<float,3>& upward() { return m_upward; }
+    inline point<float,3>& position() { return m_position; }
 
-    void draw( void );
-    
-    void move_forward( void );
-    void rotate_right( void );
-    void rotate_left( void );
+	// const version
+	inline const vector<float,3>& forward() const { return m_forward; }
+    inline const vector<float,3>& upward() const { return m_upward; }
+    inline const point<float,3>& position() const { return m_position; }
 
 protected:
-    oxtorne::vector<float,3> forward;
-    oxtorne::vector<float,3> upward;
-    oxtorne::point<float,3> position;
+    vector<float,3> m_forward;
+    vector<float,3> m_upward;
+    point<float,3> m_position;
 
 };
 
@@ -41,16 +45,14 @@ protected:
 class Block {
 
 public:
-    Block( const bool& = false);
+    Block( const bool& = false );
     virtual ~Block();
+	void draw( void );
     
-    void set_massive( const bool& );
-    bool is_massive( void );
-    
-    void draw( void );
+    const bool& massive( void );
 
 protected:
-    bool massive;
+    bool m_massive;
 
 };
 
@@ -58,26 +60,34 @@ protected:
 class World {
 
 public:
-    World( const int& x, const int& y, const int& z, bool = true);
+    World( const size_t&, const size_t&, const size_t& );
     virtual ~World();
-
-    bool above_solid( Player& );
-    bool facing_solid( Player& );
-    
     void draw( void );
 
+	const size_t& size_x( void );
+	const size_t& size_y( void );
+	const size_t& size_z( void );
+	Block& block_at( const int& x, const int& y, const int& z );
+
+	bool above_solid( const Player& );
+	bool facing_solid( const Player& );
+	bool facing_abyss( const Player& );
+	bool at_peak( const Player& );
+
+	Player move_forward( const Player& );
+	Player rotate_right( const Player& );
+	Player rotate_left( const Player& );
+	Player rotate_up( const Player& );
+	Player rotate_down( const Player& );
+
 protected:
-
-    void set_block_at( const int& x, const int& y, const int& z, const Block& );
-    Block get_block_at( const int& x, const int& y, const int& z );
-
-    int size_x, size_y, size_z;
-    std::vector<Block> gameField;
+    int x, y, z;
+    std::vector<Block> field;
 };
 
 // *****************************************************************************
-oxtorne::point<int,3> floor( const oxtorne::point<float,3>& );
-oxtorne::point<int,3> ceil( const oxtorne::point<float,3>& );
-oxtorne::vector<int,3> round( const oxtorne::vector<float,3>& );
+point<int,3> floor( const oxtorne::point<float,3>& );
+point<int,3> ceil( const oxtorne::point<float,3>& );
+vector<int,3> round( const oxtorne::vector<float,3>& );
 
 #endif

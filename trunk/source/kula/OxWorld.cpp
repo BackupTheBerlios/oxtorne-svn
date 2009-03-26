@@ -7,156 +7,206 @@
  *
  */
 
+
 /// Common requirenments
 //
+#include "OxConsole.h"
 #include "OxWorld.h"
 #include "OxGL.h"
 #include <cmath>
 
-using namespace oxtorne;
-
 // *****************************************************************************
 Player::Player()
 {
-    forward = make_vector(1.0f, 0.0f, 0.0f);
-    upward = make_vector(0.0f, 0.0f, 1.0f);
-    position = make_point(0.5f, 0.5f, 1.5f);
+    forward() = make_vector(1.0f, 0.0f, 0.0f);
+    upward() = make_vector(0.0f, 0.0f, 1.0f);
+    position() = make_point(0.5f, 0.5f, 1.5f);
+}
+
+Player::Player( const point<float,3>& position
+			  , const vector<float,3>& upward
+			  , const vector<float,3>& forward )
+			  : m_position( position )
+			  , m_upward( upward )
+			  , m_forward( forward )
+{
 }
 
 Player::~Player()
 {
 }
 
-oxtorne::vector<float,3>& Player::get_forward() { return forward; }
-oxtorne::vector<float,3>& Player::get_upward() { return upward; }
-oxtorne::point<float,3>& Player::get_position() { return position; }
-
 void Player::draw( void )
 {
-    sphere<float,3> _sphere = make_sphere(position, 0.3f);
+    sphere<float,3> _sphere = make_sphere( position(), 0.3f );
     draw_solid(_sphere);
-}
-
-void Player::move_forward( void ) {
-    position = position + forward;
-}
-
-void Player::rotate_right( void ) {
-    forward = normalize( rotate( upward, forward, -0.5f * 3.14159265f ) );
-}
-
-void Player::rotate_left( void ) {
-    forward = normalize( rotate( upward, forward, 0.5f * 3.14159265f ) );
+	
+	glBegin(GL_LINES);
+	glEnable(GL_COLOR_MATERIAL);
+	glColor3d(0.0, 1.0, 0.0);
+	glVertex3fv(&position()[0]);
+	glVertex3fv(&(position() + forward())[0]);
+	glColor3d(0.0, 0.0, 1.0);
+	glVertex3fv(&position()[0]);
+	glVertex3fv(&(position() + upward())[0]);
+	glEnd();
 }
 
 // *****************************************************************************
 Block::Block( const bool& m )
 {
-    massive = m;
+    m_massive = m;
 }
 
 Block::~Block()
 {
 }
-    
-void Block::set_massive( const bool& m )
-{
-    massive = m;
-}
 
-bool Block::is_massive( void )
+const bool& Block::massive( void )
 {
-    return massive;
+    return m_massive;
 }
 
 void Block::draw( void )
 {
     // always draw between 0 and 1
-    draw_solid( make_box(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f) );
+    draw_solid( make_box(0.1f, 0.1f, 0.1f, 0.9f, 0.9f, 0.9f) );
 }
 
 // *****************************************************************************
-World::World( const int& x, const int& y, const int& z, bool debug )
+World::World( const size_t& _x, const size_t& _y, const size_t& _z )
 {
-    size_x = x;
-    size_y = y;
-    size_z = z;
+    x = _x;
+    y = _y;
+    z = _z;
 
-    gameField.assign(x * y * z, Block());
+	// the last one is a stub
+    field.assign( x * y * z + 1, Block() );
     
-    if (debug)
-    {
-        set_block_at(0, 0, 0, Block(true));
-        set_block_at(1, 0, 0, Block(true));
-        set_block_at(2, 0, 0, Block(true));
-        set_block_at(3, 0, 0, Block(true));
-        set_block_at(3, 0, 1, Block(true));
-    }
+    block_at( 0, 0, 0 ) = Block( true );
+    block_at( 1, 0, 0 ) = Block( true );
+    block_at( 2, 0, 0 ) = Block( true );
+    block_at( 3, 0, 0 ) = Block( true );
+    block_at( 3, 0, 1 ) = Block( true );
 }
 
 World::~World()
 {
 }
 
-bool World::above_solid( Player& player )
+Block& World::block_at( const int& _x, const int& _y, const int& _z )
+{
+    // Faelle ausschliessen
+    if (_x < 0 || _x >= x) return field.back();
+    if (_y < 0 || _y >= y) return field.back();
+    if (_z < 0 || _z >= z) return field.back();
+    
+    return field.at(_z * (x * y) + _y * x + _x);
+}
+
+
+void World::draw( void )
+{
+    for (size_t _x = 0; _x < x; ++_x)
+        for (size_t _y = 0; _y < y; ++_y)
+            for (size_t _z = 0; _z < z; ++_z)
+            {
+                // do we have to draw?
+                if ( block_at(_x, _y, _z).massive() )
+                {
+                    glPushMatrix();
+                    glTranslatef(float(_x), float(_y), float(_z));
+                    block_at(_x, _y, _z).draw();
+                    glPopMatrix();
+                }
+            }
+}
+
+bool World::above_solid( const Player& player )
 {
     // meaning the negative up direction points towards a solid block
-    point<int,3> position = floor( player.get_position() );
-    vector<int,3> up = round( player.get_upward() );
+    point<int,3> position = floor( player.position() );
+    vector<int,3> up = round( player.upward() );
     // the floor is now at the position - up direction
     point<int,3> floor = position - up;
     
     // now simply check, if the floor is set to solid
-    return get_block_at(floor[0], floor[1], floor[2]).is_massive();
+    return block_at(floor[0], floor[1], floor[2]).massive();
 }
 
-bool World::facing_solid( Player& player )
+bool World::facing_solid( const Player& player )
 {
     // meaning the negative forward direction points towards a solid block
-    point<int,3> position = floor( player.get_position() );
-    vector<int,3> forward = round( player.get_forward() );
+    point<int,3> position = floor( player.position() );
+    vector<int,3> forward = round( player.forward() );
     // the floor is now at the position - up direction
     point<int,3> wall = position + forward;
     
     // now simply check, if the floor is set to solid
-    return get_block_at(wall[0], wall[1], wall[2]).is_massive();
+    return block_at(wall[0], wall[1], wall[2]).massive();
 }
 
-void World::set_block_at( const int& x, const int& y, const int& z, const Block& block )
+bool World::facing_abyss( const Player& player )
 {
-    // Faelle ausschliessen
-    if (x < 0 || x >= size_x) return;
-    if (y < 0 || y >= size_y) return;
-    if (z < 0 || z >= size_z) return;
-    
-    gameField.at(z * (size_x * size_y) + y * size_x + x) = block;
+	// one forward and one down might be an abyss
+	point<int,3> position = floor( player.position() );
+    vector<int,3> forward = round( player.forward() );
+	vector<int,3> up = round( player.upward() );
+    // the floor is now at the position - up direction
+    point<int,3> abyss = position + forward - up;
+	
+	// now simply check, if the floor is set to solid
+	return !block_at(abyss[0], abyss[1], abyss[2]).massive();
 }
 
-Block World::get_block_at( const int& x, const int& y, const int& z )
+bool World::at_peak( const Player& player )
 {
-    // Faelle ausschliessen
-    if (x < 0 || x >= size_x) return Block();
-    if (y < 0 || y >= size_y) return Block();
-    if (z < 0 || z >= size_z) return Block();
-    
-    return gameField.at(z * (size_x * size_y) + y * size_x + x);
+	return true;
 }
 
-void World::draw( void )
+Player World::move_forward( const Player& player )
 {
-    for (size_t x = 0; x < size_x; ++x)
-        for (size_t y = 0; y < size_y; ++y)
-            for (size_t z = 0; z < size_z; ++z)
-            {
-                // do we have to draw?
-                if ( get_block_at(x, y, z).is_massive() )
-                {
-                    glPushMatrix();
-                    glTranslatef(float(x), float(y), float(z));
-                    get_block_at(x, y, z).draw();
-                    glPopMatrix();
-                }
-            }
+	if ( facing_solid( player ) )
+	{
+		// block ahead, we rotate upwards
+		return rotate_up( player );
+	}
+	
+	if ( facing_abyss( player ) )
+	{
+		// abyss ahed, we rotate down (if)
+		return rotate_down( Player( player.position() + player.forward() - player.upward(), player.upward(), player.forward() ) );
+	}
+
+    point<float,3> position = player.position() + player.forward();
+	return Player( position, player.upward(), player.forward() );
+}
+
+Player World::rotate_right( const Player& player )
+{
+    vector<float,3> forward = normalize( rotate( player.upward(), player.forward(), 0.5f * 3.14159265f ) );
+	return Player( player.position(), player.upward(), forward );
+}
+
+Player World::rotate_left( const Player& player )
+{
+    vector<float,3> forward = normalize( rotate( player.upward(), player.forward(), -0.5f * 3.14159265f ) );
+	return Player( player.position(), player.upward(), forward );
+}
+
+Player World::rotate_up( const Player& player )
+{
+	vector<float,3> right = normalize( cross_product( player.upward(), player.forward() ) );
+	vector<float,3> forward = rotate( right, player.forward(), -0.5f * 3.14159265f );
+	vector<float,3> up = rotate( right, player.upward(), -0.5f * 3.14159265f );
+	return Player( player.position(), up, forward );
+}
+
+Player World::rotate_down( const Player& player ) {
+	vector<float,3> right = normalize( cross_product( player.upward(), player.forward() ) );
+	vector<float,3> forward = rotate( right, player.forward(), 0.5f * 3.14159265f );
+	vector<float,3> up = rotate( right, player.upward(), 0.5f * 3.14159265f );
+	return Player( player.position(), up, forward );
 }
 
 // *****************************************************************************

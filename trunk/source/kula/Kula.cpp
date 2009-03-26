@@ -13,7 +13,6 @@
 
 #include "OxWorld.h"
 #include "OxConsole.h"
-#include "OxPlayer.h"
 
 #include <iostream>
 
@@ -129,19 +128,13 @@ void world_keys(unsigned char key, int, int) {
             position = position - (cross_product(up, forward) * 0.6f);
             break;
         case 'u':
-            player.move_forward();
-            if (world.above_solid(player)) cout << "Player above solid" << endl;
-            else cout << "Player not above solid" << endl;
-            
-            if (world.facing_solid(player)) cout << "Player facing solid" << endl;
-            else cout << "Player can move forward" << endl;
-            
-            break;
-        case 'h':
-            player.rotate_left();
+            player = world.move_forward(player);
             break;
         case 'k':
-            player.rotate_right();
+            player = world.rotate_left(player);
+            break;
+        case 'h':
+            player = world.rotate_right(player);
             break;
     }
     
