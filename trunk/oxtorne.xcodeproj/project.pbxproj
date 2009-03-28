@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		897481040F74FE91008AF66A /* OxWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 897481030F74FE91008AF66A /* OxWorld.cpp */; };
+		8940E6430F7E303C00FE3A0D /* KulaMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8940E6420F7E303C00FE3A0D /* KulaMath.cpp */; };
+		897481040F74FE91008AF66A /* KulaGalaxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 897481030F74FE91008AF66A /* KulaGalaxy.c */; };
 		898F821F0F6ED5AF00E6E11C /* Config.hh in Headers */ = {isa = PBXBuildFile; fileRef = 898F80950F6ED2C800E6E11C /* Config.hh */; settings = {ATTRIBUTES = (Public, ); }; };
 		898F82200F6ED5AF00E6E11C /* LoopSchemeMaskT.hh in Headers */ = {isa = PBXBuildFile; fileRef = 898F80960F6ED2C800E6E11C /* LoopSchemeMaskT.hh */; settings = {ATTRIBUTES = (Public, ); }; };
 		898F82210F6ED5AF00E6E11C /* MathDefs.hh in Headers */ = {isa = PBXBuildFile; fileRef = 898F80970F6ED2C800E6E11C /* MathDefs.hh */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -113,7 +114,6 @@
 		898F82850F6ED5C600E6E11C /* Endian.cc in Sources */ = {isa = PBXBuildFile; fileRef = 898F810D0F6ED2C800E6E11C /* Endian.cc */; };
 		898F82860F6ED5C600E6E11C /* SingletonT.cc in Sources */ = {isa = PBXBuildFile; fileRef = 898F81130F6ED2C800E6E11C /* SingletonT.cc */; };
 		898F83400F6EE2BD00E6E11C /* Kula.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 898F833F0F6EE2BD00E6E11C /* Kula.cpp */; };
-		89D8259C0F703646001C37D5 /* OxGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89D8259B0F703646001C37D5 /* OxGL.cpp */; };
 		89D825A20F703956001C37D5 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D825A00F703956001C37D5 /* GLUT.framework */; };
 		89D825A30F703956001C37D5 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D825A10F703956001C37D5 /* OpenGL.framework */; };
 /* End PBXBuildFile section */
@@ -121,9 +121,11 @@
 /* Begin PBXFileReference section */
 		891765390E7B0103003E4E05 /* OxGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxGeometry.h; path = source/OxGeometry.h; sourceTree = "<group>"; };
 		8917653E0E7B010D003E4E05 /* OxGeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxGeometry.cpp; path = source/OxGeometry.cpp; sourceTree = "<group>"; };
+		8940E6410F7E303C00FE3A0D /* KulaMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KulaMath.h; path = source/kula/KulaMath.h; sourceTree = "<group>"; };
+		8940E6420F7E303C00FE3A0D /* KulaMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KulaMath.cpp; path = source/kula/KulaMath.cpp; sourceTree = "<group>"; };
 		8971812A0F74E2160044B4F1 /* OxConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxConsole.h; path = source/OxConsole.h; sourceTree = "<group>"; };
-		897481020F74FE91008AF66A /* OxWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OxWorld.h; path = source/kula/OxWorld.h; sourceTree = "<group>"; };
-		897481030F74FE91008AF66A /* OxWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OxWorld.cpp; path = source/kula/OxWorld.cpp; sourceTree = "<group>"; };
+		897481020F74FE91008AF66A /* KulaGalaxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KulaGalaxy.h; path = source/kula/KulaGalaxy.h; sourceTree = "<group>"; };
+		897481030F74FE91008AF66A /* KulaGalaxy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = KulaGalaxy.c; path = source/kula/KulaGalaxy.c; sourceTree = "<group>"; };
 		898F80910F6ED2C800E6E11C /* ACGMakefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ACGMakefile; sourceTree = "<group>"; };
 		898F80920F6ED2C800E6E11C /* Core.pro */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Core.pro; sourceTree = "<group>"; };
 		898F80940F6ED2C800E6E11C /* ACGMakefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ACGMakefile; sourceTree = "<group>"; };
@@ -518,9 +520,11 @@
 		898F828F0F6ED76300E6E11C /* Kula */ = {
 			isa = PBXGroup;
 			children = (
-				897481020F74FE91008AF66A /* OxWorld.h */,
-				897481030F74FE91008AF66A /* OxWorld.cpp */,
+				897481020F74FE91008AF66A /* KulaGalaxy.h */,
+				897481030F74FE91008AF66A /* KulaGalaxy.c */,
 				898F833F0F6EE2BD00E6E11C /* Kula.cpp */,
+				8940E6410F7E303C00FE3A0D /* KulaMath.h */,
+				8940E6420F7E303C00FE3A0D /* KulaMath.cpp */,
 			);
 			name = Kula;
 			sourceTree = "<group>";
@@ -729,8 +733,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				898F83400F6EE2BD00E6E11C /* Kula.cpp in Sources */,
-				89D8259C0F703646001C37D5 /* OxGL.cpp in Sources */,
-				897481040F74FE91008AF66A /* OxWorld.cpp in Sources */,
+				897481040F74FE91008AF66A /* KulaGalaxy.c in Sources */,
+				8940E6430F7E303C00FE3A0D /* KulaMath.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
