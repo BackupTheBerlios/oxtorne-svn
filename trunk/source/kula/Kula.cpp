@@ -11,7 +11,7 @@
 #include <cmath>
 #include <GLUT/glut.h>
 
-#include "OxWorld.h"
+#include "KulaGalaxy.h"
 #include "OxConsole.h"
 
 #include <iostream>

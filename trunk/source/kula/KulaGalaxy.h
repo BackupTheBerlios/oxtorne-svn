@@ -23,101 +23,9 @@
  * Get all necessary headers
  *******************************************************************************
  */
-#include "KulaMath.h"
+#include "OxGeometry.h"
 
-
-/*
- *******************************************************************************
- * Structure used to represent a world coordinate system for the player
- *******************************************************************************
- */
-typedef struct {
-	kPoint3f position;
-	kPoint3f forward;
-	kPoint3f up;
-} kPlayer;
-
-/*
- *******************************************************************************
- * enum to represent type of block the player can stand on
- *******************************************************************************
- */
-typedef enum {
-	IMPALPABLE,
-	SOLID
-} kState;
-
-/*
- *******************************************************************************
- * Structure to represent one Block, the basic entity in the game
- *******************************************************************************
- */
-typedef struct {
-	kState state;
-} kBlock;
-
-/*
- *******************************************************************************
- * Structure to represent the world
- *******************************************************************************
- */
-typedef struct {
-	kPoint3i size;
-	kBlock** blocks;
-} kWorld;
-
-/*
- *******************************************************************************
- * Factoriies for world entities
- *******************************************************************************
- */
-kPlayer make_player( const kPoint3f*, const kPoint3f*, const kPoint3f* );
-kWorld make_world( const int, const int, const int );
-kBlock make_block( void );
-
-/*
- *******************************************************************************
- * Working with points here. transform them to integer points.
- *******************************************************************************
- */
-kPoint3i floor3i( const kPoint3f* );
-kPoint3i ceil3i( const kPoint3f* );
-kPoint3i round3i( const kPoint3f* );
-
-/*
- *******************************************************************************
- * Working with the world (and the player maybe) here.
- *******************************************************************************
- */
-int is_above_solid( const kPlayer*, const kWorld* );
-int is_facing_solid( const kPlayer*, const kWorld* );
-int is_facing_abyss( const kPlayer*, const kWorld* );
-int is_at_peak( const kPlayer*, const kWorld* );
-
-/*
- *******************************************************************************
- * Do some interaction with the world
- *******************************************************************************
- */
-kPlayer move_forward( const kPlayer*, const kWorld* );
-kPlayer rotate_right( const kPlayer* );
-kPlayer rotate_left( const kPlayer* );
-kPlayer rotate_up( const kPlayer* );
-kPlayer rotate_down( const kPlayer* );
-
-/*
- *******************************************************************************
- * working with world properties
- *******************************************************************************
- */
-kBlock* get_block_at( const kWorld*, const int, const int, const int );
-
-
-
-
-
-
-/*
+using namespace oxtorne;
 
 
 // *****************************************************************************
@@ -195,7 +103,5 @@ point<int,3> floor( const oxtorne::point<float,3>& );
 point<int,3> ceil( const oxtorne::point<float,3>& );
 vector<int,3> round( const oxtorne::vector<float,3>& );
 
-
-*/
 
 #endif

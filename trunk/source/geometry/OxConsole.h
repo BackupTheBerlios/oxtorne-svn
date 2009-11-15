@@ -1,11 +1,9 @@
-
 #ifndef OXCONSOLE_H
 #define OXCONSOLE_H
 
 #include "OxGeometry.h"
-
 #include <iostream>
-#include <iomanip>
+
 
 namespace oxtorne {
 
