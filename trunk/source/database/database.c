@@ -27,24 +27,39 @@
 #include "string.h"
 #include "stdlib.h"
 
-size_t wcslen( const wchar_t* string )
-{
-	size_t len = 0;
-	for ( ; L'\0' != string[len]; ++len );
-	return len;
-}
-
 
 int db_exec( sqlite3* db, const char* query, ... )
 {
 	// SQliteStatement
    sqlite3_stmt* pStmt;
 	
+   // platz,um den string zu kopieren
+   char* buffer = (char*) malloc( strlen(query + 1) * sizeof(char) );
+   strcpy( buffer, query );
+
+   // build a sqlite query
+   for ( int ii = 0; buffer[ii] != '\0'; ++ii )
+   {
+      // % symbol check
+      if ( buffer[ii] == '%' && buffer[ii + 1] == '%' )
+      {
+         buffer[ii + 1] = ' ';
+         continue;
+      }
+
+      // question mark replacement
+      if ( buffer[ii] == '%' )
+      {
+         buffer[ii] = '?';
+         buffer[ii + 1] = ' ';
+      }
+   }
+
    // prepare the prepared query
-   int rc = sqlite3_prepare( db, query, -1, &pStmt, NULL );
+   int rc = sqlite3_prepare( db, buffer, -1, &pStmt, NULL );
 	
 	// check for errors
-	if ( SQLITE_ERROR == rc )
+	/*if ( SQLITE_ERROR == rc )
 	{
 		// prompt an error
 		printf( "Execution failed with error:\n%s\n", sqlite3_errmsg( db ) );
@@ -57,7 +72,7 @@ int db_exec( sqlite3* db, const char* query, ... )
 		
 		// return an error
 		return SQLITE_ERROR;
-	}
+	}*/
 	
 	// good, no errors. continue with the variable argument list ...
 	va_list vl;
@@ -67,54 +82,66 @@ int db_exec( sqlite3* db, const char* query, ... )
 	size_t index = 0;
 	
 	// we will check abort criteria inside of loop
-	while ( 1 )
+	for ( int ii = 0; query[ii] != '\0'; ++ii )
 	{
-		// The string identifies the following type
-		wchar_t* hint = va_arg( vl, wchar_t* );
-		
-		// finding null ends the loop
-		if ( NULL == hint )
-			break;
-		
-		// And now compare ...
-		if ( 0 == memcmp( hint, L"INT", sizeof( wchar_t ) * 3 ) )
-		{
-			// read and bind an integer
-			int next = va_arg( vl, int );
-			sqlite3_bind_int( pStmt, ++index, next );
-			
-			// skip the rest of the loop
-			continue;
-		}
-		
-		// Could it be that we received a text?
-		if ( 0 == memcmp( hint, L"TXT", sizeof( wchar_t ) * 3 ) )
-		{
-			// read and bind a string
-			wchar_t* next = va_arg( vl, wchar_t* );
-			
-			// Bind without freeing the given string
-			sqlite3_bind_text16( pStmt, ++index, next, wcslen( next ), NULL );
-			
-			// skip the rest of the loop again
-			continue;
-		}
-		
-		// Could it be we received a double value?
-		if ( 0 == memcmp( hint, L"DBL", sizeof( wchar_t ) * 3 ) )
-		{
-			// read and bind an integer
-			double next = va_arg( vl, double );
-			sqlite3_bind_double( pStmt, ++index, next );
-			
-			// skip the rest of the loop
-			continue;
-		}
+		// % symbol check
+      if ( query[ii] == '%' && query[ii + 1] == '%' )
+      {
+         // skip the next %
+         ++ii;
+         continue;
+      }
+
+      // Integer Check
+      if ( query[ii] == '%' && query[ii + 1] == 'i' )
+      {
+			// next argument is of type int
+         sqlite3_bind_int( pStmt, ++index, va_arg( vl, int ) );
+         continue;
+      }
+
+      // String check
+      if ( query[ii] == '%' && query[ii + 1] == 's' )
+      {
+         // sqlite will not free the string
+         sqlite3_bind_text( pStmt, ++index, va_arg( vl, char* ), -1, NULL );
+         continue;
+      }
+
+      // Wide Character String check
+      if ( query[ii] == '%' && query[ii + 1] == 'w' )
+      {
+			// sqlite will not free the string
+         sqlite3_bind_text16( pStmt, ++index, va_arg( vl, wchar_t* ), -1, NULL );
+         continue;
+      }
+
+      // Float check
+      if ( query[ii] == '%' && query[ii + 1] == 'f' )
+      {
+         sqlite3_bind_double( pStmt, ++index, (double)va_arg( vl, float ) );
+         continue;
+      }
+
+      // Double check
+      if ( query[ii] == '%' && query[ii + 1] == 'F' )
+      {
+         sqlite3_bind_double( pStmt, ++index, va_arg( vl, double ) );
+         continue;
+      }
+
+      if ( query[ii] == '%' && query[ii + 1] != '\0' )
+      {
+         fprintf( stderr, "%c%c Combination is unknown\n", query[ii], query[ii + 1] );
+      }
 	}
 	
 	// va_list completed
 	va_end(vl);
 	
+   // Free the buffer again
+   free( buffer );
+
 	// start iterating with the prepared query
 	while( SQLITE_ROW == sqlite3_step( pStmt ) )
 	{
