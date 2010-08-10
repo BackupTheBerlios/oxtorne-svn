@@ -42,7 +42,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				FavorSizeOrSpeed="1"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;SQLITE3_EXPORTS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;SQLITE;SQLITE_ENABLE_COLUMN_METADATA"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -63,6 +63,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="1"
+				ModuleDefinitionFile="..\src\sqlite3.def"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(TargetDir)$(ConfigurationName)\$(TargetName).pdb"
 				SubSystem="2"
@@ -118,7 +119,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;SQLITE3_EXPORTS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;SQLITE;SQLITE_ENABLE_COLUMN_METADATA"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -138,6 +139,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="1"
+				ModuleDefinitionFile="..\src\sqlite3.def"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(TargetDir)$(ConfigurationName)\$(TargetName).pdb"
 				SubSystem="2"
@@ -173,10 +175,6 @@
 	<Files>
 		<File
 			RelativePath="..\src\sqlite3.c"
-			>
-		</File>
-		<File
-			RelativePath="..\src\sqlite3.def"
 			>
 		</File>
 		<File
