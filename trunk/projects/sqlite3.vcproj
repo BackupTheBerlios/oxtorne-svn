@@ -43,6 +43,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="$(ProjectDir)..\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;SQLITE;SQLITE_ENABLE_COLUMN_METADATA"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -123,6 +124,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="$(ProjectDir)..\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;SQLITE;SQLITE_ENABLE_COLUMN_METADATA"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -185,6 +187,14 @@
 		</File>
 		<File
 			RelativePath="..\include\sqlite3\sqlite3.h"
+			>
+		</File>
+		<File
+			RelativePath="..\src\sqlite3\sqlite3opt.c"
+			>
+		</File>
+		<File
+			RelativePath="..\include\sqlite3\sqlite3opt.h"
 			>
 		</File>
 	</Files>
