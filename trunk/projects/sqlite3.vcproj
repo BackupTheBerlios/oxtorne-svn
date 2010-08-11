@@ -28,6 +28,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+				Outputs=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -59,14 +60,16 @@
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				LinkIncremental="1"
-				ModuleDefinitionFile="..\src\sqlite3.def"
+				LinkIncremental="0"
+				ModuleDefinitionFile="..\src\sqlite3\sqlite3.def"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(TargetDir)$(ConfigurationName)\$(TargetName).pdb"
 				SubSystem="2"
+				ImportLibrary="$(ProjectDir)..\lib\$(TargetName).lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -104,6 +107,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+				Outputs=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -135,16 +139,18 @@
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				LinkIncremental="1"
-				ModuleDefinitionFile="..\src\sqlite3.def"
+				LinkIncremental="0"
+				ModuleDefinitionFile="..\src\sqlite3\sqlite3.def"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(TargetDir)$(ConfigurationName)\$(TargetName).pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				ImportLibrary="$(ProjectDir)..\lib\$(TargetName).lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -174,11 +180,11 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\src\sqlite3.c"
+			RelativePath="..\src\sqlite3\sqlite3.c"
 			>
 		</File>
 		<File
-			RelativePath="..\include\sqlite3.h"
+			RelativePath="..\include\sqlite3\sqlite3.h"
 			>
 		</File>
 	</Files>
