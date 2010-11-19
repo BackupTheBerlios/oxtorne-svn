@@ -8,13 +8,15 @@ typedef struct list {
    struct list* next;
 } list;
 
+wchar_t** keys;
+wchar_t** values;
 
 int main(int argc, char** argv)
 {
    FILE* file = 0;
-   wchar_t buffer[2048];
-   list *first, *last;
-   size_t counter = 0;
+   wchar_t buffer[4096];
+   list *first, *last, *iter;
+   size_t counter = 0, index = 0;
 
    if ( 2 != argc )
    {
@@ -49,6 +51,24 @@ int main(int argc, char** argv)
       last->word = 0;
 
       ++counter;
+   }
+
+   keys = (wchar_t**)malloc(sizeof(wchar_t*) * counter);
+   values = (wchar_t**)malloc(sizeof(wchar_t*) * counter);
+   index = 0;
+
+   for(iter = first; iter->next; iter = iter->next)
+   {
+      wchar_t* endl = wcschr(iter->word, L'\n');
+      wchar_t* val = wcschr(iter->word, L'=');
+      if (endl) *endl = 0;
+      if (val) *val = 0;
+      keys[index] = iter->word;
+      
+      if (val) values[index] = val+1;
+      else values[index] = 0;
+      
+      ++index;
    }
 
    printf("Lines: %i\n", counter);
