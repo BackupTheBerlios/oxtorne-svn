@@ -179,16 +179,60 @@
 	<References>
 	</References>
 	<Files>
+		<Filter
+			Name="attic"
+			>
+			<File
+				RelativePath="..\src\sqlite3pp.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\include\sqlite3pp.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlitepp_test.cpp"
+				>
+			</File>
+		</Filter>
 		<File
-			RelativePath="..\src\sqlite3pp.cpp"
+			RelativePath="..\src\Command.cpp"
 			>
 		</File>
 		<File
-			RelativePath="..\include\sqlite3pp.h"
+			RelativePath="..\include\Command.h"
 			>
 		</File>
 		<File
-			RelativePath="..\src\sqlitepp_test.cpp"
+			RelativePath="..\src\Database.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\include\Database.h"
+			>
+		</File>
+		<File
+			RelativePath="..\src\Exception.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\include\Exception.h"
+			>
+		</File>
+		<File
+			RelativePath="..\src\Query.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\include\Query.h"
+			>
+		</File>
+		<File
+			RelativePath="..\src\Statement.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\include\Statement.h"
 			>
 		</File>
 	</Files>
