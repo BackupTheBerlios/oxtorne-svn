@@ -1,4 +1,0 @@
-extract agar realease here. required folders are:
-
-/include
-/lib
