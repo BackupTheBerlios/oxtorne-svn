@@ -13,8 +13,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "holder", "holder.vcproj", "
 		{1D22C0D3-E670-46A5-937C-21B644246C49} = {1D22C0D3-E670-46A5-937C-21B644246C49}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "agar", "agar.vcproj", "{9F824F2D-550D-433C-B19F-1586513E325B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -33,10 +31,6 @@ Global
 		{A74D1047-3247-44E4-A50A-3144422EEDE6}.Debug|Win32.Build.0 = Debug|Win32
 		{A74D1047-3247-44E4-A50A-3144422EEDE6}.Release|Win32.ActiveCfg = Release|Win32
 		{A74D1047-3247-44E4-A50A-3144422EEDE6}.Release|Win32.Build.0 = Release|Win32
-		{9F824F2D-550D-433C-B19F-1586513E325B}.Debug|Win32.ActiveCfg = Debug|Win32
-		{9F824F2D-550D-433C-B19F-1586513E325B}.Debug|Win32.Build.0 = Debug|Win32
-		{9F824F2D-550D-433C-B19F-1586513E325B}.Release|Win32.ActiveCfg = Release|Win32
-		{9F824F2D-550D-433C-B19F-1586513E325B}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
