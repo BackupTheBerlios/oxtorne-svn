@@ -21,7 +21,7 @@
 			OutputDirectory="$(ProjectDir)..\bin"
 			IntermediateDirectory="$(OutDir)\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -51,7 +51,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
-				CompileAs="1"
+				CompileAs="2"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -65,7 +65,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(ProjectDir)..\lib\sqlite3.lib"
+				AdditionalDependencies="$(ProjectDir)..\lib\pdcurses.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(TargetDir)$(ConfigurationName)\$(TargetName).pdb"
@@ -99,7 +99,7 @@
 			OutputDirectory="$(ProjectDir)..\bin"
 			IntermediateDirectory="$(OutDir)\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -130,7 +130,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
-				CompileAs="1"
+				CompileAs="2"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -144,7 +144,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(ProjectDir)..\lib\sqlite3.lib"
+				AdditionalDependencies="$(ProjectDir)..\lib\pdcurses.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(TargetDir)$(ConfigurationName)\$(TargetName).pdb"
@@ -180,7 +180,19 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\src\holder.c"
+			RelativePath="..\src\functional.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\src\functions.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\src\locate.cpp"
+			>
+		</File>
+		<File
+			RelativePath="..\include\task.h"
 			>
 		</File>
 	</Files>

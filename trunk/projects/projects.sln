@@ -9,9 +9,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tables", "tables.vcproj", "
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "holder", "holder.vcproj", "{A74D1047-3247-44E4-A50A-3144422EEDE6}"
-	ProjectSection(ProjectDependencies) = postProject
-		{1D22C0D3-E670-46A5-937C-21B644246C49} = {1D22C0D3-E670-46A5-937C-21B644246C49}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
